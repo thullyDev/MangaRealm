@@ -1,0 +1,18 @@
+---
+import { navs } from "../../../resources/navLinks"
+---
+
+<div class="nav-con">
+  <nav class="main-nav">
+    <ul class="nav-list">
+      {navs.map((item) => {
+        const { name, link } = item
+        return <li class="nav-link-items">
+          <a href={link} class="nav-link">
+            {name}
+          </a>
+        </li>
+      })}
+    </ul>
+  </nav>
+</div>

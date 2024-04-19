@@ -1,0 +1,23 @@
+---
+import { navs } from "../../../resources/navLinks"
+---
+
+<menu class="mobile-menu">
+  <div class="mobile-menu-button-con">
+    <button class="mobile-menu-button">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <nav class="menu-nav">
+    <ul class="nav-list">
+      {navs.map((item) => {
+        const { name, link } = item
+        return <li class="nav-link-items">
+          <a href={link} class="nav-link">
+            {name}
+          </a>
+        </li>
+      })}
+    </ul>
+  </nav>
+</menu>
