@@ -3,6 +3,7 @@ import Nav from "../Nav/Nav.astro"
 import Title from "../Title/Title.astro"
 import MobileMenu from "../MobileMenu/MobileMenu.astro"
 import Account from "../Account/Account.astro"
+import Search from "../Search/Search"
 ---
 
 <header class="main-header">
@@ -10,4 +11,5 @@ import Account from "../Account/Account.astro"
   <Title></Title>
   <Nav></Nav>
   <Account></Account>
+  <Search client:visible ></Search>
 </header>

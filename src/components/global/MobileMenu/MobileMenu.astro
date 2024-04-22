@@ -1,5 +1,6 @@
 ---
 import { navs } from "../../../resources/navLinks"
+import { LinkList } from "../../Widgets/LinkList/LinkList"
 ---
 
 <menu class="mobile-menu">
@@ -9,15 +10,6 @@ import { navs } from "../../../resources/navLinks"
     </button>
   </div>
   <nav class="menu-nav">
-    <ul class="nav-list">
-      {navs.map((item) => {
-        const { name, link } = item
-        return <li class="nav-link-items">
-          <a href={link} class="nav-link">
-            {name}
-          </a>
-        </li>
-      })}
-    </ul>
+    <LinkList items={navs} className="menu-nav-list" ></LinkList>
   </nav>
 </menu>

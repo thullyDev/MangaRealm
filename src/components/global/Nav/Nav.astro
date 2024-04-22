@@ -1,18 +1,10 @@
 ---
 import { navs } from "../../../resources/navLinks"
+import { LinkList } from "../../Widgets/LinkList/LinkList"
 ---
 
 <div class="nav-con">
   <nav class="main-nav">
-    <ul class="nav-list">
-      {navs.map((item) => {
-        const { name, link } = item
-        return <li class="nav-link-items">
-          <a href={link} class="nav-link">
-            {name}
-          </a>
-        </li>
-      })}
-    </ul>
+    <LinkList items={navs} className="nav-list" ></LinkList>
   </nav>
 </div>
