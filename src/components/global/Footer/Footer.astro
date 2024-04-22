@@ -1,6 +1,9 @@
 ---
 import Title from "../Title/Title.astro"
 import { Socials } from "../../Widgets/Socials/Socials"
+import { ReferenceLinks } from "../../Widgets/ReferenceLinks/ReferenceLinks"
+
+const siteName = "MangaRealm" // make this change, when the admin panel allows it
 ---
 
 <footer class="main-footer">
@@ -11,5 +14,11 @@ import { Socials } from "../../Widgets/Socials/Socials"
         <Socials></Socials>
       </div>
     </div>
+    <div class="outer-ref-links-con">
+      <ReferenceLinks></ReferenceLinks>
+    </div>
+  </div>
+  <div class="discalmer-con">
+    <p class="discalmer">{siteName} does not store any files on our server, we only linked to the media which is hosted on 3rd party services.</p>
   </div>
 </footer>
