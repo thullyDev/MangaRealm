@@ -1,5 +1,5 @@
 interface ListItem {
-  name: string;
+  name: string | JSX.Element;
   link: string;
 }
 
