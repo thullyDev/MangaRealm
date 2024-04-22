@@ -33,7 +33,9 @@ const Search = () => {
               value={query}
               onChange={handleChange}
             />
-            <button type="submit">Search</button>
+            <button type="submit">
+              <i className="fas fa-search"></i>
+            </button>
           </div>
           <div className="filter-link-con">
             <a href={filterLink} className="filter-link"></a>
