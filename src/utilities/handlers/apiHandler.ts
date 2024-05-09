@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { type AxiosResponse } from 'axios';
+import { SUCCESSFUL } from '../errors';
 
 interface RequestOptions {
     [key: string]: any;
@@ -8,16 +9,14 @@ interface ApiHandlerResponse {
     [key: string]: any;
 }
 
-const SUCCESSFUL = 200; // Assuming SUCCESSFUL is defined elsewhere
-
-class ApiHandler {
+export class ApiHandler {
     private BASE: string;
 
     constructor(BASE: string) {
         this.BASE = BASE;
     }
 
-    async request(endpoint: string, method: string = 'GET', kwargs: RequestOptions = {}): Promise<ApiHandlerResponse> {
+    async request(endpoint: string, method: string = 'GET', kwargs: RequestOptions = {}) {
         const url = this.BASE + endpoint;
         try {
             const response: AxiosResponse<any> = await axios.request({
@@ -38,10 +37,10 @@ class ApiHandler {
     }
 
     async get(endpoint: string, params: RequestOptions = {}, kwargs: RequestOptions = {}): Promise<ApiHandlerResponse> {
-        return await this.request(endpoint, 'GET', false, false, { params, ...kwargs });
+        return await this.request(endpoint, 'GET', { params, ...kwargs });
     }
 
     async post(endpoint: string, data: RequestOptions = {}, kwargs: RequestOptions = {}): Promise<ApiHandlerResponse> {
-        return await this.request(endpoint, 'POST', false, false, { data, ...kwargs });
+        return await this.request(endpoint, 'POST', { data, ...kwargs });
     }
 }
