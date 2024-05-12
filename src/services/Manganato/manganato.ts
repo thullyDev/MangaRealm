@@ -8,6 +8,5 @@ export async function getFeatures(): Promise<Manga[]> {
   const data = await api.get("/top");
   const responseData = data.data as FeaturesResponse;
 
-  console.log({ responseData })
   return responseData.mangas;
 }

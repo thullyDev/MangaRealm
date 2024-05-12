@@ -20,11 +20,3 @@ export const Slider = ({ items, className }: SliderListProps) => {
 		</div>
 	)
 }
-// <div class="large-swiper">
-// 	<div class="swiper-wrapper">
-// 		<div class="swiper-slide"><div class="swiper-slide-inside">Slide 1</div></div>
-// 		<div class="swiper-slide"><div class="swiper-slide-inside">Slide 2</div></div>
-// 	</div>
-// <div class="prev"></div>
-// 	<div class="next"></div>
-// </div>
