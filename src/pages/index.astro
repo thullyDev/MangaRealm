@@ -1,9 +1,41 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import { getFeatures } from '../services/Manganato/manganato';
+import { getFeatures, getMangas } from '../services/Manganato/manganato';
 import { FeaturesSlider } from '../components/Widgets/FeaturesSlider/FeaturesSlider'
+import { Cache } from '../database/Cache/cache'
 
-const features = await getFeatures()
+async function getData() {
+	const recent = getMangas("/recent")
+
+	const cache = new Cache()
+	const cacheID = "home:features-complete-newest*24" 
+	const cacheData = cache.hget(cacheID)
+
+	if (cacheData) {
+		return {
+			recent,
+			...cacheData
+		}
+	}
+
+	const features = await getFeatures()
+	const complete = getMangas("/complete")
+	const newest = getMangas("/newest")
+
+	const data = {
+		recent,
+		features,
+		complete,
+		newest,
+	}
+
+	cache.hset(cacheID, data)
+
+	return data
+}
+
+const { features, recent, complete, newest } = await getData()
+
 ---
 
 <MainLayout title="Home Page">	
