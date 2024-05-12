@@ -29,7 +29,12 @@ export class ApiHandler {
                 return { status: response.status };
             }
 
-            return response.data;
+            return {
+                status: SUCCESSFUL,
+                data: {
+                    ...response.data                    
+                }
+            };
         } catch (error) {
             console.error('Error making request:', error);
             throw error;

@@ -2,10 +2,11 @@
 import MainLayout from '../layouts/main.astro';
 import { getFeatures } from '../services/Manganato/manganato';
 import { FeaturesSlider } from '../components/Widgets/FeaturesSlider/FeaturesSlider'
+import malScraper from 'mal-scraper'
 
-const data = await getFeatures()
+const features = await getFeatures()
 ---
 
 <MainLayout title="Home Page">	
-	<FeaturesSlider data={data} />		
+	<FeaturesSlider data={features} />		
 </MainLayout>
