@@ -11,7 +11,7 @@ async function getData() {
 	const cacheID = "home:features-complete-newest*24" 
 	const cacheData = await cache.hget(cacheID)
 
-	if (cacheData) {
+	if (cacheData != null) {
 		return {
 			recent,
 			...cacheData
@@ -34,12 +34,8 @@ async function getData() {
 }
 
 const { features, recent, complete, newest } = await getData()
-
-
-	// <FeaturesSlider data={features} />		
-
 ---
 
 <MainLayout title="Home Page">	
-	<FeaturesSlider data={[]} />		
+	<FeaturesSlider data={features} />		
 </MainLayout>

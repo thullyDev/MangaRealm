@@ -6,7 +6,7 @@ import { SUCCESSFUL } from "../../utilities/errors";
 
  const api = new ApiHandler(mangaApiUrl)
 
-export async function getFeatures(): Promise<Manga[]> {
+export async function getFeatures(): Promise<any> {
   const mangas = await getMangas("/popular");
   const features = []
   for (let i = 0; i < mangas.length; i++) {
@@ -20,7 +20,7 @@ export async function getFeatures(): Promise<Manga[]> {
       genres,
       type,
       popularity,
-      score,
+      malScore: score,
     })
   }
 
