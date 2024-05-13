@@ -1,7 +1,7 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
 
 export const MangaWrapperOne = ({ item }: { item: Manga }) => {
-	const { title, image_url, slug } = item
+	const { title, image_url, description, slug } = item
 
 	return (
 		<div className="manga-item">
@@ -14,6 +14,10 @@ export const MangaWrapperOne = ({ item }: { item: Manga }) => {
 						<p className="title">{title}</p>
 					</span>
 				</a>
+				<div className="description-con">
+					<p className="description">{description}</p>
+					<a href={slug} className="more-link">more</a>
+				</div>
 			</div>
 		</div>
 	) 
