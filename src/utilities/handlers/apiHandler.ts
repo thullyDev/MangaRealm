@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from 'axios';
-import { SUCCESSFUL } from '../errors';
+import { CRASH, SUCCESSFUL } from '../errors';
 
 interface RequestOptions {
     [key: string]: any;
@@ -35,9 +35,14 @@ export class ApiHandler {
                     ...response.data                    
                 }
             };
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error making request:', error);
-            throw error;
+
+            if (error.isAxiosError && error.code === 'ECONNREFUSED') {
+              return { status: CRASH }; 
+            } else {
+              throw error;
+            }
         }
     }
 

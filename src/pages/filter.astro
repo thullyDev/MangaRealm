@@ -1,0 +1,7 @@
+---
+const search = Astro.url.searchParams.get('search') || '';
+---
+
+{search ? <p>you searched for: {search}</p> : null}
+
+<!-- rest of your template markup -->
