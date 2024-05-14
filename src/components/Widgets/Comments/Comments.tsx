@@ -1,4 +1,4 @@
-export const Comments = (className: string) => {
+export const Comments = () => {
 	return (
 		<div className={"comment-section" + className}>
 		    <div id="disqus_thread"></div>
