@@ -2,9 +2,9 @@
 import MainLayout from '../layouts/main.astro';
 import { getFeatures, getMangas } from '../services/Manganato/manganato';
 import { FeaturesSlider } from '../components/Widgets/FeaturesSlider/FeaturesSlider'
-// import { CompletedWrapper } from '../components/Widgets/CompletedWrapper/CompletedWrapper'
-// import { RecentWrapper } from '../components/Widgets/RecentWrapper/RecentWrapper'
-// import { NewestWrapper } from '../components/Widgets/NewestWrapper/NewestWrapper'
+import { MangasWrapperOne } from '../components/Widgets/MangasWrapperOne/MangasWrapperOne'
+import { MangasWrapperTwo } from '../components/Widgets/MangasWrapperTwo/MangasWrapperTwo'
+import { Comments } from '../components/Widgets/Comments/Comments.astro'
 import { Cache } from '../database/Cache/cache'
 
 async function getData() {
@@ -37,8 +37,33 @@ async function getData() {
 }
 
 const { features, recent, complete, newest } = await getData()
+
+const PAGE_URL = "" 
+const PAGE_ID = "" 
 ---
 
 <MainLayout title="Home Page">	
 	<FeaturesSlider data={features} />		
+	<MangasWrapperOne className="complete-con" data={complete} />		
+	<MangasWrapperTwo className="recent-con" data={recent} />		
+	<MangasWrapperOne className="newest-con" data={newest} />		
+	<Comments className="home-con" />	
 </MainLayout>
+
+
+<script>
+    const PAGE_URL = {PAGE_URL}
+    const PAGE_IDENTIFIER = {PAGE_ID}
+
+    let disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://animehoshitest.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', + new Date()); 
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
