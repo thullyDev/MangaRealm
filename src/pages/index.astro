@@ -37,9 +37,7 @@ async function getData() {
 }
 
 const { features, recent, complete, newest } = await getData()
-
-// const PAGE_URL = "" 
-// const PAGE_ID = "" 
+const search = Astro.url.searchParams.get("search")
 ---
 
 <MainLayout title="Home">	
