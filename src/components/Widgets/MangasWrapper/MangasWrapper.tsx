@@ -22,3 +22,4 @@ export const MangasWrapper = ({ data, className, label, wrapper = 1 }: MangasWra
 		</div>
 	)
 }
+
