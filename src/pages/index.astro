@@ -1,8 +1,50 @@
 ---
 import MainLayout from '../layouts/main.astro';
+import { getFeatures, getMangas } from '../services/Manganato/manganato';
+import { FeaturesSlider } from '../components/Widgets/FeaturesSlider/FeaturesSlider'
+import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
+// import { Comments } from '../components/Widgets/Comments/Comments'
+import { Cache } from '../database/Cache/cache'
+
+async function getData() {
+	const recent = await getMangas("/recent")
+
+	const cache = new Cache()
+	const cacheID = "home:features-complete-newest*24" 
+	const cacheData = await cache.hget(cacheID)	
+
+	if (cacheData != null) {
+		return {
+			recent,
+			...cacheData
+		}
+	}
+
+	const features = await getFeatures()
+	const complete = await getMangas("/complete")
+	const newest = await getMangas("/newest")
+
+	const data = {
+		recent,
+		features,
+		complete,
+		newest,
+	}
+
+	cache.hset(cacheID, data)
+
+	return data
+}
+
+const { features, recent, complete, newest } = await getData()
+
+// const PAGE_URL = "" 
+// const PAGE_ID = "" 
 ---
 
-<MainLayout title="Home Page">
-	hello i am here, come back, title is not working
-	why is it so slow dammit, i hate vscode so much
+<MainLayout title="Home">	
+	<FeaturesSlider data={features} />		
+	<MangasWrapper wrapper={1} label="Complete" className="complete-con" data={complete} />		
+	<MangasWrapper wrapper={2} label="Recent" className="recent-con" data={recent} />		
+	<MangasWrapper wrapper={1} label="Newest" className="newest-con" data={newest} />		
 </MainLayout>
