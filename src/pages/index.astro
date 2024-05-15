@@ -37,7 +37,6 @@ async function getData() {
 }
 
 const { features, recent, complete, newest } = await getData()
-const search = Astro.url.searchParams.get("search")
 ---
 
 <MainLayout title="Home">	
