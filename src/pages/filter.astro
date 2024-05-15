@@ -1,7 +1,10 @@
 ---
-const search = Astro.url.searchParams.get('search') || '';
+import MainLayout from '../layouts/main.astro';
+const search = Astro.url
+console.log(Astro)
 ---
-
-{search ? <p>you searched for: {search}</p> : null}
-
-<!-- rest of your template markup -->
+<MainLayout title="filter">	
+	<p class="bg-red-500">
+		i am searching for {search}
+	</p>
+</MainLayout>
