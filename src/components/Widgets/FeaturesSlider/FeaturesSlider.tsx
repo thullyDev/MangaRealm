@@ -1,9 +1,7 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes";
  import { Slider } from "../Slider/Slider";
 
-export const FeaturesSlider = (props: { data: Manga[] }) => {
-	console.log(props)
-	const { data } = props
+export const FeaturesSlider = ({ data } : { data: Manga[] }) => {
 	const featureElements = data.map(({ 
 			title, 
 			image_url, 

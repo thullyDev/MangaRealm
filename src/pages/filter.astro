@@ -1,10 +1,18 @@
 ---
 import MainLayout from '../layouts/main.astro';
-const search = Astro.url.searchParams.get('search');
-console.log({ search })
+import { getMangas } from '../services/Manganato/manganato';
+
+const genre = Astro.url.searchParams.get('genres') || "all";
+const type = Astro.url.searchParams.get('type');
+let status = Astro.url.searchParams.get('status');
+status = !status ? "" : `&status=${status}`
+const _type = !type ? "" : `&_type=${type}`
+const query = `?genre=genre-${genre}${status}${_type}`
+const mangas = await getMangas("/filter" + query)
+
 ---
 <MainLayout title="Filter">	
-	<p class="bg-red-500">
-		i am searching for {search}
-	</p>
+	{mangas.map(({ image_url, title}) => {
+		return <img src={image_url} alt={title} />
+	})}
 </MainLayout>
