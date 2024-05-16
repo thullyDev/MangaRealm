@@ -1,18 +1,18 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import { getMangas } from '../services/Manganato/manganato';
+import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
 
+const page = Astro.url.searchParams.get('page') || "1";
 const genre = Astro.url.searchParams.get('genres') || "all";
 const type = Astro.url.searchParams.get('type');
 let status = Astro.url.searchParams.get('status');
 status = !status ? "" : `&status=${status}`
 const _type = !type ? "" : `&_type=${type}`
-const query = `?genre=genre-${genre}${status}${_type}`
+const query = `?genre=genre-${genre}${status}${_type}?page=${page}`
 const mangas = await getMangas("/filter" + query)
-
+const label = `${genre} mangas`
 ---
 <MainLayout title="Filter">	
-	{mangas.map(({ image_url, title}) => {
-		return <img src={image_url} alt={title} />
-	})}
+	<MangasWrapper wrapper={2} label={label} className="filter-mangas-con" data={mangas} />		
 </MainLayout>
