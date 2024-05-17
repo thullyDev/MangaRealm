@@ -24,3 +24,13 @@ export interface FeaturesResponse {
   mangas: Manga[];
 }
 
+export interface Pagination {
+  page: string;
+  pages: string;
+}
+
+export interface MangasResponse {
+  mangas: Manga[];
+  pagination: Pagination;
+}
+

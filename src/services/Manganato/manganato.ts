@@ -1,13 +1,14 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler"
 import { mangaApiUrl } from "../../utilities/config"
-import type { Manga, FeaturesResponse } from "./manganatoTypes";
+import type { Manga, FeaturesResponse, MangasResponse } from "./manganatoTypes";
 import malScraper from 'mal-scraper'
 import { SUCCESSFUL } from "../../utilities/errors";
 
  const api = new ApiHandler(mangaApiUrl)
 
 export async function getFeatures(): Promise<any> {
-  const mangas = await getMangas("/popular");
+  const response = await getMangas("/popular");
+  const mangas = response.mangas
   const features = []
   for (let i = 0; i < mangas.length; i++) {
     const item = mangas[i]
@@ -28,13 +29,26 @@ export async function getFeatures(): Promise<any> {
 }
 
 
-export async function getMangas(endpoint: string): Promise<Manga[]>  {
+export async function getMangas(endpoint: string): Promise<MangasResponse>  {
   const response = await api.get(endpoint);
 
-  if (response.status !== SUCCESSFUL) return []
+  if (response.status !== SUCCESSFUL) 
+    return {
+      pagination: {
+        page: "1",
+        pages: "1"
+      },
+      mangas: []
+    }
 
-  const data = response.data.data as FeaturesResponse;
+  const resData = response.data
+  const data = resData.data as FeaturesResponse;
+  const mangas = data.mangas
+  const pagination = resData.pagination
 
-  return data.mangas;
+  return {
+    pagination, 
+    mangas
+  };
 }
 

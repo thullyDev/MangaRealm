@@ -25,10 +25,10 @@ async function getData() {
 	const newest = await getMangas("/newest")
 
 	const data = {
-		recent,
 		features,
-		complete,
-		newest,
+		recent: recent.mangas,
+		complete: complete.mangas,
+		newest: newest.mangas,
 	}
 
 	cache.hset(cacheID, data)
