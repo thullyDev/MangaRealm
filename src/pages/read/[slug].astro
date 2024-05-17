@@ -2,13 +2,32 @@
 import MainLayout from '../../layouts/main.astro';
 import { getManga } from '../../services/Manganato/manganato';
 // import { Comments } from '../../components/Widgets/Comments/Comments'
-// import { Cache } from '../../database/Cache/cache'
+import { Cache } from '../../database/Cache/cache'
 
 
+async function getData() {
+	const { slug } = Astro.params;
 
-const { slug } = Astro.params;
-const data = await getManga(slug)
-console.log({ slug })
+	if (!slug) return null
+
+	const cache = new Cache()
+	const cacheID = `manga:slug-${slug}` 
+	const cacheData = await cache.hget(cacheID)	
+
+	if (cacheData != null) {
+		return cacheData
+	}
+
+	const manga = await getManga(slug)
+
+	cache.hset(cacheID, manga)
+
+	return manga
+}
+
+const manga = getData()
+
+if (!manga) Astro.redirect("/alert?rd=404")
 ---
 
 <MainLayout title="Home">	

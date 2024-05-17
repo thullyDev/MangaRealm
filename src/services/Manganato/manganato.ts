@@ -58,7 +58,7 @@ export async function getManga(slug: string): Promise<MangaRead | null>  {
     return null
 
   const { manga } = response.data.data as { manga: MangaRead };
-  const { title, malId } = manga
+  const { malId } = manga
 
   if (!malId){
     return {
