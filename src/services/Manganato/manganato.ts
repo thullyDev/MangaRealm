@@ -74,3 +74,4 @@ export async function getManga(slug: string): Promise<MangaRead | null>  {
     malData: malData,
   }
 }
+

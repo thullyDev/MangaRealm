@@ -66,6 +66,7 @@ export interface MalData {
 export interface MangaRead {
   slug: string;
   image_url: string;
+  image: string;
   title: string;
   status: string;
   genres: genre[];
