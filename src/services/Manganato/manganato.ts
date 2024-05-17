@@ -1,6 +1,6 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler"
 import { mangaApiUrl } from "../../utilities/config"
-import type { Manga, FeaturesResponse, MangasResponse } from "./manganatoTypes";
+import type { Manga, MangasResponse } from "./manganatoTypes";
 import malScraper from 'mal-scraper'
 import { SUCCESSFUL } from "../../utilities/errors";
 
@@ -41,10 +41,9 @@ export async function getMangas(endpoint: string): Promise<MangasResponse>  {
       mangas: []
     }
 
-  const resData = response.data
-  const data = resData.data as FeaturesResponse;
+  const data = response.data.data as MangasResponse;
   const mangas = data.mangas
-  const pagination = resData.pagination
+  const pagination = data.pagination
 
   return {
     pagination, 

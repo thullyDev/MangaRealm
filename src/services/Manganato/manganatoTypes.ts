@@ -20,17 +20,13 @@ export interface Manga {
   chapter: chapter;
 }
 
-export interface FeaturesResponse {
+export interface MangasResponse {
   mangas: Manga[];
+  pagination: Pagination;
 }
 
 export interface Pagination {
   page: string;
   pages: string;
-}
-
-export interface MangasResponse {
-  mangas: Manga[];
-  pagination: Pagination;
 }
 
