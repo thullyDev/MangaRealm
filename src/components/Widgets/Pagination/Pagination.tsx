@@ -1,4 +1,4 @@
-import type { Manga, Pagination as pagi } from "../../../services/Manganato/manganatoTypes"
+import type { Pagination as pagi } from "../../../services/Manganato/manganatoTypes"
 
 export const Pagination = ({ pagination, query }: { pagination: pagi, query: string }) => {
 	const { pages, page } = pagination

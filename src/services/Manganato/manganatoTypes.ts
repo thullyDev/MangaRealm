@@ -1,7 +1,17 @@
+import type { AnimeDataModel } from "mal-scraper";
+
 interface chapter {
   name: string;
   slug: string;
+  views: string;
+  update: string;
 }
+
+interface genre {
+  name: string;
+  slug: string;
+}
+
 
 export interface Manga {
   slug: string;
@@ -30,3 +40,46 @@ export interface Pagination {
   pages: string;
 }
 
+
+export interface MalData {
+  title: string,
+  synopsis: string,
+  picture: string,
+  japaneseTitle: string,
+  englishTitle: string,
+  synonyms: string[],
+  type: string,
+  chapters: string,
+  published: string,
+  serialization: string,
+  authors: string[],
+  genres: string[],
+  status: string,
+  score: string,
+  scoreStats: string,
+  ranked: string,
+  popularity: string,
+  members: string,
+  url: string,
+}
+
+export interface MangaRead {
+  slug: string;
+  image_url: string;
+  title: string;
+  status: string;
+  genres: genre[];
+  type: string;
+  popularity: string;
+  score: string;
+  update: string;
+  views: string;
+  author: string;
+  description: string;
+  chapter: chapter;
+  altNames: string;
+  malId: null | number;
+  aniId: null | number;
+  chapters: chapter[];
+  malData: MalData | AnimeDataModel | null;
+}

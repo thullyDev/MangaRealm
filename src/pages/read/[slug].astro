@@ -1,0 +1,15 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import { getManga } from '../../services/Manganato/manganato';
+// import { Comments } from '../../components/Widgets/Comments/Comments'
+// import { Cache } from '../../database/Cache/cache'
+
+
+
+const { slug } = Astro.params;
+const data = await getManga(slug)
+console.log({ slug })
+---
+
+<MainLayout title="Home">	
+</MainLayout>

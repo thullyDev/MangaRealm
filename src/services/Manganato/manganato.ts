@@ -1,6 +1,6 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler"
 import { mangaApiUrl } from "../../utilities/config"
-import type { Manga, MangasResponse } from "./manganatoTypes";
+import type { MangaRead, MangasResponse } from "./manganatoTypes";
 import malScraper from 'mal-scraper'
 import { SUCCESSFUL } from "../../utilities/errors";
 
@@ -51,3 +51,26 @@ export async function getMangas(endpoint: string): Promise<MangasResponse>  {
   };
 }
 
+export async function getManga(slug: string): Promise<MangaRead | null>  {
+  const response = await api.get(`/${slug}`);
+
+  if (response.status !== SUCCESSFUL) 
+    return null
+
+  const { manga } = response.data.data as { manga: MangaRead };
+  const { title, malId } = manga
+
+  if (!malId){
+    return {
+      ...manga,
+      malData: null,
+    }
+  }
+
+  const malData = await malScraper.getInfoFromURL(`https://myanimelist.net/manga/${malId}/`)
+  
+  return {
+    ...manga,
+    malData: malData,
+  }
+}
