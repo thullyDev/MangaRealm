@@ -38,7 +38,7 @@ export const FeaturesSlider = ({ data } : { data: Manga[] }) => {
 										}
 									</div>	
 									<div className="read-link-con">
-										<a href={slug} className="read-link">Read</a>
+										<a href={slug} className="read-link">Read Now</a>
 									</div>								
 								</div>
 							</div>

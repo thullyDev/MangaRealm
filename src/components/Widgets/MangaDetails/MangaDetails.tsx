@@ -5,7 +5,12 @@ interface socialsType {
 	link: string;
 }
 
-export const MangaDetails = ({ manga } : { manga: MangaRead | null }) => {
+
+interface MangaDetailsProps { 
+	manga: MangaRead | null 
+}
+
+export const MangaDetails = ({ manga } : MangaDetailsProps ) => {
 	if (!manga) {
 		return (
 			<div className="manga-details-con">
@@ -16,10 +21,22 @@ export const MangaDetails = ({ manga } : { manga: MangaRead | null }) => {
 			</div>
 		)
 	}
-	const { title, image, description, altNames, genres, chapters, slug  } = manga 
+
+	// const { title, image, description, altNames, genres, chapters, slug  } = manga 
+
+
+
+	return (
+		<div className="manga-details-con">
+			<MangaInfoCon manga={manga} />
+		</div>
+	)
+}
+
+
+const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
+	const { title, image, description, altNames, genres, chapters, slug, status } = manga 
 	const readlink = chapters ? `/read/${slug}/${chapters[0].slug}` : `/read/${slug}/`
-
-
 	const socials: socialsType[] = [ // TODO: make them match their respective links
 	  {
 	    icon: <i className="fab fa-instagram"></i>,
@@ -39,12 +56,16 @@ export const MangaDetails = ({ manga } : { manga: MangaRead | null }) => {
 	  },
 	];
 
-
 	return (
-		<div className="manga-details-con">
+
 			<div className="image-info-con">
 				<div className="poster-side">
-					<img src={image} alt={title} title={title} className="poster" />
+					<div className="inner-poster-con">
+						<img src={image} alt={title} title={title} className="poster" />
+					</div>
+					<span className="status-con">
+						<p className="status">{status}</p>
+					</span>
 				</div>
 				<div className="manga-info-con">
 					<div className="names-con">
@@ -70,6 +91,12 @@ export const MangaDetails = ({ manga } : { manga: MangaRead | null }) => {
 						}
 					</div>
 					<div className="description-con">
+						<span className="description truncated-description">
+							<p>{description}</p>
+							<button className="expand-btn">
+								more
+							</button>
+						</span>
 						<div className="description-modal-con">
 							<button className="close-btn">
 								<i className="fa-solid fa-x"></i>
@@ -90,6 +117,39 @@ export const MangaDetails = ({ manga } : { manga: MangaRead | null }) => {
 					</div>
 				</div>
 			</div>
+	)
+}
+
+const MangaSideInfoCon = ({ manga }: { manga: MangaRead }) => {
+	const { type, status, popularity, score, update, views, author } = manga 
+	const ticks = {
+			type,
+			status,
+			popularity,
+			score,
+			update,
+			views,
+			author
+		}
+	const tickEles = []
+
+	for (const [key, value] of Object.entries(ticks)) {
+		const ele = (
+			<div className="tick">
+				<span className="tick-key">{key}</span>
+				<span className="tick-value">{value}</span>
+			</div>
+		) 
+
+		tickEles.push(ele)
+	}
+
+
+	return (
+		<div className="side-info-con">
+			{
+				tickEles.map(element => element)
+			}
 		</div>
 	)
 }
