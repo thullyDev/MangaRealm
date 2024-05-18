@@ -7,7 +7,7 @@ interface chapter {
   update: string;
 }
 
-interface genre {
+export interface genre {
   name: string;
   slug: string;
 }
@@ -61,10 +61,17 @@ export interface MalData {
   popularity: string,
   members: string,
   url: string,
+  characters: character[],
+}
+
+export interface character {
+  picture: string;
+  name: string;
+  role: string;
 }
 
 export interface MangaRead {
-  slug: string;
+  manga_id: string;
   image_url: string;
   image: string;
   title: string;

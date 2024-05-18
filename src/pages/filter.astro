@@ -15,6 +15,7 @@ const response = await getMangas(`/filter?genre=genre-${genre}${status}${_type}&
 const { mangas, pagination } = response
 const label = `${genre} mangas`
 ---
+
 <MainLayout title="Filter">	
 	<MangasWrapper wrapper={2} label={label} className="filter-mangas-con" data={mangas} />
 	<Pagination pagination={pagination} query={query} />	

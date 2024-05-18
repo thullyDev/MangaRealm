@@ -1,14 +1,16 @@
 ---
 import MainLayout from '../../layouts/main.astro';
-import { getManga } from '../../services/Manganato/manganato';
-import type { MangaRead } from '../../services/Manganato/manganatoTypes';
-// import { Comments } from '../../components/Widgets/Comments/Comments'
+import { getManga, getMangas } from '../../services/Manganato/manganato';
+import type { MangaRead, genre } from '../../services/Manganato/manganatoTypes';
+import { Comments } from '../../components/Widgets/Comments/Comments'
 import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
 import { Cache } from '../../database/Cache/cache'
 
 
+const { slug } = Astro.params;
+const url = Astro.url
+
 async function getData(): Promise<MangaRead | null> {
-	const { slug } = Astro.params;
 
 	if (!slug) return null
 
@@ -30,8 +32,19 @@ async function getData(): Promise<MangaRead | null> {
 }
 
 const manga = await getData()
+let similars: any = [] 
+if (manga) {
+	const { genres } = manga
+	const genre: genre = genres[Math.floor(Math.random() * genres.length)];
+	const response = await getMangas(`/filter?genre=${genre.slug.replace("/", "")}`)
+	similars = response.mangas
+}
+
 ---
 
 <MainLayout title={ !manga ? "Not found" : manga.title } >	
-	<MangaDetails manga={manga} />
+	<MangaDetails manga={manga} similars={similars} />
+	{
+		manga && <Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
+	} 
 </MainLayout>
