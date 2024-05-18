@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { DISQUS_URL } from "../../../utilities/config";
 
 interface CommentsProps {
 	PAGE_URL: string;
@@ -18,7 +19,7 @@ export const Comments = ({ PAGE_URL, PAGE_IDENTIFIER }: CommentsProps ) => {
 	      
 	      (function() {
 	        var d = document, s = d.createElement('script');
-	        s.src = 'https://animehoshitest.disqus.com/embed.js';
+	        s.src = '${DISQUS_URL}';
 	        s.setAttribute('data-timestamp', +new Date());
 	        (d.head || d.body).appendChild(s);
 	      })();
