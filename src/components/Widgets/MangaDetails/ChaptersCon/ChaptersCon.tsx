@@ -1,5 +1,3 @@
-import type { MangaRead } from "../../../services/Manganato/manganatoTypes"
-
 export const ChaptersCon = ({ manga }: { manga: MangaRead }) => {
 	const { chapters, manga_id } = manga 
 

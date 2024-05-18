@@ -1,4 +1,4 @@
-import type { MangaRead } from "../../../services/Manganato/manganatoTypes";
+import type { MangaRead } from "../../../../services/Manganato/manganatoTypes"
 
 interface socialsType {
 	icon: JSX.Element;

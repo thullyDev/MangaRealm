@@ -1,8 +1,8 @@
 import type { Manga, MangaRead } from "../../../services/Manganato/manganatoTypes"
-import { ChaptersCon } from "../ChaptersCon/ChaptersCon";
-import { MangaInfoCon } from "../MangaInfoCon/MangaInfoCon";
+import { ChaptersCon } from "./ChaptersCon/ChaptersCon";
+import { CharactersCon } from "./CharactersCon/CharactersCon";
+import { MangaInfoCon } from "./MangaInfoCon/MangaInfoCon";
 import { MangaSideInfoCon } from "./MangaSideInfoCon/MangaSideInfoCon";
-import { CharactersCon } from "./SimilarsCon/CharactersCon";
 import { SimilarsCon } from "./SimilarsCon/SimilarsCon";
 
 interface MangaDetailsProps { 

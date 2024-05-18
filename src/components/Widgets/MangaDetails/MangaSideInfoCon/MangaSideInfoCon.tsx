@@ -1,4 +1,4 @@
-import type { Manga, MangaRead } from "../../../services/Manganato/manganatoTypes"
+import type { MangaRead } from "../../../../services/Manganato/manganatoTypes"
 
 export const MangaSideInfoCon = ({ manga }: { manga: MangaRead }) => {
 	const { type, status, popularity, score, update, views, author } = manga 
