@@ -1,0 +1,22 @@
+---
+import MainLayout from '../../../layouts/main.astro';
+// import { getManga } from '../../services/Manganato/manganato';
+// import type { MangaRead, genre } from '../../services/Manganato/manganatoTypes';
+import { Comments } from '../../../components/Widgets/Comments/Comments'
+// import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
+// import { Cache } from '../../database/Cache/cache'
+
+
+const { slug, chp } = Astro.params;
+const url = Astro.url
+
+// async function getData(): Promise<chapter | null> {
+// }
+
+// const manga = await getData()
+---
+
+<MainLayout title="chapter" >
+	<p>{slug}</p>	
+	<p>{chp}</p>	
+</MainLayout>

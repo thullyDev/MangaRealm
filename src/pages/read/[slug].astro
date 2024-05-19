@@ -2,12 +2,12 @@
 import MainLayout from '../../layouts/main.astro';
 import { getManga, getMangas } from '../../services/Manganato/manganato';
 import type { MangaRead, genre } from '../../services/Manganato/manganatoTypes';
-import { Comments } from '../../components/Widgets/Comments/Comments'
+import Comments  from '../../components/Widgets/Comments/Comments.astro'
 import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
 import { Cache } from '../../database/Cache/cache'
 
 
-const { slug } = Astro.params;
+let { slug } = Astro.params;
 const url = Astro.url
 
 async function getData(): Promise<MangaRead | null> {
@@ -40,6 +40,7 @@ if (manga) {
 	similars = response.mangas
 }
 
+if (!slug) slug = "home"
 ---
 
 <MainLayout title={ !manga ? "Not found" : manga.title } >	
