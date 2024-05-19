@@ -12,9 +12,9 @@ export const SimilarsCon = ({ similars }: { similars: Manga[] }) => {
 			<div className="inner-similars-con">
 				<ul className="similars-list">
 					{
-						similars.map((manga) => {
+						similars.map((manga, index) => {
 							return (
-								<li className="similar-item">
+								<li key={index} className="similar-item">
 									<MangaWrapperThree item={manga}/>
 								</li>
 							)

@@ -91,3 +91,12 @@ export interface MangaRead {
   chapters: chapter[];
   malData: MalData | AnimeDataModel | null;
 }
+
+export interface Panel {
+  image_url: string;
+  title: string;
+}
+
+export interface MangaChapterRead {
+  panels: Panel[]
+}

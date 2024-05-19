@@ -27,9 +27,9 @@ export const ChaptersCon = ({ manga }: { manga: MangaRead }) => {
 							views, 
 							name, 
 							slug 
-						}) => {
+						}, index) => {
 							return (
-								<li className="chapter-item">
+								<li key={index} className="chapter-item">
 									<a 
 										href={`${manga_id}${slug}`}
 										title={name} 

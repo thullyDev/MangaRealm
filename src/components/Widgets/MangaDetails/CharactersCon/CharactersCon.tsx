@@ -11,9 +11,9 @@ export const CharactersCon = ({ characters, title }: { characters: character[], 
 			<div className="inner-characters-con">
 				<ul className="characters-list">
 					{
-						characters.map(({ name, picture, role }) => {
+						characters.map(({ name, picture, role }, index) => {
 							return (
-								<li className="character-item" title={name} >
+								<li key={index} className="character-item" title={name} >
 									<div className="inner-con">
 										<p className="name">{name}</p>
 										<img src={picture} alt={name} className="character-image"/>

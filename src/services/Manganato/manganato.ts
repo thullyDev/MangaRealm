@@ -1,6 +1,6 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler"
 import { mangaApiUrl } from "../../utilities/config"
-import type { MangaRead, MangasResponse } from "./manganatoTypes";
+import type { MangaChapterRead, MangaRead, MangasResponse } from "./manganatoTypes";
 import malScraper from 'mal-scraper'
 import { SUCCESSFUL } from "../../utilities/errors";
 
@@ -72,6 +72,21 @@ export async function getManga(slug: string): Promise<MangaRead | null>  {
   return {
     ...manga,
     malData: malData,
+  }
+}
+
+export async function getMangaChapter(slug: string, chapter: string) {
+  const response = await api.get(`/${slug}/${chapter}`);
+
+  if (response.status !== SUCCESSFUL) 
+    return {
+      panels: []
+    }
+
+  const { panels } = response.data.data as { panels: MangaChapterRead };
+
+  return {
+    panels: panels,
   }
 }
 
