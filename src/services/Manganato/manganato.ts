@@ -75,7 +75,7 @@ export async function getManga(slug: string): Promise<MangaRead | null>  {
   }
 }
 
-export async function getMangaChapter(slug: string, chapter: string) {
+export async function getMangaChapter(slug: string, chapter: string): Promise<MangaChapterRead> {
   const response = await api.get(`/${slug}/${chapter}`);
 
   if (response.status !== SUCCESSFUL) 
@@ -83,7 +83,7 @@ export async function getMangaChapter(slug: string, chapter: string) {
       panels: []
     }
 
-  const { panels } = response.data.data as { panels: MangaChapterRead };
+  const { panels } = response.data.data as MangaChapterRead;
 
   return {
     panels: panels,

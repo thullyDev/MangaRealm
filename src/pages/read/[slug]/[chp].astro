@@ -29,6 +29,6 @@ const { panels } = await getMangaChapter(slug, chp)
 <MainLayout title="chapter" >
 	<Panels panels={panels} />
 	{
-		panels && <Comments PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
+		panels && <Comments client:visible PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
 	}
 </MainLayout>
