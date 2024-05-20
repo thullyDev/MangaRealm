@@ -52,9 +52,9 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 					</div>
 					<div className="genres-con">
 						{
-							genres.map(({name, slug}) => {
+							genres.map(({name, slug}, index) => {
 								return (
-									<a href={slug} className="genre-link">
+									<a key={index} href={slug} className="genre-link">
 										{name}
 									</a>
 								)

@@ -30,9 +30,9 @@ export const FeaturesSlider = ({ data } : { data: Manga[] }) => {
 									</div>	
 									<div className="ticks">
 										{
-											[ type, author, update, views, score ].map((item) => {
+											[ type, author, update, views, score ].map((item, index) => {
 												return (
-													<span className="tick">{item}</span>
+													<span key={index} className="tick">{item}</span>
 												)
 											})
 										}

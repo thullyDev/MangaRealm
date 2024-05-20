@@ -6,7 +6,7 @@ export const Panel = ({ panel }: { panel: PanelProp } ) => {
 	const { title, image_url } = panel
 	const proxyImage = `${mangaApiUrl}/proxy/${image_url}`
 	return (
-		<img src={proxyImage} alt={title} className="manga-panel"/>
+		<img src={proxyImage} alt={title}  title={title} className="manga-panel"/>
 	)
 } 
 

@@ -1,10 +1,10 @@
 import type { AnimeDataModel } from "mal-scraper";
 
-interface chapter {
+export interface Chapter {
   name: string;
   slug: string;
   views: string;
-  update: string;
+  date: string;
 }
 
 export interface genre {
@@ -27,7 +27,7 @@ export interface Manga {
   views: string;
   author: string;
   description: string;
-  chapter: chapter;
+  chapter: Chapter;
 }
 
 export interface MangasResponse {
@@ -84,11 +84,11 @@ export interface MangaRead {
   views: string;
   author: string;
   description: string;
-  chapter: chapter;
+  chapter: Chapter;
   altNames: string;
   malId: null | number;
   aniId: null | number;
-  chapters: chapter[];
+  chapters: Chapter[];
   malData: MalData | AnimeDataModel | null;
 }
 

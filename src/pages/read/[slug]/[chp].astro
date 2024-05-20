@@ -1,11 +1,61 @@
 ---
 import MainLayout from '../../../layouts/main.astro';
+import type { MangaRead } from "../../../services/Manganato/manganatoTypes"
 import { getMangaChapter, getCachedManga } from '../../../services/Manganato/manganato';
 import { Panels } from '../../../components/Widgets/Panels/Panels'
+import { ChapterMangaDetails } from '../../../components/Widgets/ChapterMangaDetails/ChapterMangaDetails'
 import Comments  from '../../../components/Widgets/Comments/Comments.astro'
 
-
 const { slug, chp } = Astro.params;
+
+async function getChapterData(manga: MangaRead) {
+	const { 
+		title,
+		chapters,
+		update,
+		status,
+		views,
+		type,
+		manga_id 
+	} = manga
+
+	const data = {
+		chapter: {},
+		nextChapter: {},
+		prevChapter: {},
+	}
+
+	for (let i = 0; i < chapters.length; i++) {
+		const { slug } = chapters[i]
+
+		if (`/${chp}` != slug) continue
+
+		data.chapter = chapters[i] 
+		const nextIndex = i - 1
+		const prevIndex = i + 1
+
+		if (nextIndex > 0) {
+			data.nextChapter = chapters[nextIndex]
+		}
+
+		if (prevIndex < chapters.length) {
+			data.nextChapter = chapters[prevIndex]
+		}
+
+		break
+	}
+	return { 
+		title,
+		chapters,
+		update,
+		status,
+		views,
+		type,
+		manga_id,
+		...data
+	} 
+}
+
 const pageID = `${slug}/${chp}`
 const url = Astro.url
 
@@ -15,9 +65,16 @@ if (!slug || !chp) {
 
 const { panels } = await getMangaChapter(slug, chp)
 const manga = await getCachedManga(slug)
+
+if (!manga) {
+	return Astro.redirect("/alert")
+}
+
+const chapterData = await getChapterData(manga)
 ---
 
 <MainLayout title="chapter" >
 	<Panels panels={panels} />
+	<ChapterMangaDetails chapterData={chapterData} />
 	<Comments PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
 </MainLayout>
