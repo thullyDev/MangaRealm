@@ -4,10 +4,9 @@ import { mangaApiUrl } from "../../../utilities/config"
 
 export const Panel = ({ panel }: { panel: PanelProp } ) => {
 	const { title, image_url } = panel
-	const proxyImage = `${mangaApiUrl}/image?img=${image_url}`
-	console.log({ proxyImage })
+	const proxyImage = `${mangaApiUrl}/proxy/${image_url}`
 	return (
-		<img src={image_url} alt={title} className="manga-panel"/>
+		<img src={proxyImage} alt={title} className="manga-panel"/>
 	)
 } 
 

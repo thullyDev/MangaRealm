@@ -1,6 +1,7 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler"
 import { mangaApiUrl } from "../../utilities/config"
 import type { MangaChapterRead, MangaRead, MangasResponse } from "./manganatoTypes";
+import { Cache } from '../../database/Cache/cache'
 import malScraper from 'mal-scraper'
 import { SUCCESSFUL } from "../../utilities/errors";
 
@@ -90,3 +91,22 @@ export async function getMangaChapter(slug: string, chapter: string): Promise<Ma
   }
 }
 
+export async function getCachedManga(slug: string | undefined): Promise<MangaRead | null> {
+  if (!slug) return null
+
+  const cache = new Cache()
+  const cacheID = `manga:slug-${slug}` 
+  const cacheData = await cache.hget(cacheID) 
+
+  if (cacheData != null) {
+    return cacheData
+  }
+
+  const manga = await getManga(slug)
+
+  if (!manga) return null 
+
+  cache.hset(cacheID, manga)
+
+  return manga
+}

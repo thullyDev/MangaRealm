@@ -1,37 +1,14 @@
 ---
 import MainLayout from '../../layouts/main.astro';
-import { getManga, getMangas } from '../../services/Manganato/manganato';
-import type { MangaRead, genre } from '../../services/Manganato/manganatoTypes';
+import { getMangas, getCachedManga } from '../../services/Manganato/manganato';
+import type { genre } from '../../services/Manganato/manganatoTypes';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
 import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
-import { Cache } from '../../database/Cache/cache'
-
 
 let { slug } = Astro.params;
 const url = Astro.url
 
-async function getData(): Promise<MangaRead | null> {
-
-	if (!slug) return null
-
-	const cache = new Cache()
-	const cacheID = `manga:slug-${slug}` 
-	const cacheData = await cache.hget(cacheID)	
-
-	if (cacheData != null) {
-		return cacheData
-	}
-
-	const manga = await getManga(slug)
-
-	if (!manga) return null 
-
-	cache.hset(cacheID, manga)
-
-	return manga
-}
-
-const manga = await getData()
+const manga = await getCachedManga(slug)
 let similars: any = [] 
 if (manga) {
 	const { genres } = manga
@@ -40,12 +17,12 @@ if (manga) {
 	similars = response.mangas
 }
 
-if (!slug) slug = "home"
+if (!slug || !manga) {
+	return Astro.redirect("/not_found")
+}
 ---
 
-<MainLayout title={ !manga ? "Not found" : manga.title } >	
+<MainLayout title={ manga.title } >	
 	<MangaDetails manga={manga} similars={similars} />
-	{
-		manga && <Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
-	} 
+	<Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>

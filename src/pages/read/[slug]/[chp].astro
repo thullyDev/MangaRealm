@@ -1,34 +1,23 @@
 ---
 import MainLayout from '../../../layouts/main.astro';
-import { getMangaChapter } from '../../../services/Manganato/manganato';
-// import type { MangaRead, genre } from '../../services/Manganato/manganatoTypes';
+import { getMangaChapter, getCachedManga } from '../../../services/Manganato/manganato';
 import { Panels } from '../../../components/Widgets/Panels/Panels'
 import Comments  from '../../../components/Widgets/Comments/Comments.astro'
-// import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
-// import { Cache } from '../../database/Cache/cache'
 
 
-let { slug, chp } = Astro.params;
-let pageID = `${slug}/${chp}`
+const { slug, chp } = Astro.params;
+const pageID = `${slug}/${chp}`
 const url = Astro.url
 
 if (!slug || !chp) {
-	chp = ""
-	slug = ""
-	pageID = "home"
+	return Astro.redirect("/not_found")
 }
 
-// async function getData(): Promise<chapter | null> {
-// }
-
-// const manga = await getData()
-
 const { panels } = await getMangaChapter(slug, chp)
+const manga = await getCachedManga(slug)
 ---
 
 <MainLayout title="chapter" >
 	<Panels panels={panels} />
-	{
-		panels && <Comments client:visible PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
-	}
+	<Comments PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
 </MainLayout>
