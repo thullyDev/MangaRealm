@@ -1,10 +1,22 @@
 ---
 import MainLayout from '../layouts/main.astro';
-const search = Astro.url
-console.log(Astro)
+import { getMangas } from '../services/Manganato/manganato';
+import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
+import { Pagination } from '../components/Widgets/Pagination/Pagination'
+
+const page = Astro.url.searchParams.get('page') || "1";
+const genre = Astro.url.searchParams.get('genres') || "all";
+const type = Astro.url.searchParams.get('type');
+let status = Astro.url.searchParams.get('status');
+status = !status ? "" : `&status=${status}`
+const _type = !type ? "" : `&_type=${type}`
+const query = `?genre=${genre}${status}${_type}`
+const response = await getMangas(`/filter?genre=genre-${genre}${status}${_type}&page=${page}`)
+const { mangas, pagination } = response
+const label = `${genre} mangas`
 ---
-<MainLayout title="filter">	
-	<p class="bg-red-500">
-		i am searching for {search}
-	</p>
+
+<MainLayout title="Filter">	
+	<MangasWrapper wrapper={2} label={label} className="filter-mangas-con" data={mangas} />
+	<Pagination pagination={pagination} query={query} />	
 </MainLayout>

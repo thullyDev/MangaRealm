@@ -1,7 +1,7 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes";
  import { Slider } from "../Slider/Slider";
 
-export const FeaturesSlider = ({ data }: { data: Manga[] }) => {
+export const FeaturesSlider = ({ data } : { data: Manga[] }) => {
 	const featureElements = data.map(({ 
 			title, 
 			image_url, 
@@ -30,15 +30,15 @@ export const FeaturesSlider = ({ data }: { data: Manga[] }) => {
 									</div>	
 									<div className="ticks">
 										{
-											[ type, author, update, views, score ].map((item) => {
+											[ type, author, update, views, score ].map((item, index) => {
 												return (
-													<span className="tick">{item}</span>
+													<span key={index} className="tick">{item}</span>
 												)
 											})
 										}
 									</div>	
 									<div className="read-link-con">
-										<a href={slug} className="read-link">Read</a>
+										<a href={slug} className="read-link">Read Now</a>
 									</div>								
 								</div>
 							</div>

@@ -1,0 +1,28 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import { getMangas, getCachedManga } from '../../services/Manganato/manganato';
+import type { genre } from '../../services/Manganato/manganatoTypes';
+import Comments  from '../../components/Widgets/Comments/Comments.astro'
+import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
+
+let { slug } = Astro.params;
+const url = Astro.url
+
+const manga = await getCachedManga(slug)
+let similars: any = [] 
+if (manga) {
+	const { genres } = manga
+	const genre: genre = genres[Math.floor(Math.random() * genres.length)];
+	const response = await getMangas(`/filter?genre=${genre.slug.replace("/", "")}`)
+	similars = response.mangas
+}
+
+if (!slug || !manga) {
+	return Astro.redirect("/not_found")
+}
+---
+
+<MainLayout title={ manga.title } >	
+	<MangaDetails manga={manga} similars={similars} />
+	<Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
+</MainLayout>
