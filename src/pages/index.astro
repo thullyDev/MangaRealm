@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import { getFeatures, getMangas } from '../services/Manganato/manganato';
-import FeaturesSlider  from '../components/Widgets/FeaturesSlider/FeaturesSlider.astro'
+import { FeaturesSlider }  from '../components/Widgets/FeaturesSlider/FeaturesSlider'
 import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
 import Comments from '../components/Widgets/Comments/Comments.astro'
 import { Cache } from '../database/Cache/cache'
@@ -44,9 +44,14 @@ const PAGE_ID = "home" //! keep this the as "home" to have all old and new comme
 ---
 
 <MainLayout title="Home">	
-	<FeaturesSlider data={features} />		
+	<FeaturesSlider data={features} className='home-features'/>		
 	<MangasWrapper moreLink="/filter?status=complete" wrapper={1} label="Complete" className="complete-con" data={complete} />		
 	<MangasWrapper moreLink="/filter" wrapper={2} label="Recent" className="recent-con" data={recent} />		
 	<MangasWrapper moreLink="/filter?status=newest" wrapper={1} label="Newest" className="newest-con" data={newest} />	
 	<Comments PAGE_URL={Astro.url.toString()} PAGE_IDENTIFIER={PAGE_ID}/>	
 </MainLayout>
+
+
+<script>
+	
+</script>
