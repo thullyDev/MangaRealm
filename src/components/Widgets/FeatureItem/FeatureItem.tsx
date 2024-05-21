@@ -30,9 +30,9 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 
 	return (
 			<div className={`feature-item my-1 ${className}`} title={title}>
-				<div className="inner-con bg-zinc-800 border border-zinc-600 mx-2 rounded flex justify-between">
+				<div className="inner-con h-48 bg-zinc-800 border border-zinc-600 mx-2 rounded flex justify-between">
 					<div className="left-side-con pl-6 py-5">
-						<div className="inner-con flex flex-col gap-5 relative">
+						<div className="inner-con flex flex-col gap-2 relative">
 							<div className="status text-xs text-gray-500">
 								{status}
 							</div>
@@ -47,7 +47,7 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 							<div className="synopsis">
 								{synopsis}
 							</div>	
-							<div className="ticks flex gap-1 items-center relative top-3">
+							<div className="ticks flex gap-2 items-center relative mt-2">
 								{
 									tickEles.map((tick) => tick)
 								}
@@ -59,7 +59,7 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 					</div>
 					<div className="right-side-con h-full">
 						<div className="inner-con h-full rounded-r overflow-hidden">
-							<img src={image_url} alt={title} className="feature-image relative left-5 bottom-2 rotate-12 h-64 w-36"/>
+							<img src={image_url} alt={title} className="feature-image relative left-5 bottom-2 rotate-12 h-56"/>
 						</div>
 					</div>
 				</div>
