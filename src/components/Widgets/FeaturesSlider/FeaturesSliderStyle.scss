@@ -2,5 +2,23 @@
 	.synopsis {
 		display: none;
 	}
+
+	// .ticks {
+	// 	display: flex;
+	// 	gap: 10px;
+	// 	.tick {
+	// 		display: flex;
+	// 		align-items: center;
+	// 		&::before {
+	// 			content: "";
+	// 			display: inline-block;
+	// 			width: 5px;
+	// 			height: 5px;
+	// 			border-radius: 1000px;
+	// 			background-color: red;
+	// 			margin-right: 5px;
+	// 		}
+	// 	}
+	// }
 }
 
