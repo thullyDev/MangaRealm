@@ -5,6 +5,7 @@ import { FeaturesSlider } from '../components/Widgets/FeaturesSlider/FeaturesSli
 import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
 import Comments from '../components/Widgets/Comments/Comments.astro'
 import { Cache } from '../database/Cache/cache'
+import '../styles/pages/Home.scss';
 
 async function getData() {
 	const recent = await getMangas("/recent")

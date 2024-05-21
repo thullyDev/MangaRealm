@@ -1,5 +1,6 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes";
  import { Slider } from "../Slider/Slider";
+ import "./FeaturesSliderStyle.scss"
 
 export const FeaturesSlider = ({ data } : { data: Manga[] }) => {
 	const featureElements = data.map(({ 
@@ -15,11 +16,11 @@ export const FeaturesSlider = ({ data } : { data: Manga[] }) => {
 			score 
 	}, index) => {
 				return (
-					<div key={index} className="feature-item" title={title}>
-						<div className="inner-con">
+					<div key={index} className="feature-item my-1" title={title}>
+						<div className="inner-con bg-gray-800 px-2 py-2 mx-2 rounded flex">
 							<div className="left-side-con">
 								<div className="inner-con">
-									<div className="status">
+									<div className="status text-xs text-gray-500">
 										{status}
 									</div>
 									<div className="title">
