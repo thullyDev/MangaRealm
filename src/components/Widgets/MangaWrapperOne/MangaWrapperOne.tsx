@@ -11,7 +11,7 @@ export const MangaWrapperOne = ({ item }: { item: Manga }) => {
 		imageStyles: "rounded-t-md",
 		wrapperStyles: "",
 	}
-	const truncatedTitle = truncate(title, 15)
+	const truncatedTitle = truncate(title, 14)
 
 	return (
 		<div className="manga-item">
