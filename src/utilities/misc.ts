@@ -5,3 +5,5 @@ export const truncate = (input: string, length: number) => {
    }
    return input;
 };
+
+export const formatKey = (key: string) => key.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
