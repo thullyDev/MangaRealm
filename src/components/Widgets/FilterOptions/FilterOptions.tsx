@@ -16,8 +16,7 @@ export const FilterOptions = ({ optionId, values }: _FilterOption) => {
           id={`${optionId}-filter`}
           name={`${optionId}-filter`}
           data-key={optionId}
-          className="filter-select scrollable"
-        >
+          className="filter-select scrollable">
           {values.map(({ value, name }, index) => (
             <option key={index} value={value}>
               {name}
