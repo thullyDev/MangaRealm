@@ -41,6 +41,8 @@ const { features, recent, complete, newest } = await getData()
 
 const PAGE_ID = "home" //! keep this the as "home" to have all old and new comments here
 
+	// <Comments PAGE_URL={Astro.url.toString()} PAGE_IDENTIFIER={PAGE_ID}/>	
+
 ---
 
 <MainLayout title="Home">	
@@ -48,5 +50,4 @@ const PAGE_ID = "home" //! keep this the as "home" to have all old and new comme
 	<MangasWrapper moreLink="/filter?status=complete" wrapper={1} label="Complete" className="complete-con" data={complete} />		
 	<MangasWrapper moreLink="/filter" wrapper={2} label="Recent" className="recent-con" data={recent} />		
 	<MangasWrapper moreLink="/filter?status=newest" wrapper={1} label="Newest" className="newest-con" data={newest} />	
-	<Comments PAGE_URL={Astro.url.toString()} PAGE_IDENTIFIER={PAGE_ID}/>	
 </MainLayout>

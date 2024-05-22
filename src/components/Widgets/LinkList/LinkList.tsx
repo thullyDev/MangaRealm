@@ -1,9 +1,9 @@
-interface ListItem {
+export interface ListItem {
   name: string | JSX.Element;
   link: string;
 }
 
-interface LinkListProps {
+export interface LinkListProps {
   items: ListItem[];
   className: string;
 }
