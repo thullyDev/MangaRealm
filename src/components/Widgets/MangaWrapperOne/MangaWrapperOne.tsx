@@ -1,5 +1,5 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
-import { trans1000 } from "../../../utilities/misc"
+import { trans1000, truncate } from "../../../utilities/misc"
 import { DescriptionWrapper } from "../DescriptionWrapper/DescriptionWrapper"
 import { Poster } from "../Poster/Poster"
 
@@ -11,11 +11,7 @@ export const MangaWrapperOne = ({ item }: { item: Manga }) => {
 		imageStyles: "rounded-t-md",
 		wrapperStyles: "",
 	}
-	const tLen = 17
-	const truncatedTitle = 
-			title.length > tLen ? 
-				`${title.substring(0, tLen)}...` : 
-				title
+	const truncatedTitle = truncate(title, 15)
 
 	return (
 		<div className="manga-item">
@@ -27,7 +23,7 @@ export const MangaWrapperOne = ({ item }: { item: Manga }) => {
 					</span>
 				</a>
 			</div>
-			<DescriptionWrapper description={description} slug={slug}/>
+			{/*<DescriptionWrapper description={description} slug={slug}/>*/}
 		</div>
 	) 
 }

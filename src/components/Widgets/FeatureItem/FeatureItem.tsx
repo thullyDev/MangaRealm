@@ -1,5 +1,6 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
-import { trans1000 } from "../../../utilities/misc"
+import { trans1000, truncate } from "../../../utilities/misc"
+import { Ticks } from "../Ticks/Ticks"
 
 export const FeatureItem = ({ item, className }: { item: Manga, className: string }) => {
 	const { 
@@ -16,18 +17,6 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 	} = item
 	const { name, slug: chapSlug } = chapter
 	const ticks = [ type, update, views, score ]
-	const tickEles = []
-
-	for (let i = 0; i < ticks.length; i++) {
-		const tick = ticks[i]
-		const item = ( 
-			<>	
-				<span className="tick dot w-1 h-1 bg-gray-500 rounded-full"></span>
-				<span className="tick text-xs text-gray-500">{tick}</span>
-			</>
-		)
-		tickEles.push(item)
-	}
 
 	return (
 			<div className={`feature-item my-1 ${className}`} title={title}>
@@ -38,23 +27,21 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 								{status}
 							</div>
 							<div className="title">
-								{title}
+								{truncate(title, 40)}
 							</div>
 							<div className="chapter">
 								<a href={`/read/${slug}/${chapSlug}`} className={`chapter-link text-xs text-gray-400 hover:text-red-400 ${trans1000}`}>
-									{name}
+									{truncate(name, 50)}
 								</a>
 							</div>		
 							<div className="synopsis">
 								{synopsis}
 							</div>	
 							<div className="ticks flex gap-2 items-center relative mt-2">
-								{
-									tickEles.map((tick) => tick)
-								}
+								<Ticks ticks={ticks} />
 							</div>	
 							<div className="read-link-con flex justify-center">
-								<a href={`/read/${slug}`} className={`read-link text-sm bg-red-700 hover:bg-red-500 mt-2 px-2 py-1 rounded-xl ${trans1000}`}>Read Now</a>
+								<a href={`/read/${slug}`} className={`read-link text-sm bg-red-700 hover:bg-red-500 mt-2 px-2 py-1 rounded-full ${trans1000}`}>Read Now</a>
 							</div>								
 						</div>
 					</div>
@@ -68,3 +55,4 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 	)
 
 }
+

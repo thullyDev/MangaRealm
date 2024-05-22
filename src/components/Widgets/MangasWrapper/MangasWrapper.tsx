@@ -44,7 +44,7 @@ export const MangasWrapper = ({ data, className, label, moreLink, wrapper = 1 }:
 							}
 
 							return (
-								<li className="manga-list-item">
+								<li className={`manga-list-item manga-list-item-${wrapper}`}>
 									{mangaWrapper}
 								</li>
 							)

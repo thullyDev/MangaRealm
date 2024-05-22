@@ -16,25 +16,43 @@
 			object-fit: cover;
 		}
 
-		@include media-xxsmall {
-	      width: calc(50% - 10px); 
-	    }
-	    
-		@include media-xsmall {
-	      width: calc(34% - 10px); 
-	    }
+		&.manga-list-item-2 {
+			.poster-con {
+				display: inline-block;
+				height: 100%;
+			}
 
-		@include media-small {
-	      width: calc(25% - 10px); 
-	    }
+			.inner-poster-con {
+				display: inline-block;
+				width: 125px;
+				height: 100%;
+			}
 
-		@include media-medium {
-	      width: calc(20% - 10px); 
-	    }
+			.poster {
+				height: 100%;
+			}
+		}
 
-		@include media-large {
-	      width: calc(16% - 10px); 
-	    }
+		&.manga-list-item-1 {
+			@include media-xxsmall {
+		      width: calc(50% - 10px); 
+		    }
+		    
+			@include media-xsmall {
+		      width: calc(34% - 10px); 
+		    }
 
+			@include media-small {
+		      width: calc(25% - 10px); 
+		    }
+
+			@include media-medium {
+		      width: calc(20% - 10px); 
+		    }
+
+			@include media-large {
+		      width: calc(16% - 10px); 
+		    }
+		}
 	}
 }
