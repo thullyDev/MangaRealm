@@ -9,7 +9,7 @@ export const MangaWrapperOne = ({ item }: { item: Manga }) => {
 			<div className="inner-con">
 				<a href={slug} className="manga-link">
 					<span className="poster-con">
-						<img src={image_url} alt={title} className="poster"/>
+						<img src={image_url} alt={title} className="poster w-full"/>
 					</span>
 					<span className="title-con">
 						<p className="title">{title}</p>

@@ -1,0 +1,34 @@
+@import '../../../styles/global/mediaQueries.scss';
+
+.mangas-list {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px;
+
+	.manga-list-item {
+		width: calc(100% - 10px);
+		border: solid;
+
+		@include media-xxsmall {
+	      width: calc(50% - 10px); 
+	    }
+	    
+		@include media-xsmall {
+	      width: calc(34% - 10px); 
+	    }
+
+		@include media-small {
+	      width: calc(25% - 10px); 
+	    }
+
+		@include media-medium {
+	      width: calc(20% - 10px); 
+	    }
+
+		@include media-large {
+	      width: calc(16% - 10px); 
+	    }
+
+	}
+}
