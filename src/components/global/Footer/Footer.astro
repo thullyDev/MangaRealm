@@ -2,23 +2,25 @@
 import Title from "../Title/Title.astro"
 import { Socials } from "../../Widgets/Socials/Socials"
 import { ReferenceLinks } from "../../Widgets/ReferenceLinks/ReferenceLinks"
-
+import "./FooterStyling.scss"
 const siteName = "MangaRealm" // make this change, when the admin panel allows it
 ---
 
-<footer class="main-footer">
-  <div class="right-side-con">
-    <div class="outer-socials-con">
-      <Title></Title>
-      <div class="inner-socials-con">
-        <Socials></Socials>
+<footer class="main-footer mt-10">
+  <div class="top-side">
+    <div class="outer-socials-con flex justify-center">
+      <div class="inner-socials-con flex text-gray-950 bg-zinc-700 items-center py-2 gap-5 rounded-full">
+        <Title/>
+        <div class="inner-socials-con">
+          <Socials/>
+        </div>
       </div>
     </div>
     <div class="outer-ref-links-con">
-      <ReferenceLinks></ReferenceLinks>
+      <ReferenceLinks/>
     </div>
   </div>
   <div class="discalmer-con">
-    <p class="discalmer">{siteName} does not store any files on our server, we only linked to the media which is hosted on 3rd party services.</p>
+    <p class="discalmer text-xs p-2 text-zinc-600">{siteName} does not store any files on our server, we only linked to the media which is hosted on 3rd party services.</p>
   </div>
 </footer>

@@ -14,9 +14,17 @@ const query = `?genre=${genre}${status}${_type}`
 const response = await getMangas(`/filter?genre=genre-${genre}${status}${_type}&page=${page}`)
 const { mangas, pagination } = response
 const label = `${genre} mangas`
+
+const props = {
+	wrapper: 2, 
+	label: label, 
+	className: "filter-mangas-con", 
+	data: mangas, 
+	moreLink: ""
+}
 ---
 
 <MainLayout title="Filter">	
-	<MangasWrapper wrapper={2} label={label} className="filter-mangas-con" data={mangas} />
+	<MangasWrapper {...props} />
 	<Pagination pagination={pagination} query={query} />	
 </MainLayout>

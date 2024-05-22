@@ -1,0 +1,19 @@
+.feature-item {
+	display: none;
+	.synopsis {
+		display: none;
+	}
+
+	// >.inner-con {
+	// 	height: 225px;
+	// }
+
+	// .feature-image {
+	// 	object-fit: cover;
+	// 	translate: rotate;
+	// }
+}
+
+.feature-item.active {
+	display: block;
+}

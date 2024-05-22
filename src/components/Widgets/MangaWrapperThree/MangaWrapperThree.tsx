@@ -1,5 +1,5 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
-import { DescriptionWrapper } from "../DescriptionWrapper/DescriptionWrapper"
+// import { DescriptionWrapper } from "../DescriptionWrapper/DescriptionWrapper"
 
 export const MangaWrapperThree = ({ item }: { item: Manga }) => {
 	const { title, image_url, description, slug, views, update } = item
@@ -20,7 +20,7 @@ export const MangaWrapperThree = ({ item }: { item: Manga }) => {
 					</span>
 				</a>
 			</div>
-			<DescriptionWrapper description={description} slug={slug}/>
+			{/*<DescriptionWrapper description={description} slug={slug}/>*/}
 		</div>
 	) 
 }
