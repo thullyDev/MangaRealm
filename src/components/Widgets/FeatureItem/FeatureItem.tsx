@@ -1,4 +1,5 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
+import { trans1000 } from "../../../utilities/misc"
 
 export const FeatureItem = ({ item, className }: { item: Manga, className: string }) => {
 	const { 
@@ -40,7 +41,7 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 								{title}
 							</div>
 							<div className="chapter">
-								<a href={`/read/${slug}/${chapSlug}`} className="chapter-link text-xs text-gray-400 hover:text-red-400 transition duration-1000 ease-in-out">
+								<a href={`/read/${slug}/${chapSlug}`} className={`chapter-link text-xs text-gray-400 hover:text-red-400 ${trans1000}`}>
 									{name}
 								</a>
 							</div>		
@@ -53,7 +54,7 @@ export const FeatureItem = ({ item, className }: { item: Manga, className: strin
 								}
 							</div>	
 							<div className="read-link-con flex justify-center">
-								<a href={`/read/${slug}`} className="read-link text-sm transition bg-red-700 hover:bg-red-500 mt-2 px-2 py-1 rounded-xl ease-in-out duration-1000">Read Now</a>
+								<a href={`/read/${slug}`} className={`read-link text-sm bg-red-700 hover:bg-red-500 mt-2 px-2 py-1 rounded-xl ${trans1000}`}>Read Now</a>
 							</div>								
 						</div>
 					</div>

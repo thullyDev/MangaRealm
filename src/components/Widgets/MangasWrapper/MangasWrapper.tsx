@@ -1,4 +1,5 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
+import { trans1000 } from "../../../utilities/misc"
 import { MangaWrapperOne } from "../MangaWrapperOne/MangaWrapperOne"
 import { MangaWrapperThree } from "../MangaWrapperThree/MangaWrapperThree"
 import { MangaWrapperTwo } from "../MangaWrapperTwo/MangaWrapperTwo"
@@ -14,13 +15,13 @@ interface _MangasWrapper {
 
 export const MangasWrapper = ({ data, className, label, moreLink, wrapper = 1 }: _MangasWrapper) => {
 	return (
-		<div className={"mangas-con " + className}>
+		<div className={"mangas-con mt-5 " + className}>
 			<div className="inner-con px-2">
-				<div className="manga-label-more-con">
-					<h3 className="manga-label">{label}</h3>
+				<div className="manga-label-more-con flex justify-between mb-2 items-end">
+					<h3 className="manga-label text-xl">{label}</h3>
 					<span className="more-wrapper">
 						{
-							moreLink && <a href={moreLink} className="more-link">more</a>
+							moreLink && <a href={moreLink} className={`more-link text-sm hover:text-red-700 ${trans1000}`}>more</a>
 						}
 					</span>
 				</div>
@@ -38,7 +39,9 @@ export const MangasWrapper = ({ data, className, label, moreLink, wrapper = 1 }:
 								mangaWrapper = <MangaWrapperTwo key={index} item={item}/>
 							}
 
-							mangaWrapper = (<MangaWrapperThree key={index} item={item}/>)
+							if (wrapper == 3) {
+								mangaWrapper = (<MangaWrapperThree key={index} item={item}/>)
+							}
 
 							return (
 								<li className="manga-list-item">
