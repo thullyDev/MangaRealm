@@ -22,9 +22,10 @@ const props = {
 	data: mangas, 
 	moreLink: ""
 }
+const title = "Filter - MangaRealm"
 ---
 
-<MainLayout title="Filter">	
+<MainLayout title={ title }>	
 	<MangasWrapper {...props} />
 	<Pagination pagination={pagination} query={query} />	
 </MainLayout>

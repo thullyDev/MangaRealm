@@ -48,7 +48,7 @@ $_padding: 16px;
 		    }
 
 
-			@include media-large {
+			@include media-xxlarge {
 		      width: calc(34% - $_padding); 
 		    }
 		}
