@@ -23,22 +23,26 @@ const Search = () => {
   const filterLink: string =  `/filter?keywords=${query}`
 
   return (
-    <div className="search-con">
+    <div className="search-con flex items-center">
       <form onSubmit={handleSubmit}>
-        <div className="inner-search-con">
+        <div className="inner-search-con flex bg-zinc-800 py-1 px-3 rounded-full border border-zinc-600">
           <div className="search-input-con">
+            <button type="submit" className="px-2">
+              <i className="fas fa-search text-zinc-400 text-xs"></i>
+            </button>
             <input
+              className="px-2 min-w-64 bg-inherit text-sm text-zinc-400 outline-none"
               type="text"
-              placeholder="Search..."
+              placeholder="Search Manga..."
               value={query}
               onChange={handleChange}
             />
-            <button type="submit">
-              <i className="fas fa-search"></i>
-            </button>
           </div>
           <div className="filter-link-con">
-            <a href={filterLink} className="filter-link"></a>
+            <a href={filterLink} className="filter-link flex gap-2 items-center text-sm rounded-full py-1 px-3 bg-zinc-600">
+              <i className="fas fa-filter"></i>
+               Filter
+            </a>
           </div>
         </div>
       </form>
