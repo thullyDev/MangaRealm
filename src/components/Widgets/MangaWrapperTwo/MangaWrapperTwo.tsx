@@ -38,7 +38,7 @@ export const MangaWrapperTwo = ({ item }: { item: Manga }) => {
 					</span>
 					<div className="chapter-con">
 						<a href={chapSlug} className={ `chapter-link text-xs bg-zinc-900 rounded-full px-3 py-1 text-wrap hover:bg-red-900 ${trans1000}`} title={chapName}>
-							{truncate(chapName, 40)}
+							{truncate(chapName, 30)}
 						</a>
 					</div>
 					<div className="ticks flex gap-2 items-center relative mt-2">
