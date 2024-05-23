@@ -31,7 +31,7 @@ const Search = () => {
               <i className="fas fa-search text-zinc-400 text-xs"></i>
             </button>
             <input
-              className="px-2 min-w-64 bg-inherit text-sm text-zinc-400 outline-none"
+              className="px-2 max-w-64 bg-inherit text-sm text-zinc-400 outline-none"
               type="text"
               placeholder="Search Manga..."
               value={query}
