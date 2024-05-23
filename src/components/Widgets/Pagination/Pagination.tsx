@@ -3,22 +3,29 @@ import type { Pagination as pagi } from "../../../services/Manganato/manganatoTy
 export const Pagination = ({ pagination, query }: { pagination: pagi, query: string }) => {
 	const { pages, page } = pagination
 	const pageEles: JSX.Element[] = []
+	const pageClass = `page-link inline-block py-1 px-3 text-sm `
 
 	for (let i = 1; i < parseInt(pages); i++) {
-		const highlight = parseInt(page) == i ? "page-highlight" : ""
+		const highlight = parseInt(page) == i ? "active bg-red-700 rounded-l" : "bg-zinc-800"
 		const pageEle = (
-			<a href={ `${query}$page=${i}`} className={"page-link" + highlight}>{i}</a>
+			<a href={ `${query}$page=${i}`} className={ pageClass + highlight}>{i}</a>
 		)
 		pageEles.push(pageEle)
 
-		if (i > 6) break
+		if (i > 6) 
+			break
 	}
 	pageEles.push(
-		<a href={ `${query}$page=${pages}`} className="page-link">{pages}</a>
+		<>
+			<span className={pageClass + "bg-zinc-800"}>
+				<i className="fa-solid fa-ellipsis"></i>
+			</span>
+			<a href={ `${query}$page=${pages}`} className={`${pageClass + "bg-zinc-800 rounded-r"}`}>{pages}</a>
+		</>
 		)
 	return (
-		<div className="pagination-con">
-			<ul>
+		<div className="pagination-con flex justify-center mt-10">
+			<ul className="flex">
 				{pageEles.map((item) => {
 					return (
 						<li className="page-item">
