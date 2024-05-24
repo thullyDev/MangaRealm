@@ -21,7 +21,7 @@ export const MangaWrapperTwo = ({ item }: { item: Manga }) => {
 		<div className="manga-item manga-item-2">
 			<div className="inner-con flex gap-2 bg-zinc-800 rounded-md border border-zinc-600">
 				<div className="left-side-con">
-					<a href={`read/${slug}`} className="poster-manga-link">
+					<a href={`read${slug}`} className="poster-manga-link">
 						<Poster {...posterProps} />
 					</a>
 				</div>
