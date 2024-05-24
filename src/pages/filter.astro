@@ -3,7 +3,7 @@ import MainLayout from '../layouts/main.astro';
 import { getMangas } from '../services/Manganato/manganato';
 import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
 import { Pagination } from '../components/Widgets/Pagination/Pagination'
-import { Filter } from '../components/Widgets/Filter/Filter'
+import { MangasFilter } from '../components/Widgets/MangasFilter/MangasFilter'
 
 const page = Astro.url.searchParams.get('page') || "1";
 const genre = Astro.url.searchParams.get('genres') || "all";
@@ -24,36 +24,10 @@ const props = {
 	moreLink: ""
 }
 const title = "Filter - MangaRealm"
-const options = {
-		 "status": [
-			    {"value": "None", "name": "None"},
-			    {"value": "/filter?status=recent", "name": "Recent"},
-			    {"value": "/filter?status=newest", "name": "Newest"},
-			    {"value": "/filter?status=ongoing", "name": "Ongoing"},
-			    {"value": "/filter?status=complete", "name": "Complete"},
-			],
-		 "types": [
-			    {"value": "None", "name": "None"},
-			    {"value": "", "name": "TV"},
-			    {"value": "1", "name": "Película"},
-			    {"value": "2", "name": "OVA"},
-			    {"value": "3", "name": "Especial"}
-			],
-	}
-
-	// URL Parameters:
-	// 	?genre= (str): type of Genre.
-	// 	?status= (str): status of the mangas.
-	// 	ongoing
-	// 	complete
-	// 	?_type= (str): type.
-	// 	topview
-	// 	newest
-	// 	?page= (number): page number.
 ---
 
 <MainLayout title={ title }>
-	<Filter options={options} />	
+	<MangasFilter/>	
 	<MangasWrapper {...props} />
 	<Pagination pagination={pagination} query={query} />	
 </MainLayout>
