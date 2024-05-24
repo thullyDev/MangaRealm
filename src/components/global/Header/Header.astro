@@ -7,12 +7,17 @@ import Search from "../Search/Search"
 import "./HeaderStyle.scss"
 ---
 
-<header class="main-header px-2 py-2 flex justify-between relative border-b-zinc-700 border-b-2 mb-2">
-  <div class="left-side flex">
-    <MobileMenu/>
-    <Title/>
-    <Nav/>
+<header class="main-header">
+  <div class="inner-con px-2 py-2 flex items-center justify-between relative border-b-zinc-700 border-b-2 mb-2">
+    <div class="left-side flex">
+      <MobileMenu/>
+      <Title/>
+      <Nav/>
+    </div>
+    <Search client:load />
+    <Account/>
   </div>
-  <Search client:load />
-  <Account/>
+  <div class="mobile-search flex justify-center">
+    <Search client:load />
+  </div>
 </header>

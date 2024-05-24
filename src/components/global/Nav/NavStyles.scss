@@ -1,0 +1,6 @@
+.main-nav {
+	& > ul.nav-list {
+		display: flex;
+		align-items: center;
+	}
+}

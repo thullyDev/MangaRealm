@@ -1,5 +1,5 @@
 .scrollable::-webkit-scrollbar {
-  width: 12px;
+  width: 7px;
 }
 
 .scrollable::-webkit-scrollbar-track {
@@ -8,6 +8,6 @@
 
 .scrollable::-webkit-scrollbar-thumb {
   background-color: #39393f;    
-  border-radius: 20px;      
+  border-radius: .25rem;      
 }
 

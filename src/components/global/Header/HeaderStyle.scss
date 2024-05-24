@@ -1,5 +1,33 @@
-.nav-con, .search-con, .menu-nav {
-  display: none
+@import '../../../styles/global/mediaQueries.scss';
+
+
+// .nav-con, .search-con, 
+.menu-nav, .nav-con, .search-con {
+  display: none;
+}
+
+  .search-account-btn {
+    font-size: 22.5px;
+    margin: 0 10px;
+    top: -3px;
+    right: 10px;
+    position: relative;
+  }
+
+
+@include media-medium {
+  .nav-con   {
+    display: flex; 
+  }
+}
+
+@include media-xxlarge {
+  .inner-con .search-con   {
+    display: flex; 
+  }
+    .search-account-btn {
+      display: none;
+    }
 }
 
 .inner-site-logo-con {

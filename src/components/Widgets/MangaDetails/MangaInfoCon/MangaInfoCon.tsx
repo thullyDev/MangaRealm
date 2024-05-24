@@ -31,8 +31,19 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 
 			<div className="image-info-con">
 				<div className="poster-side">
-					<div className="inner-poster-con">
-						<img src={image} alt={title} title={title} className="poster" />
+					<div className="inner-poster-btns-con">
+						<div className="inner-con">
+							<img src={image} alt={title} title={title} className="poster" />
+						</div>
+						<div className="actions-btns-con">
+						    <button type="button" className="bookmark-btn">
+						    	<i className="fa-regular fa-bookmark"></i>
+						    	{/*<i className="fa-solid fa-bookmark"></i>*/}
+						    </button>
+							<button type="button" className="share-btn">
+								<i className="fa-solid fa-share"></i>
+							</button>
+						</div>	
 					</div>
 					<span className="status-con">
 						<p className="status">{status}</p>

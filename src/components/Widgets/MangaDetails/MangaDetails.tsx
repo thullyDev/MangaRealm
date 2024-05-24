@@ -6,21 +6,11 @@ import { MangaSideInfoCon } from "./MangaSideInfoCon/MangaSideInfoCon";
 import { SimilarsCon } from "./SimilarsCon/SimilarsCon";
 
 interface MangaDetailsProps { 
-	manga: MangaRead | null;
+	manga: MangaRead;
 	similars: Manga[]; 
 }
 
 export const MangaDetails = ({ manga, similars } : MangaDetailsProps ) => {
-	if (!manga) {
-		return (
-			<div className="manga-details-con">
-				<div className="not-found-con">
-					<img src="/not-found-image.gif" alt="Manga not found" className="not-found-img"/>
-					<p className="not-found-text">Manga not found</p>
-				</div>
-			</div>
-		)
-	}
 	const { title, malData } = manga
 	return (
 		<div className="manga-details-con">

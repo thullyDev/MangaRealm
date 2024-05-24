@@ -1,10 +1,11 @@
 ---
 import { navs } from "../../../resources/navLinks"
 import { LinkList } from "../../Widgets/LinkList/LinkList"
+import "./NavStyles.scss"
 ---
 
-<div class="nav-con">
+<div class="nav-con flex items-center">
   <nav class="main-nav">
-    <LinkList items={navs} className="nav-list" ></LinkList>
+    <LinkList items={navs} className="nav-list" />
   </nav>
 </div>

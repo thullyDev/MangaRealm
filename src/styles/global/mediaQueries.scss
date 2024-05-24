@@ -35,18 +35,25 @@
 }
 
 @mixin media-large {
+  @media (min-width: 800px) {
+    @content;
+  }
+}
+
+
+@mixin media-xlarge {
   @media (min-width: 992px) {
     @content;
   }
 }
 
-@mixin media-xlarge {
+@mixin media-xxlarge {
   @media (min-width: 1200px) {
     @content;
   }
 }
 
-@mixin media-xxlarge {
+@mixin media-xxxlarge {
   @media (min-width: 1600px) {
     @content;
   }
