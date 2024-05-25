@@ -10,7 +10,7 @@ export const SimilarsCon = ({ similars }: { similars: Manga[] }) => {
 				</h4>
 			</div>
 			<div className="inner-similars-con">
-				<ul className="similars-list mt-2 flex flex-col gap-2 items-center">
+				<ul className="similars-list mt-2 flex flex-col gap-2 items-center scrollable">
 					{
 						similars.map((manga, index) => {
 							return (

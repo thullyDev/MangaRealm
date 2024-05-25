@@ -85,21 +85,12 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 						<p className="text-red-300 text-xs my-2">{alt_names}</p>
 					</span>
 				</div>
-				<div className="manga-acts-con flex justify-center my-2">
+				{/*<div className="manga-acts-con flex justify-center my-2">
 					<a href={readlink} className="read-link bg-red-600 py-1 px-2 rounded-md">
 						Read Now
 					</a>
-				</div>
-{/*				<div className="genres-con flex flex-wrap gap-2 justify-around my-3">
-					{genres.map(({ name, slug }, index) => {
-						return (
-							<a key={index} href={slug} className={`genre-link border border-zinc-500 bg-zinc-700 w-32 py-1 flex justify-center text-xs rounded-md hover:bg-zinc-400 ${trans500}`}>
-								{name}
-							</a>
-						);
-					})}
-				</div>
-*/}				<div className="description-con mb-5">
+				</div>*/}
+			<div className="description-con mb-5">
 					<span className="description truncated-description flex">
 						<p className="text-zinc-300 text-sm">
 							{truncate(description, 250)} 
