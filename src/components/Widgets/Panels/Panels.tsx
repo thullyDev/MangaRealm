@@ -18,6 +18,9 @@ export const Panels = ({ panels }: { panels: PanelProp[] }) => {
 					);
 				})}
 			</ul>
+			<button className="top-btn">
+				<i className="fa-solid fa-arrow-up"></i>
+			</button>
 		</div>
 	);
 };
