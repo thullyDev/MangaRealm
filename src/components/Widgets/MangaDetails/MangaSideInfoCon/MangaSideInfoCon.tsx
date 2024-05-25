@@ -1,7 +1,8 @@
 import type { MangaRead } from "../../../../services/Manganato/manganatoTypes"
+import { trans500 } from "../../../../utilities/misc"
 
 export const MangaSideInfoCon = ({ manga }: { manga: MangaRead }) => {
-	const { type, update, malData } = manga
+	const { type, malData, genres } = manga
 
 	if (!malData) {
 		return (<></>)
@@ -18,14 +19,22 @@ export const MangaSideInfoCon = ({ manga }: { manga: MangaRead }) => {
 			ranked,
 			published,
 			serialization,
+			genres
 		}
 	const tickEles = []
 
-	for (const [key, value] of Object.entries(ticks)) {
+	for (const [key, raw] of Object.entries(ticks)) {
+		const value = (typeof raw == "object") ? (raw.map(({ name, slug }) => {
+			return (
+				<a href={`/filters?genres=${slug}`} className={`text-red-400 hover:text-zinc-600 underline ${trans500}`}>
+					{name}
+				</a>
+			)
+		})) : raw
 		const ele = (
-			<div className="tick">
+			<div className="tick flex flex-wrap gap-1 items-center">
 				<span className="tick-key text-xs capitalize">{key}: </span>
-				<span className="tick-value text-sm text-zinc-400 capitalize">{value}</span>
+				<span className="tick-value text-sm text-zinc-400 capitalize flex gap-1 flex-wrap">{value}</span>
 			</div>
 		) 
 
