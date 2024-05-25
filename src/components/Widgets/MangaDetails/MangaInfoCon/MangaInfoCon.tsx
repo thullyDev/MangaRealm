@@ -4,6 +4,8 @@ import { trans1000, trans500, truncate } from "../../../../utilities/misc";
 interface socialsType {
 	icon: JSX.Element;
 	link: string;
+	color: string;
+	name: string;
 }
 
 export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
@@ -11,7 +13,7 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 		title,
 		image,
 		description,
-		altNames,
+		alt_names,
 		genres,
 		chapters,
 		manga_id,
@@ -22,20 +24,28 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 		: `/read/${manga_id}/`;
 	const socials: socialsType[] = [
 		// TODO: make them match their respective links
-		{
-			icon: <i className="fab fa-instagram"></i>,
+		{	
+			name: "Instagram",
+			color: "bg-violet-600",
+			icon: <i className={ `fab fa-instagram text-sm hover:text-zinc-400 ${trans500}`}></i>,
 			link: "https://www.instagram.com/",
 		},
-		{
-			icon: <i className="fab fa-reddit"></i>,
+		{	
+			name: "Reddit",
+			color: "bg-orange-600",
+			icon: <i className={ `fab fa-reddit text-sm hover:text-zinc-400 ${trans500}`}></i>,
 			link: "https://www.reddit.com/",
 		},
-		{
-			icon: <i className="fab fa-facebook"></i>,
+		{	
+			name: "Facebook",
+			color: "bg-sky-800",
+			icon: <i className={ `fab fa-facebook text-sm hover:text-zinc-400 ${trans500}`}></i>,
 			link: "https://www.facebook.com/",
 		},
-		{
-			icon: <i className="fab fa-discord"></i>,
+		{	
+			name: "Discord",
+			color: "bg-purple-600",
+			icon: <i className={ `fab fa-discord text-sm hover:text-zinc-400 ${trans500}`}></i>,
 			link: "https://discord.com/",
 		},
 	];
@@ -72,7 +82,7 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 						{title}
 					</h3>
 					<span className="alt-names">
-						<p className="text-red-300">{altNames}</p>
+						<p className="text-red-300 text-xs my-2">{alt_names}</p>
 					</span>
 				</div>
 				<div className="manga-acts-con flex justify-center my-2">
@@ -105,11 +115,11 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 						</span>
 					</div>
 				</div>
-				<div className="socials-con">
-					{socials.map(({ icon, link }) => {
+				<div className="socials-con flex gap-1 justify-center flex-wrap">
+					{socials.map(({ icon, link, name, color }) => {
 						return (
-							<a href={link} className="social-link">
-								{icon}
+							<a href={link} className= { `social-link w-28 items-center gap-3 text-sm flex justify-center rounded-md ${color} hover:bg-zinc-700 ${trans500} py-1 px-2` }>
+								{icon} {name}
 							</a>
 						);
 					})}

@@ -16,6 +16,7 @@ interface MangaDetailsProps {
 
 export const MangaDetails = ({ manga, similars }: MangaDetailsProps) => {
 	const { title, malData } = manga;
+
 	return (
 		<div className="manga-details-con px-3">
 			<div className="manga-outer-info-con">
