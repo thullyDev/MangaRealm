@@ -1,22 +1,27 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes"
+import { truncate } from "../../../utilities/misc"
+import { Ticks } from "../Ticks/Ticks"
 // import { DescriptionWrapper } from "../DescriptionWrapper/DescriptionWrapper"
 
 export const MangaWrapperThree = ({ item }: { item: Manga }) => {
-	const { title, image_url, description, slug, views, update } = item
+	const { title, image_url, slug, views, update } = item
+	const ticks = [
+		views,
+		update
+	]
 
 	return (
-		<div className="manga-item">
-			<div className="inner-con">
-				<a href={slug} className="manga-link">
+		<div className="manga-item w-full">
+			<div className="inner-con bg-zinc-800 border border-zinc-600 rounded-md">
+				<a href={slug} className="manga-link flex gap-2">
 					<span className="poster-con">
-						<img src={image_url} alt={title} className="poster"/>
+						<img src={image_url} alt={title} title={title} className="poster w-20 rounded-l-md"/>
 					</span>
-					<span className="title-update-views-chapters-con">
-						<p className="title">{title}</p>
-						<span className="update-views-con">
-							<span className="update">{update}</span>
-							<span className="views">{views}</span>
-						</span>
+					<span className="title-update-views-chapters-con w-full py-2">
+						<p className="title" title={title} >{truncate(title, 50)}</p>
+						<div className="ticks flex gap-2 items-center relative mt-2">
+							<Ticks ticks={ticks} />
+						</div>
 					</span>
 				</a>
 			</div>

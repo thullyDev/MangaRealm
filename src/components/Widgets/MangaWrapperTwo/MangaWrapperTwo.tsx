@@ -9,7 +9,7 @@ export const MangaWrapperTwo = ({ item }: { item: Manga }) => {
 	const posterProps = {
 		image_url,
 		title,
-		imageStyles: "rounded-md",
+		imageStyles: "rounded-l-md",
 		wrapperStyles: "",
 	}
 	const { name: chapName, slug: chapSlug } = chapter

@@ -1,0 +1,50 @@
+@import '../../styles/global/mediaQueries.scss';
+
+
+.description-modal-con {
+	display: none;
+	// border: solid red;
+}
+
+
+
+@include media-medium {
+	.image-info-con {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+}
+
+@include media-xlarge {
+	.manga-outer-info-con {
+		display: flex;
+		gap: 20px;
+	}
+
+	.manga-chapters-similars-con {
+		display: flex;
+		justify-content: start;
+		align-items: start;
+		gap: 10px;
+		margin: 50px 0;
+
+		.similars-con  {
+			width: calc(35% - 10px);
+			margin: 0;
+
+			.label-con {
+				display: none;
+			}
+		}
+
+		.similars-list {
+			max-height: 350px;
+			overflow: auto;
+		}
+
+		.chapters-con {
+			width: calc(65% - 10px);
+		}
+	}
+}

@@ -85,7 +85,7 @@ export interface MangaRead {
   author: string;
   description: string;
   chapter: Chapter;
-  altNames: string;
+  alt_names: string;
   malId: null | number;
   aniId: null | number;
   chapters: Chapter[];
