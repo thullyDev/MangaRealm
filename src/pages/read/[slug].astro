@@ -20,9 +20,11 @@ if (manga) {
 if (!slug || !manga) {
 	return Astro.redirect("/not_found")
 }
+
+const siteName = "MangaRealm"
 ---
 
-<MainLayout title={ manga.title } >	
+<MainLayout title={ `Reading ${manga.title} on ${siteName}` } >	
 	<MangaDetails manga={manga} similars={similars} />
 	<Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>

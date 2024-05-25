@@ -107,12 +107,14 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 						</p>
 					</span>
 					<div className="description-modal-con">
-						<button className="close-btn">
-							<i className="fa-solid fa-x"></i>
-						</button>
-						<span className="description">
-							<p>{description}</p>
-						</span>
+						<div className="inner-con border bg-zinc-700">
+							<button className="close-btn">
+								<i className="fa-solid fa-x"></i>
+							</button>
+							<span className="description">
+								<p>{description}</p>
+							</span>
+						</div>
 					</div>
 				</div>
 				<div className="socials-con flex gap-1 justify-center flex-wrap">
