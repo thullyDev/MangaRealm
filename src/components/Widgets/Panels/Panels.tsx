@@ -5,7 +5,7 @@ import { Panel } from "../Panel/Panel";
 export const Panels = ({ panels }: { panels: PanelProp[] }) => {
 	return (
 		<div className="manga-panels-con">
-			<ul className="manga-panels-list">
+			<ul className="manga-panels-list flex flex-col flex-wrap items-center">
 				{panels.map((panel, index) => {
 					const { title } = panel;
 					return (
