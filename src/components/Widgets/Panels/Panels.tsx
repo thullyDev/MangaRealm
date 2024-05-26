@@ -3,6 +3,9 @@ import { Panel } from "../Panel/Panel";
 
 export const Panels = ({ panels }: { panels: PanelProp[] }) => {
 	return (
+		<></>
+	)
+	return (
 		<div className="manga-panels-con">
 			<ul className="manga-panels-list">
 				{panels.map((panel, index) => {
