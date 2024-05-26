@@ -2,15 +2,14 @@
 import { navs } from "../../../resources/navLinks"
 import { LinkList } from "../../Widgets/LinkList/LinkList"
 import "./MobileMenuStyle.scss"
+import { MenuBtn } from "./MenuBtn"
 ---
 
 <menu class="mobile-menu relative flex items-center">
   <div class="mobile-menu-button-con">
-    <button class="menu-button">
-      <i class="fas fa-bars text-xl"></i>
-    </button>
+    <MenuBtn client:load />
   </div>
-  <nav class="menu-nav fixed bg-zinc-800 top-20 left-10 w-full max-w-40 py-2 rounded border border-1 border-zinc-700">
+  <nav data-open="false" class="menu-nav fixed bg-zinc-800 top-20 left-10 w-full max-w-40 py-2 rounded border border-1 border-zinc-700">
     <LinkList items={navs} className="menu-nav-list" />
   </nav>
 </menu>
