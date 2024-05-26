@@ -18,12 +18,10 @@ export const MangasFilter = () => {
 			<div className="mangas-filter">
 				<div className="inner-con flex gap-5 place-items-end px-2">
 					<div className="filters flex justify-end gap-5">
-						{
-							filters.map(item => item)
-						}
+						{filters}
 					</div>
 					<div className="apply-con">
-						<button type="button" className={ `apply px-2 py-1 rounded-md border border-zinc-600 bg-zinc-800 hover:bg-red-700 ${trans500}` }>
+						<button type="button" className={ `apply px-2 py-1 rounded-md border border-zinc-600 text-sm bg-zinc-800 hover:bg-red-700 ${trans500}` }>
 							Apply
 						</button>
 					</div>
