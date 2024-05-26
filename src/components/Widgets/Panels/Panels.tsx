@@ -19,7 +19,7 @@ export const Panels = ({ panels }: { panels: PanelProp[] }) => {
 					);
 				})}
 			</ul>
-			<a href="#" className={ `top-btn sticky bottom-5 left-5 p-3 bg-zinc-800 hover:bg-zinc-600 ${trans500}` }>
+			<a href="#" className={ `top-btn inline-block sticky bottom-5 left-5 p-3 bg-zinc-800 hover:bg-zinc-600 ${trans500}` }>
 				<i className="fa-solid fa-arrow-up"></i>
 			</a>
 		</div>

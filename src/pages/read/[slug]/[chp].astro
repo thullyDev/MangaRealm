@@ -1,6 +1,6 @@
 ---
 import MainLayout from '../../../layouts/main.astro';
-import type { MangaRead } from "../../../services/Manganato/manganatoTypes"
+import type { Chapter, MangaRead } from "../../../services/Manganato/manganatoTypes"
 import { getMangaChapter, getCachedManga } from '../../../services/Manganato/manganato';
 import { Panels } from '../../../components/Widgets/Panels/Panels'
 import { ChapterMangaDetails } from '../../../components/Widgets/ChapterMangaDetails/ChapterMangaDetails'
@@ -71,10 +71,11 @@ if (!manga) {
 }
 
 const chapterData = await getChapterData(manga)
-
+const { chapter }  = chapterData
+const siteName = "MangaRealm"
 ---
 
-<MainLayout title="chapter" >
+<MainLayout title={ `Reading ${chapter.name} on ${siteName}` } >
 	<Panels panels={panels} />
 	<ChapterMangaDetails chapterData={chapterData} />
 	<Comments PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
