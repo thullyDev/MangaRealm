@@ -26,5 +26,5 @@ const siteName = "MangaRealm"
 
 <MainLayout title={ `Reading ${manga.title} on ${siteName}` } >	
 	<MangaDetails manga={manga} similars={similars} />
-	<Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
+	<Comments isOnClick={true} PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>
