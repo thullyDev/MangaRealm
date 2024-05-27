@@ -73,6 +73,10 @@ $_padding: 16px;
 			@include media-large {
 		      width: calc(17% - $_padding); 
 		    }
+
+			@include media-xxlarge {
+		      width: calc(13% - $_padding); 
+		    }
 		}
 	}
 }
