@@ -97,14 +97,18 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 							<button className={ `expand-btn text-xs text-zinc-300 ml-1 hover:text-red-500 ${trans500}`}>more</button> 
 						</p>
 					</span>
-					<div className="description-modal-con">
-						<div className="inner-con border bg-zinc-700">
-							<button className="close-btn">
-								<i className="fa-solid fa-x"></i>
-							</button>
-							<span className="description">
-								<p>{description}</p>
-							</span>
+					<div className="outer-description-modal-con">
+						<div className="description-modal-con">
+							<div className="inner-con border border-zinc-500 px-2 bg-zinc-800">
+								<div className="close-btn-con">
+									<button className="close-btn">
+										<i className="fa-solid fa-x text-xl text-zinc-500"></i>
+									</button>
+								</div>
+								<span className="description scrollable">
+									<p>{description}</p>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
