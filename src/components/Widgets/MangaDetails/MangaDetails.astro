@@ -1,0 +1,25 @@
+---
+import { ChaptersCon } from "./ChaptersCon/ChaptersCon";
+import { CharactersCon } from "./CharactersCon/CharactersCon";
+import { MangaInfoCon } from "./MangaInfoCon/MangaInfoCon";
+import { MangaSideInfoCon } from "./MangaSideInfoCon/MangaSideInfoCon";
+import { SimilarsCon } from "./SimilarsCon/SimilarsCon";
+import '../../../styles/pages/mangaRead.scss';
+
+const { manga, similars } = Astro.props
+const { title, malData } = manga;
+---
+
+<div class="manga-details-con px-3">
+	<div class="manga-outer-info-con">
+		<MangaInfoCon manga={manga} />
+		<MangaSideInfoCon manga={manga} />
+	</div>
+	<div class="manga-chapters-similars-con">
+		<ChaptersCon client:load manga={manga} />
+		<SimilarsCon similars={similars} />
+	</div>
+	{malData && malData.characters && (
+		<CharactersCon title={title} characters={malData.characters} />
+	)}
+</div>

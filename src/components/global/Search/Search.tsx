@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify';
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -6,7 +7,7 @@ const Search = () => {
   const filterLink: string =  `/filter?keywords=${query}`
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rawQuery = event.target.value
+    const rawQuery = DOMPurify.sanitize(event.target.value)
     setQuery(encodeURIComponent(rawQuery))
   };
 
