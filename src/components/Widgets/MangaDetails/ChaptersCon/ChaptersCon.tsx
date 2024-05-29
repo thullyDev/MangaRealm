@@ -1,8 +1,9 @@
 import { useState } from "react"
 import type { Chapter, MangaRead } from "../../../../services/Manganato/manganatoTypes"
 import DOMPurify from 'dompurify';
+import { truncate } from "../../../../utilities/misc";
 
-const ChaptersInput = () => {
+const ChaptersInput = ({ chaptersLength }: { chaptersLength: number } ) => {
 	const [value, setValue] = useState('')
 
 	const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,9 +17,9 @@ const ChaptersInput = () => {
 						<i className="fa fa-search text-xs"></i>
 					</span>
 					<input 
-						placeholder="Chapter Number..." 
-						type="text"
-						inputMode="numeric"
+						onChange={changeHandler}
+						placeholder={`Chapter Index (${chaptersLength})... `} 
+						type="number"
 						value={value}
 						className="chapters-input bg-inherit outline-none text-sm"
 					/>
@@ -36,7 +37,7 @@ export const ChaptersCon = ({ manga }: { manga: MangaRead }) => {
 				<div className="chapters-amount-con text-sm flex items-end">
 					{chapters.length} Chapters
 				</div>
-				<ChaptersInput />
+				<ChaptersInput chaptersLength={chapters.length} />
 			</div>
 			<ChaptersList chapters={chapters} manga_id={manga_id} />
 		</div>
@@ -53,13 +54,15 @@ const ChaptersList = ({ chapters, manga_id }: { manga_id: string; chapters: Chap
 						name, 
 						slug 
 					}, index) => {
+						const realIndx = chapters.length - index
 						return (
-							<li key={index} className="chapter-item bg-zinc-800 ">
+							<li key={index} data-index={realIndx} className="chapter-item bg-zinc-800 ">
 								<a 
 									href={`${manga_id}${slug}`}
 									title={name} 
-									className="chapter-link text-base flex justify-between px-2 py-3">
-										<p className="name">{name}</p>
+									className="chapter-link text-base flex justify-between gap-2 items-center px-2 py-3">
+										<p className="chapter-index text-xs text-zinc-500">{realIndx}</p>
+										<p className="name text-sm text-center">{truncate(name, 50)}</p>
 										<span className="views flex items-center gap-1 text-sm text-zinc-500">
 											<i className="fas fa-eye"></i>
 											{views}
