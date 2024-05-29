@@ -2,6 +2,7 @@ import { useState } from "react"
 import type { Chapter, MangaRead } from "../../../../services/Manganato/manganatoTypes"
 import DOMPurify from 'dompurify';
 import { truncate } from "../../../../utilities/misc";
+import $ from "jquery"
 
 const ChaptersInput = ({ chaptersLength }: { chaptersLength: number } ) => {
 	const [value, setValue] = useState('')
@@ -9,6 +10,11 @@ const ChaptersInput = ({ chaptersLength }: { chaptersLength: number } ) => {
 	const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     	const cleanValue = DOMPurify.sanitize(event.target.value)
     	setValue(cleanValue)
+    	console.log({ cleanValue })
+    	$(`.chapter-item[data-index="${cleanValue}"]`)[0].scrollIntoView({
+		    behavior: "smooth", 
+		    block: "start" 
+		});
 	}
 	return (
 		<div className="chapter-input-con">
@@ -62,7 +68,7 @@ const ChaptersList = ({ chapters, manga_id }: { manga_id: string; chapters: Chap
 									title={name} 
 									className="chapter-link text-base flex justify-between gap-2 items-center px-2 py-3">
 										<p className="chapter-index text-xs text-zinc-500">{realIndx}</p>
-										<p className="name text-sm text-center">{truncate(name, 50)}</p>
+										<p className="name text-sm">{truncate(name, 50)}</p>
 										<span className="views flex items-center gap-1 text-sm text-zinc-500">
 											<i className="fas fa-eye"></i>
 											{views}
