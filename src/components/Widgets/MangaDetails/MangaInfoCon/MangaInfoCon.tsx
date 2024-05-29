@@ -63,11 +63,11 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 						/>
 					</div>
 					<div className="actions-btns-con flex justify-center mt-2">
-						<button type="button" className={ `bookmark-btn border border-zinc-500 w-20 py-1 bg-zinc-700 hover:bg-zinc-400 rounded-l-full ${trans500}`}>
-							<i className="fa-regular fa-bookmark"></i>
+						<button data-added="false" type="button" className={ `bookmark-btn border border-zinc-500 w-20 py-1 bg-zinc-700 hover:bg-zinc-400 rounded-l-full ${trans500}`}>
+							<i className="fa-regular fa-bookmark bookmark-icon"></i>
 							{/*<i className="fa-solid fa-bookmark"></i>*/}
 						</button>
-						<button type="button" className={ `bookmark-btn border border-zinc-500 w-20 py-1 bg-zinc-800 hover:bg-zinc-400 rounded-r-full ${trans500}`}>
+						<button type="button" className={ `share-btn border border-zinc-500 w-20 py-1 bg-zinc-800 hover:bg-zinc-400 rounded-r-full ${trans500}`}>
 							<i className="fa-solid fa-share"></i>
 						</button>
 					</div>

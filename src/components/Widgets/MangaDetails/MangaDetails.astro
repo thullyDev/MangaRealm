@@ -5,6 +5,7 @@ import { MangaInfoCon } from "./MangaInfoCon/MangaInfoCon";
 import { MangaSideInfoCon } from "./MangaSideInfoCon/MangaSideInfoCon";
 import { SimilarsCon } from "./SimilarsCon/SimilarsCon";
 import '../../../styles/pages/mangaRead.scss';
+import { setBookmark } from '../../../services/MangaRealm.api/user.ts';
 
 const { manga, similars } = Astro.props
 const { title, malData } = manga;
@@ -23,3 +24,33 @@ const { title, malData } = manga;
 		<CharactersCon title={title} characters={malData.characters} />
 	)}
 </div>
+
+<script define:vars={{ setBookmark, url: Astro.url }}>
+	const bookmarkBtn = document.querySelector(".bookmark-btn")
+	const shareBtn = document.querySelector(".share-btn")
+
+	shareBtn?.addEventListener("click", () => {
+		navigator.clipboard.writeText(url);
+		alert("Copied to clipboard") // TODO: this is should be a custom alert box
+	})
+
+	bookmarkBtn?.addEventListener("click", () => {
+		const isAdded = bookmarkBtn?.getAttribute("data-added")
+		// const success = setBookmark(isAdded)
+		// if (!success) return 
+
+		const bookmarkIcon = document.querySelector(".bookmark-icon")
+
+		if (isAdded == "false") {
+			bookmarkBtn?.setAttribute("data-added", "true")
+			bookmarkIcon?.classList.remove("fa-regular")
+			bookmarkIcon?.classList.add("fa-solid")
+		}
+
+		if (isAdded == "true") {
+			bookmarkBtn?.setAttribute("data-added", "false")
+			bookmarkIcon?.classList.remove("fa-solid")
+			bookmarkIcon?.classList.add("fa-regular")
+		}
+	})
+</script>
