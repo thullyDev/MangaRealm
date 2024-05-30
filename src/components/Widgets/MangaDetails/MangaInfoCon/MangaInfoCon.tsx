@@ -108,7 +108,7 @@ export const MangaInfoCon = ({ manga, url }: { manga: MangaRead, url: string }) 
 				<div className="socials-con flex gap-1 justify-center flex-wrap mb-5">
 					{socials.map(({ icon, link, name, color }) => {
 						return (
-							<a href={link} className= { `social-link w-28 items-center gap-3 text-sm flex justify-center rounded-md ${color} hover:bg-zinc-700 ${trans500} py-1 px-2` }>
+							<a href={link} target="_blank" className= { `social-link w-28 items-center gap-3 text-sm flex justify-center rounded-md ${color} hover:bg-zinc-700 ${trans500} py-1 px-2` }>
 								{icon} {name}
 							</a>
 						);
