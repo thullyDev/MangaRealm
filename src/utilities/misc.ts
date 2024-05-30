@@ -32,7 +32,7 @@ export const showCloseEle = (event: React.MouseEvent<HTMLButtonElement>) => {
 
 export function getInputs(selector: string) {
   const selectInputs = $(selector)
-  const data: Record<string, string | number | string[]> = {}
+  const data: Record<string, string> = {}
 
   selectInputs.each((_, ele) => {
     const thisEle = $(ele)
@@ -40,6 +40,8 @@ export function getInputs(selector: string) {
     const value = thisEle.val()
 
     if (!value) return 
+
+    if (typeof value == 'object' || typeof value == 'number') return 
 
     data[name] = value
   })
