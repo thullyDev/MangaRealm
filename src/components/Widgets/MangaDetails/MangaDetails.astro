@@ -25,7 +25,7 @@ const { title, malData } = manga;
 	)}
 </div>
 
-<script define:vars={{ setBookmark, url: Astro.url }}>
+<script define:vars={{ url: Astro.url }}>
 	const bookmarkBtn = document.querySelector(".bookmark-btn")
 	const shareBtn = document.querySelector(".share-btn")
 
@@ -36,8 +36,8 @@ const { title, malData } = manga;
 
 	bookmarkBtn?.addEventListener("click", () => {
 		const isAdded = bookmarkBtn?.getAttribute("data-added")
-		// const success = setBookmark(isAdded)
-		// if (!success) return 
+		const success = setBookmark(isAdded)
+		if (!success) return 
 
 		const bookmarkIcon = document.querySelector(".bookmark-icon")
 
@@ -53,4 +53,8 @@ const { title, malData } = manga;
 			bookmarkIcon?.classList.add("fa-regular")
 		}
 	})
+
+	const setBookmark = (isAdded) => {
+		return true
+	}
 </script>
