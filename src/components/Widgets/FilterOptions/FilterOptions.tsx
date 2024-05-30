@@ -12,7 +12,7 @@ interface _FilterOption {
 
 export const FilterOptions = ({ optionId, values }: _FilterOption) => {
   return (
-    <div className="filters-options flex gap-2 flex-col">
+    <div key={optionId} className="filters-options flex gap-2 flex-col">
       <label htmlFor={`${optionId}-filter`} className="filters-label text-sm">
         {formatKey(optionId)}
       </label>

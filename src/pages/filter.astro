@@ -27,7 +27,7 @@ const title = "Filter - MangaRealm"
 ---
 
 <MainLayout title={ title }>
-	<MangasFilter/>	
+	<MangasFilter client:load/>	
 	<MangasWrapper {...props} />
 	<Pagination pagination={pagination} query={query} />	
 </MainLayout>

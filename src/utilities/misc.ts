@@ -28,3 +28,20 @@ export const showCloseEle = (event: React.MouseEvent<HTMLButtonElement>) => {
       ? showEle.slideDown().data("open", true)
       : showEle.slideUp().data("open", false);
 }
+
+export function getInputs(selector: string) {
+  const selectInputs = $(selector)
+  const data: Record<string, string | number | string[]> = {}
+
+  selectInputs.each((_, ele) => {
+    const thisEle = $(ele)
+    const name = thisEle.data("key")
+    const value = thisEle.val()
+
+    if (!value) return 
+
+    data[name] = value
+  })
+
+  return data
+}
