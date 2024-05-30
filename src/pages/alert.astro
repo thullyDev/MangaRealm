@@ -1,0 +1,24 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const decodedMessage = decodeURIComponent(Astro.url.searchParams.get('message') || "");
+const decodedDescription = decodeURIComponent(Astro.url.searchParams.get('description') || "");
+
+const message = decodedMessage ?  decodedMessage : "Unexpected Issue Occurred"
+const description = decodedDescription ?  decodedDescription : "An internal error may have occured with our servers, please try again later"
+---
+
+<MainLayout title={ "Alert" } >
+	<div class="inner-alert-con flex flex-col items-center px-2">
+		<div class="alert-img-con">
+			<img src="/alert.gif" alt="Alert Image">
+		</div>
+		<div class="texts-con flex flex-col items-center gap-2 mt-5">
+			<h3 class="message text-2xl">{message}</h3>
+			<p class="description text-center">{description}</p>
+		</div>	
+		<div class="redirect-con mt-5">
+			<a href="/home" class="redirect-link bg-red-600 w-40 py-2 rounded-full flex justify-center">Go home</a>
+		</div>
+	</div>
+</MainLayout>	
