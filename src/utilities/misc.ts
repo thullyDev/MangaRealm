@@ -67,3 +67,9 @@ const _Alert = (message: string | number) => {
       alertbox.style.display = "none"
    }, fiveSecs)
 }
+
+export const titleCase = (str: string) => {
+  return str.toLowerCase().replace(/(^|\s)\S/g, function(firstLetter) {
+    return firstLetter.toUpperCase();
+  });
+}
