@@ -10,7 +10,6 @@ const ChaptersInput = ({ chaptersLength }: { chaptersLength: number } ) => {
 	const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     	const cleanValue = DOMPurify.sanitize(event.target.value)
     	setValue(cleanValue)
-    	console.log({ cleanValue })
     	$(`.chapter-item[data-index="${cleanValue}"]`)[0].scrollIntoView({
 		    behavior: "smooth", 
 		    block: "start" 
@@ -24,7 +23,7 @@ const ChaptersInput = ({ chaptersLength }: { chaptersLength: number } ) => {
 					</span>
 					<input 
 						onChange={changeHandler}
-						placeholder={`Chapter Index (${chaptersLength})... `} 
+						placeholder={`Chapter Number... `} 
 						type="number"
 						value={value}
 						className="chapters-input bg-inherit outline-none text-sm"
@@ -60,14 +59,15 @@ const ChaptersList = ({ chapters, manga_id }: { manga_id: string; chapters: Chap
 						name, 
 						slug 
 					}, index) => {
-						const realIndx = chapters.length - index
+						const chunks = slug.split("-")
+						const chapterNumber = chunks[chunks.length - 1]
 						return (
-							<li key={index} data-index={realIndx} className="chapter-item bg-zinc-800 ">
+							<li key={index} data-index={chapterNumber} className="chapter-item bg-zinc-800 ">
 								<a 
 									href={`${manga_id}${slug}`}
 									title={name} 
 									className="chapter-link text-base flex justify-between gap-2 items-center px-2 py-3">
-										<p className="chapter-index text-xs text-zinc-500">{realIndx}</p>
+										<p className="chapter-index text-xs text-zinc-500">{chapterNumber}</p>
 										<p className="name text-sm">{truncate(name, 50)}</p>
 										<span className="views flex items-center gap-1 text-sm text-zinc-500">
 											<i className="fas fa-eye"></i>

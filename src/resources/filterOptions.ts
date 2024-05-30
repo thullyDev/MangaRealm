@@ -11,7 +11,7 @@ export const filterOptions = {
 			],
 		 "genres": [
      {
-       "name": "none",
+       "name": "None",
        "value": ""
      },
      {

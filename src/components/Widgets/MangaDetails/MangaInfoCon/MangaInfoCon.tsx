@@ -8,47 +8,40 @@ interface socialsType {
 	name: string;
 }
 
-export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
+export const MangaInfoCon = ({ manga, url }: { manga: MangaRead, url: string }) => {
 	const {
 		title,
 		image,
 		description,
 		alt_names,
-		genres,
-		chapters,
-		manga_id,
 		status,
 	} = manga;
-	const readlink = chapters
-		? `/read/${manga_id}/${chapters[0].slug}`
-		: `/read/${manga_id}/`;
+
+	const siteName = "MangaRealm"
+	const shareText = `Read on ${title} On ${siteName} for and with no ads` 
+	const encodedShareText = encodeURIComponent(shareText)
 	const socials: socialsType[] = [
 		// TODO: make them match their respective links
 		{	
-			name: "Instagram",
-			color: "bg-violet-600",
-			icon: <i className={ `fab fa-instagram text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://www.instagram.com/",
+			name: "Twitter",
+			color: "bg-cyan-700",
+			icon: <i className={ `fab fa-twitter text-sm hover:text-zinc-400 ${trans500}`}></i>,
+			link: `https://www.twitter.com/home?status=${encodedShareText}%20${url}`,
 		},
 		{	
 			name: "Reddit",
 			color: "bg-orange-600",
 			icon: <i className={ `fab fa-reddit text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://www.reddit.com/",
+			link: `https://www.reddit.com/submit?url=${url}&title=${encodedShareText}`,
 		},
 		{	
 			name: "Facebook",
 			color: "bg-sky-800",
 			icon: <i className={ `fab fa-facebook text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://www.facebook.com/",
-		},
-		{	
-			name: "Discord",
-			color: "bg-purple-600",
-			icon: <i className={ `fab fa-discord text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://discord.com/",
+			link: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
 		},
 	];
+
 
 	return (
 		<div className="image-info-con">

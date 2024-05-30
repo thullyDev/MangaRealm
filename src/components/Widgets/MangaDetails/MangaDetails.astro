@@ -9,11 +9,12 @@ import { setBookmark } from '../../../services/MangaRealm.api/user.ts';
 
 const { manga, similars } = Astro.props
 const { title, malData } = manga;
+const url = Astro.url
 ---
 
 <div class="manga-details-con px-3">
 	<div class="manga-outer-info-con">
-		<MangaInfoCon manga={manga} />
+		<MangaInfoCon url={url.toString()} manga={manga} />
 		<MangaSideInfoCon manga={manga} />
 	</div>
 	<div class="manga-chapters-similars-con">
@@ -25,7 +26,7 @@ const { title, malData } = manga;
 	)}
 </div>
 
-<script define:vars={{ url: Astro.url }}>
+<script define:vars={{ url: url }}>
 	const bookmarkBtn = document.querySelector(".bookmark-btn")
 	const shareBtn = document.querySelector(".share-btn")
 
