@@ -1,3 +1,4 @@
+import type { number } from "astro/zod";
 import $ from "jquery";
 
 export const trans1000 = "transition duration-1000 ease-in-out"
@@ -44,4 +45,23 @@ export function getInputs(selector: string) {
   })
 
   return data
+}
+
+const _Alert = (message: string | number) => {
+   const alertbox = document.querySelector(".alertbox")
+   const msgEle = document.querySelector(".alertbox .msg")
+
+   if (!msgEle || !alertbox)
+      return 
+   
+   // @ts-ignore
+   msgEle.textContent = message
+   // @ts-ignore
+   alertbox.style.display = "flex"
+   const fiveSecs = 5000
+   setTimeout(() => {
+      msgEle.textContent = ""
+      // @ts-ignore
+      alertbox.style.display = "none"
+   }, fiveSecs)
 }

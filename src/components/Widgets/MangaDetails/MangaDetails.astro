@@ -31,7 +31,7 @@ const { title, malData } = manga;
 
 	shareBtn?.addEventListener("click", () => {
 		navigator.clipboard.writeText(url);
-		alert("Copied to clipboard") // TODO: this is should be a custom alert box
+		_Alert("Copied to clipboard") // TODO: this is should be a custom alert box
 	})
 
 	bookmarkBtn?.addEventListener("click", () => {
@@ -56,5 +56,18 @@ const { title, malData } = manga;
 
 	const setBookmark = (isAdded) => {
 		return true
+	}
+
+	const _Alert = (message) => {
+		const alertbox = document.querySelector(".alertbox")
+		const msgEle = document.querySelector(".alertbox .msg")
+
+		msgEle.textContent = message
+		alertbox.style.display = "flex"
+		const fiveSecs = 5000
+		setTimeout(() => {
+			msgEle.textContent = ""
+			alertbox.style.display = "none"
+		}, fiveSecs)
 	}
 </script>
