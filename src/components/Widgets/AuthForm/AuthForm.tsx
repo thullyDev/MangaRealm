@@ -1,4 +1,4 @@
-import { titleCase } from "../../../../utilities/misc";
+import { formatKey, titleCase } from "../../../utilities/misc";
 
 interface _Input {
 	input: string;
@@ -32,7 +32,7 @@ export const AuthForm = ({ key, label, inputs }: _AuthForm) => {
 							}
 						</div>
 						<div className="submit-con">
-							<button className="submit-btn">
+							<button className="submit-btn" data-key={key} >
 								Submit
 							</button>
 						</div>

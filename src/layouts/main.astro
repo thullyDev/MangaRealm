@@ -1,6 +1,6 @@
 ---
 import Header from "../components/global/Header/Header.astro"
-import Authentication from "../components/global/Authentication/Authentication.astro"
+import { Authentication } from "../components/global/Authentication/Authentication"
 import Footer from "../components/global/Footer/Footer.astro"
 import AlertBox from "../components/global/AlertBox/AlertBox.astro"
 import "../styles/global/main.scss"
@@ -23,7 +23,7 @@ const favicon = "/favicon.png"
   </head>
 
   <body class="bg-zinc-900 dark:text-white scrollable relative">
-    <Authentication client:load /> 
+    <Authentication /> 
     <Header/>
     <AlertBox/>
     <main class="main-content">
