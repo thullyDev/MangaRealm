@@ -36,7 +36,7 @@ export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
 						<div className="captcha-con">
 						</div>
 						<div className="submit-con w-full my-3">
-							<button type="button" className={ `submit-btn text-sm flex justify-center bg-red-600 hover:bg-zinc-700 rounded w-full ${trans500} py-2` } data-type={authType} >
+							<button onClick={authHandler} type="button" className={ `submit-btn text-sm flex justify-center bg-red-600 hover:bg-zinc-700 rounded w-full ${trans500} py-2` } data-type={authType} >
 								Submit
 							</button>
 						</div>
@@ -63,4 +63,8 @@ const Input = ({ item }: { item: _Input }) => {
 			</div>
 		</div>
 	)
+}
+
+function authHandler(event: React.MouseEvent<HTMLButtonElement>) {
+	const eventEle = $(event.currentTarget);
 }

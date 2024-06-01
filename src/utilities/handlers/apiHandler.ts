@@ -1,7 +1,7 @@
 import axios, { type AxiosResponse } from 'axios';
 import { CRASH, SUCCESSFUL } from '../errors';
 
-interface RequestOptions {
+export interface RequestOptions {
     [key: string]: any;
 }
 
