@@ -1,5 +1,5 @@
 .outer-auth-forms-con {
-	// display: none;
+	display: none;
 	
 	& > .auth-forms-con {
 		display: flex;
@@ -14,6 +14,10 @@
 		> .inner-con {
 			width: calc(100% - 20px);
 			max-width: 650px;
+
+			.close-btn {
+				z-index: 10;
+			}
 
 			.second-inner-con {
 				display: flex;

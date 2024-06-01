@@ -33,6 +33,8 @@ export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
 								inputs.map((item, index) => <Input item={item} key={index} />)
 							}
 						</div>
+						<div className="captcha-con">
+						</div>
 						<div className="submit-con w-full my-3">
 							<button type="button" className={ `submit-btn text-sm flex justify-center bg-red-600 hover:bg-zinc-700 rounded w-full ${trans500} py-2` } data-type={authType} >
 								Submit

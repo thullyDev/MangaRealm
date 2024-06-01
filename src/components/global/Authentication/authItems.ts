@@ -1,4 +1,16 @@
 export const authItems = {
+	login: [
+		{
+			input: "text",
+			label: "email",
+			icon: "fas fa-envelope",
+		},
+		{
+			input: "password",
+			label: "password",
+			icon: "fas fa-key",
+		},
+	],
 	signup: [
 		{
 			input: "text",
@@ -19,18 +31,6 @@ export const authItems = {
 			input: "password",
 			label: "confirm",
 			icon: "fas fa-lock",
-		},
-	],
-	login: [
-		{
-			input: "text",
-			label: "email",
-			icon: "fas fa-envelope",
-		},
-		{
-			input: "password",
-			label: "password",
-			icon: "fas fa-key",
 		},
 	],
 	forgot_password: [
