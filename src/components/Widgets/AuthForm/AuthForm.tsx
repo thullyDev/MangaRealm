@@ -1,4 +1,4 @@
-import { formatKey, titleCase } from "../../../utilities/misc";
+import { formatKey, titleCase, trans500 } from "../../../utilities/misc";
 
 interface _Input {
 	input: string;
@@ -7,32 +7,32 @@ interface _Input {
 }
 
 interface _AuthForm {
-	key: string;
+	authType: string;
 	label: string;
 	inputs: _Input[];
 }
 
-export const AuthForm = ({ key, label, inputs }: _AuthForm) => {
+export const AuthForm = ({ authType, label, inputs }: _AuthForm) => {
 	return (
-		<div className="auth-form-con">
-			<div className="inner-con">
-				<div className="form-label-text-con">
-					<p className="form-label">
-						{key}
+		<div className="auth-form-con flex justify-center ">
+			<div className="inner-con px-5 py-1 w-96">
+				<div className="form-label-text-con flex flex-col gap-2 mb-2">
+					<p className="form-label text-2xl">
+						{formatKey(authType)}
 					</p>
-					<p className="form-text">
+					<p className="form-text text-zinc-500 text-xs">
 						{label}
 					</p>
 				</div>
 				<div className="form-con">
 					<form action="post">
-						<div className="inputs-con">
+						<div className="inputs-con flex flex-col gap-5">
 							{
 								inputs.map((item, index) => <Input item={item} key={index} />)
 							}
 						</div>
-						<div className="submit-con">
-							<button className="submit-btn" data-key={key} >
+						<div className="submit-con w-full my-3">
+							<button type="button" className={ `submit-btn text-sm flex justify-center bg-red-600 hover:bg-zinc-700 rounded w-full ${trans500} py-2` } data-authType={authType} >
 								Submit
 							</button>
 						</div>
@@ -48,11 +48,11 @@ const Input = ({ item }: { item: _Input }) => {
 
 	return (
 		<div className="input-con">
-			<div className="inner-con">
+			<div className="inner-con flex gap-5 bg-zinc-800 py-1 px-2 border border-zinc-700 rounded">
 				<div className="icon-con">
-					<i className={icon}></i>
+					<i className={ "text-zinc-600 " + icon }></i>
 				</div>
-				<input type={label} placeholder={titleCase(label)} />				
+				<input className="bg-inherit text-zinc-600 text-xs" type={label} placeholder={titleCase(label)} />				
 			</div>
 		</div>
 	)

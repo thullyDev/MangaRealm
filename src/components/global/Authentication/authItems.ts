@@ -12,13 +12,13 @@ export const authItems = {
 		},
 		{
 			input: "password",
-			label: "confirm",
-			icon: "fas fa-label",
+			label: "password",
+			icon: "fas fa-key",
 		},
 		{
 			input: "password",
-			label: "password",
-			icon: "fas fa-label",
+			label: "confirm",
+			icon: "fas fa-lock",
 		},
 	],
 	login: [
@@ -30,7 +30,7 @@ export const authItems = {
 		{
 			input: "password",
 			label: "password",
-			icon: "fas fa-label",
+			icon: "fas fa-key",
 		},
 	],
 	forgot_password: [
@@ -44,12 +44,12 @@ export const authItems = {
 		{
 			input: "password",
 			label: "password",
-			icon: "fas fa-label",
+			icon: "fas fa-key",
 		},
 		{
 			input: "password",
 			label: "confirm",
-			icon: "fas fa-label",
+			icon: "fas fa-key",
 		},
 	],
 };
