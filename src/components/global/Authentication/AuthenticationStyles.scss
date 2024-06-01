@@ -1,5 +1,5 @@
 .outer-auth-forms-con {
-	display: none;
+	// display: none;
 	
 	& > .auth-forms-con {
 		display: flex;
@@ -39,7 +39,7 @@
 		}	
 
 		.bg-img {
-			opacity: .2;
+			opacity: .15;
 		}
 	}
 }

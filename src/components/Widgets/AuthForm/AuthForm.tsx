@@ -10,9 +10,11 @@ interface _AuthForm {
 	authType: string;
 	label: string;
 	inputs: _Input[];
+	redirect: JSX.Element;
 }
 
-export const AuthForm = ({ authType, label, inputs }: _AuthForm) => {
+
+export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
 	return (
 		<div className="auth-form-con flex justify-center ">
 			<div className="inner-con px-5 py-1 w-96">
@@ -35,6 +37,9 @@ export const AuthForm = ({ authType, label, inputs }: _AuthForm) => {
 							<button type="button" className={ `submit-btn text-sm flex justify-center bg-red-600 hover:bg-zinc-700 rounded w-full ${trans500} py-2` } data-type={authType} >
 								Submit
 							</button>
+						</div>
+						<div className="redirect-con w-full my-3">
+							{redirect}
 						</div>
 					</form>
 				</div>
