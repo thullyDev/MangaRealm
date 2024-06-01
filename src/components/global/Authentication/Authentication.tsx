@@ -25,20 +25,22 @@ export const Authentication = () => {
 	}
 
 	return (
-		<div className="auth-forms-con">
-			<div className="inner-con bg-neutral-800 rounded">
-				<div className="close-con flex justify-end relative top-5 right-5">
-					<button className="close-btn">
-					    <i className="fa-solid fa-x"></i>
-					</button>
-				</div>
-				<div className="second-inner-con">
-					<div className="inner-auth-forms-con">
-						{formEles}
+		<div className="outer-auth-forms-con">
+			<div className="auth-forms-con">
+				<div className="inner-con bg-neutral-800 rounded">
+					<div className="close-con flex justify-end relative top-5 right-5">
+						<button className="close-btn">
+						    <i className="fa-solid fa-x"></i>
+						</button>
 					</div>
-				</div>
-				<div className="bg-img-con">
-					<img src="/auth-bg-image.png" alt="Authentication Background Image" className="bg-img" />
+					<div className="second-inner-con">
+						<div className="inner-auth-forms-con">
+							{formEles}
+						</div>
+					</div>
+					<div className="bg-img-con">
+						<img src="/auth-bg-image.png" alt="Authentication Background Image" className="bg-img" />
+					</div>
 				</div>
 			</div>
 		</div>
