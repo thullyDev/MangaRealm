@@ -59,7 +59,7 @@ const Input = ({ item }: { item: _Input }) => {
 				<div className="icon-con">
 					<i className={ "text-zinc-600 " + icon }></i>
 				</div>
-				<input className="bg-inherit text-zinc-600 text-xs" type={label} placeholder={titleCase(label)} />				
+				<input className="bg-inherit text-zinc-600 text-xs border-none outline-none w-full" type={input} placeholder={titleCase(label)} />				
 			</div>
 		</div>
 	)
