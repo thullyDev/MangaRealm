@@ -1,181 +1,178 @@
 export const filterOptions = {
 		 "status": [
 			    {"value": "None", "name": "None"},
-			    {"value": "recent", "name": "Recent"},
-			    {"value": "newest", "name": "Newest"},
 			    {"value": "ongoing", "name": "Ongoing"},
 			    {"value": "complete", "name": "Complete"},
 			],
-		 "types": [
+		 "type": [
 			    {"value": "None", "name": "None"},
-			    {"value": "genre-43", "name": "Manhwa"},
-			    {"value": "genre-44", "name": "Manhua"},
-			    {"value": "genre-47", "name": "Hentai"}
+          {"value": "topview", "name": "Popular"},
+			    {"value": "newest", "name": "Latest"},
 			],
 		 "genres": [
      {
-       "name": "ALL",
-       "value": "genre-all"
+       "name": "None",
+       "value": ""
      },
      {
        "name": "Action",
-       "value": "genre-2"
+       "value": "2"
      },
      {
        "name": "Adventure",
-       "value": "genre-4"
+       "value": "4"
      },
      {
        "name": "Comedy",
-       "value": "genre-6"
+       "value": "6"
      },
      {
        "name": "Cooking",
-       "value": "genre-7"
+       "value": "7"
      },
      {
        "name": "Doujinshi",
-       "value": "genre-9"
+       "value": "9"
      },
      {
        "name": "Drama",
-       "value": "genre-10"
+       "value": "10"
      },
      {
        "name": "Erotica",
-       "value": "genre-48"
+       "value": "48"
      },
      {
        "name": "Fantasy",
-       "value": "genre-12"
+       "value": "12"
      },
      {
        "name": "Gender bender",
-       "value": "genre-13"
+       "value": "13"
      },
      {
        "name": "Harem",
-       "value": "genre-14"
+       "value": "14"
      },
      {
        "name": "Hentai",
-       "value": "genre-47"
+       "value": "47"
      },
      {
        "name": "Historical",
-       "value": "genre-15"
+       "value": "15"
      },
      {
        "name": "Horror",
-       "value": "genre-16"
+       "value": "16"
      },
      {
        "name": "Isekai",
-       "value": "genre-45"
+       "value": "45"
      },
      {
        "name": "Josei",
-       "value": "genre-17"
+       "value": "17"
      },
      {
        "name": "Manhua",
-       "value": "genre-44"
+       "value": "44"
      },
      {
        "name": "Manhwa",
-       "value": "genre-43"
+       "value": "43"
      },
      {
        "name": "Martial arts",
-       "value": "genre-19"
+       "value": "19"
      },
      {
        "name": "Mature",
-       "value": "genre-20"
+       "value": "20"
      },
      {
        "name": "Mecha",
-       "value": "genre-21"
+       "value": "21"
      },
      {
        "name": "Medical",
-       "value": "genre-22"
+       "value": "22"
      },
      {
        "name": "Mystery",
-       "value": "genre-24"
+       "value": "24"
      },
      {
        "name": "One shot",
-       "value": "genre-25"
+       "value": "25"
      },
      {
        "name": "Psychological",
-       "value": "genre-26"
+       "value": "26"
      },
      {
        "name": "Romance",
-       "value": "genre-27"
+       "value": "27"
      },
      {
        "name": "School life",
-       "value": "genre-28"
+       "value": "28"
      },
      {
        "name": "Sci fi",
-       "value": "genre-29"
+       "value": "29"
      },
      {
        "name": "Seinen",
-       "value": "genre-30"
+       "value": "30"
      },
      {
        "name": "Shoujo",
-       "value": "genre-31"
+       "value": "31"
      },
      {
        "name": "Shoujo ai",
-       "value": "genre-32"
+       "value": "32"
      },
      {
        "name": "Shounen",
-       "value": "genre-33"
+       "value": "33"
      },
      {
        "name": "Shounen ai",
-       "value": "genre-34"
+       "value": "34"
      },
      {
        "name": "Slice of life",
-       "value": "genre-35"
+       "value": "35"
      },
      {
        "name": "Smut",
-       "value": "genre-36"
+       "value": "36"
      },
      {
        "name": "Sports",
-       "value": "genre-37"
+       "value": "37"
      },
      {
        "name": "Supernatural",
-       "value": "genre-38"
+       "value": "38"
      },
      {
        "name": "Tragedy",
-       "value": "genre-39"
+       "value": "39"
      },
      {
        "name": "Webtoons",
-       "value": "genre-40"
+       "value": "40"
      },
      {
        "name": "Yaoi",
-       "value": "genre-41"
+       "value": "41"
      },
      {
        "name": "Yuri",
-       "value": "genre-42"
+       "value": "42"
      }
     ]
 	}

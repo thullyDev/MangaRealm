@@ -47,6 +47,9 @@ export const MangaSideInfoCon = ({ manga }: { manga: MangaRead }) => {
 			{
 				tickEles.map(element => element)
 			}
+			<span className="disclaimer">
+				<p className="text-sm text-zinc-500 mt-5">According to MyAnimeList</p>
+			</span>
 		</div>
 	)
 }

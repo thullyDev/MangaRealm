@@ -26,7 +26,7 @@ export const FeatureItem = ({
 
 	return (
 		<div className={`feature-item my-1 ${className}`} title={title}>
-			<div className="inner-con h-48 bg-zinc-800 border border-zinc-600 mx-2 rounded flex justify-between">
+			<div className="inner-con h-48 bg-zinc-800 border border-zinc-600 border-l-4 border-l-zinc-600 mx-2 rounded flex justify-between">
 				<div className="left-side-con pl-6 py-5">
 					<div className="inner-con flex flex-col gap-2 relative">
 						<div className="status text-xs text-gray-500">

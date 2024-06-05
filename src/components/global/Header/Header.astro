@@ -17,7 +17,9 @@ import "./HeaderStyle.scss"
     <Search client:load />
     <Account/>
   </div>
-  <div class="mobile-search flex justify-center">
-    <Search client:load />
+  <div data-open="false" class="mobile-search mb-2">
+    <div class="inner-con flex justify-center w-full">
+      <Search client:load />
+    </div>
   </div>
 </header>

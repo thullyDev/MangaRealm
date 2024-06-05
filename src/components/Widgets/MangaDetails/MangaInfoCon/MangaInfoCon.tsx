@@ -8,47 +8,40 @@ interface socialsType {
 	name: string;
 }
 
-export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
+export const MangaInfoCon = ({ manga, url }: { manga: MangaRead, url: string }) => {
 	const {
 		title,
 		image,
 		description,
 		alt_names,
-		genres,
-		chapters,
-		manga_id,
 		status,
 	} = manga;
-	const readlink = chapters
-		? `/read/${manga_id}/${chapters[0].slug}`
-		: `/read/${manga_id}/`;
+
+	const siteName = "MangaRealm"
+	const shareText = `Read on ${title} On ${siteName} for and with no ads` 
+	const encodedShareText = encodeURIComponent(shareText)
 	const socials: socialsType[] = [
 		// TODO: make them match their respective links
 		{	
-			name: "Instagram",
-			color: "bg-violet-600",
-			icon: <i className={ `fab fa-instagram text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://www.instagram.com/",
+			name: "Twitter",
+			color: "bg-cyan-700",
+			icon: <i className={ `fab fa-twitter text-sm hover:text-zinc-400 ${trans500}`}></i>,
+			link: `https://www.twitter.com/home?status=${encodedShareText}%20${url}`,
 		},
 		{	
 			name: "Reddit",
 			color: "bg-orange-600",
 			icon: <i className={ `fab fa-reddit text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://www.reddit.com/",
+			link: `https://www.reddit.com/submit?url=${url}&title=${encodedShareText}`,
 		},
 		{	
 			name: "Facebook",
 			color: "bg-sky-800",
 			icon: <i className={ `fab fa-facebook text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://www.facebook.com/",
-		},
-		{	
-			name: "Discord",
-			color: "bg-purple-600",
-			icon: <i className={ `fab fa-discord text-sm hover:text-zinc-400 ${trans500}`}></i>,
-			link: "https://discord.com/",
+			link: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
 		},
 	];
+
 
 	return (
 		<div className="image-info-con">
@@ -63,11 +56,11 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 						/>
 					</div>
 					<div className="actions-btns-con flex justify-center mt-2">
-						<button type="button" className={ `bookmark-btn border border-zinc-500 w-20 py-1 bg-zinc-700 hover:bg-zinc-400 rounded-l-full ${trans500}`}>
-							<i className="fa-regular fa-bookmark"></i>
+						<button data-added="false" type="button" className={ `bookmark-btn border border-zinc-500 w-20 py-1 bg-zinc-700 hover:bg-zinc-400 rounded-l-full ${trans500}`}>
+							<i className="fa-regular fa-bookmark bookmark-icon"></i>
 							{/*<i className="fa-solid fa-bookmark"></i>*/}
 						</button>
-						<button type="button" className={ `bookmark-btn border border-zinc-500 w-20 py-1 bg-zinc-800 hover:bg-zinc-400 rounded-r-full ${trans500}`}>
+						<button type="button" className={ `share-btn border border-zinc-500 w-20 py-1 bg-zinc-800 hover:bg-zinc-400 rounded-r-full ${trans500}`}>
 							<i className="fa-solid fa-share"></i>
 						</button>
 					</div>
@@ -97,21 +90,25 @@ export const MangaInfoCon = ({ manga }: { manga: MangaRead }) => {
 							<button className={ `expand-btn text-xs text-zinc-300 ml-1 hover:text-red-500 ${trans500}`}>more</button> 
 						</p>
 					</span>
-					<div className="description-modal-con">
-						<div className="inner-con border bg-zinc-700">
-							<button className="close-btn">
-								<i className="fa-solid fa-x"></i>
-							</button>
-							<span className="description">
-								<p>{description}</p>
-							</span>
+					<div className="outer-description-modal-con">
+						<div className="description-modal-con">
+							<div className="inner-con border border-zinc-500 px-2 bg-zinc-800">
+								<div className="close-btn-con">
+									<button className="close-btn">
+										<i className="fa-solid fa-x text-xl text-zinc-500"></i>
+									</button>
+								</div>
+								<span className="description scrollable">
+									<p>{description}</p>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="socials-con flex gap-1 justify-center flex-wrap">
+				<div className="socials-con flex gap-1 justify-center flex-wrap mb-5">
 					{socials.map(({ icon, link, name, color }) => {
 						return (
-							<a href={link} className= { `social-link w-28 items-center gap-3 text-sm flex justify-center rounded-md ${color} hover:bg-zinc-700 ${trans500} py-1 px-2` }>
+							<a href={link} target="_blank" className= { `social-link w-28 items-center gap-3 text-sm flex justify-center rounded-md ${color} hover:bg-zinc-700 ${trans500} py-1 px-2` }>
 								{icon} {name}
 							</a>
 						);

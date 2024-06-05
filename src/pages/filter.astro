@@ -12,7 +12,7 @@ let status = Astro.url.searchParams.get('status');
 status = !status ? "" : `&status=${status}`
 const _type = !type ? "" : `&_type=${type}`
 const query = `?genre=${genre}${status}${_type}`
-const response = await getMangas(`/filter?genre=genre-${genre}${status}${_type}&page=${page}`)
+const response = await getMangas(`/filter`)
 const { mangas, pagination } = response
 const label = ``
 
@@ -27,7 +27,7 @@ const title = "Filter - MangaRealm"
 ---
 
 <MainLayout title={ title }>
-	<MangasFilter/>	
+	<MangasFilter client:load/>	
 	<MangasWrapper {...props} />
 	<Pagination pagination={pagination} query={query} />	
 </MainLayout>

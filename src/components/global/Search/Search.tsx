@@ -1,26 +1,20 @@
 import React, { useState } from 'react';
-
-// interface SearchProps {
-//   onSearch: (query: string) => void;
-// }
-
-function onSearch(query: string) {
-  console.log({ query }) 
-}
+import DOMPurify from 'dompurify';
 
 const Search = () => {
   const [query, setQuery] = useState('');
 
+  const filterLink: string =  `/filter?keywords=${query}`
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+    const rawQuery = DOMPurify.sanitize(event.target.value)
+    setQuery(encodeURIComponent(rawQuery))
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSearch(query);
+    if (query) window.location.assign(filterLink)
   };
-
-  const filterLink: string =  `/filter?keywords=${query}`
 
   return (
     <div className="search-con flex items-center">
@@ -34,7 +28,7 @@ const Search = () => {
               className="px-2 max-w-64 bg-inherit text-sm text-zinc-400 outline-none"
               type="text"
               placeholder="Search Manga..."
-              value={query}
+              value={decodeURIComponent(query)}
               onChange={handleChange}
             />
           </div>

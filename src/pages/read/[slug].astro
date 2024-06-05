@@ -3,7 +3,7 @@ import MainLayout from '../../layouts/main.astro';
 import { getMangas, getCachedManga } from '../../services/Manganato/manganato';
 import type { genre } from '../../services/Manganato/manganatoTypes';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
-import { MangaDetails } from '../../components/Widgets/MangaDetails/MangaDetails'
+import MangaDetails  from '../../components/Widgets/MangaDetails/MangaDetails.astro'
 
 let { slug } = Astro.params;
 const url = Astro.url
@@ -26,5 +26,5 @@ const siteName = "MangaRealm"
 
 <MainLayout title={ `Reading ${manga.title} on ${siteName}` } >	
 	<MangaDetails manga={manga} similars={similars} />
-	<Comments PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
+	<Comments isOnClick={true} PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>

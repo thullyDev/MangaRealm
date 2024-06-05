@@ -1,13 +1,11 @@
 ---
+import { OpenSearchBtn } from "./OpenSearchBtn"
+import { AccountBtn } from "./AccountBtn"
 ---
 
 <div class="account-con">
-  <div class="inner-account-con flex items-center justify-center">
-    <button type="button" class="search-account-btn">
-      <i class="fas fa-search"></i>
-    </button>  
-    <a href="/profile" class="account-link">
-      <i class="fas fa-user-circle text-sm"></i>
-    </a>    
+  <div class="inner-account-con flex items-center relative">
+    <OpenSearchBtn client:load /> 
+    <AccountBtn client:load />   
   </div>
 </div>

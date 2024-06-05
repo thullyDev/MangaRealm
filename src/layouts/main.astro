@@ -1,6 +1,8 @@
 ---
 import Header from "../components/global/Header/Header.astro"
+import { Authentication } from "../components/global/Authentication/Authentication"
 import Footer from "../components/global/Footer/Footer.astro"
+import AlertBox from "../components/global/AlertBox/AlertBox.astro"
 import "../styles/global/main.scss"
 const { title } = Astro.props;
 
@@ -11,13 +13,19 @@ const favicon = "/favicon.png"
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{title}</title>
      <link rel="icon" type="image/x-icon" href={favicon}>
   </head>
 
-  <body class="dark:bg-zinc-900 dark:text-white scrollable">
+  <body class="bg-zinc-900 dark:text-white scrollable relative">
+    <Authentication client:load /> 
     <Header/>
+    <AlertBox/>
     <main class="main-content">
       <slot /> 
     </main>
