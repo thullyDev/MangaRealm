@@ -2,92 +2,8 @@ import { authItems } from "./authItems.ts";
 import { AuthForm } from "../../Widgets/AuthForm/AuthForm";
 import "./AuthenticationStyles.scss";
 import { showCloseEle } from "../../../utilities/misc.ts";
-import { cancelRenewPassword } from "../../../services/MangaRealm.api/user.ts";
-import $ from "jquery"
+import { labels, redirects } from "./redirects.tsx";
 
-const labels: Record<string, string> = {
-	signup: "Create an account to use full range of functions",
-	login: "Welcome back fellow otaku",
-	forgot_password:
-		"We will send an email to your email inbox, just follow that link to set your new password",
-	renew_password:
-		"Please renew your password, you can use your old password if needed",
-};
-const redirects: Record<string, JSX.Element> = {
-	signup: (
-		<p className="text-xs text-zinc-400 text-center">
-			Already Have an Account{" "}
-			<button
-				onClick={redirectFallBack}
-				type="button"
-				data-type="signup"
-				data-rrtype="login"
-				className="redirect-button text-red-500 underline"
-			>
-				Login
-			</button>
-		</p>
-	),
-	login: (
-		<span className="forgot-password-con flex flex-col gap-5">
-			<p className="text-xs text-zinc-400 text-center">
-				Create an Account{" "}
-				<button
-					onClick={redirectFallBack}
-					type="button"
-					data-type="login"
-					data-rrtype="signup"
-					className="redirect-button text-red-500 underline"
-				>
-					Signup
-				</button>
-			</p>
-			<button
-				onClick={redirectFallBack}
-				type="button"
-				data-type="login"
-				data-rrtype="forgot_password"
-				className="redirect-button text-sm text-zinc-500 underline"
-			>
-				Forgot Password
-			</button>
-		</span>
-	),
-	forgot_password: (
-		<span className="forgot-password-con flex flex-col gap-5">
-			<p className="text-xs text-zinc-400 text-center">
-				Back to{" "}
-				<button
-					onClick={redirectFallBack}
-					type="button"
-					data-type="forgot_password"
-					data-rrtype="login"
-					className="redirect-button text-red-500 underline"
-				>
-					Login
-				</button>
-			</p>
-			<button
-				type="button"
-				data-type="forgot_password"
-				className="resend-button text-sm text-zinc-500 underline"
-			>
-				Resend
-			</button>
-		</span>
-	),
-	cancel: (
-		<button
-			onClick={redirectFallBack}
-			type="button"
-			data-type="renew_password"
-			data-rrtype="cancel"
-			className="redirect-button text-red-500 underline"
-		>
-			Cancel
-		</button>
-	),
-};
 export const Authentication = () => {
 	const formEles: JSX.Element[] = [];
 
@@ -139,24 +55,3 @@ export const Authentication = () => {
 		</div>
 	);
 };
-
-function redirectFallBack(event: React.MouseEvent<HTMLButtonElement>) {
-	const eventEle = $(event.currentTarget);
-	const rrtype = eventEle.data("rrtype");
-	const type = eventEle.data("type");
-
-	if (rrtype == "cancel") {
-		cancelRenewPassword();
-		showCloseEle(event);
-		return;
-	}
-
-	const activeAuthCon = $(".outer-auth-form-con.active");
-	const authCon = $(
-		`.outer-auth-form-con[data-type="${rrtype}"]`,
-	);
-
-
-	activeAuthCon?.removeClass("active")
-	authCon?.addClass("active")
-}
