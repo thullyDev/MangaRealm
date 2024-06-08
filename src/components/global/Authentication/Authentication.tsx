@@ -29,32 +29,52 @@ const redirects: Record<string, JSX.Element> = {
 		</p>
 	),
 	login: (
-		<p className="text-xs text-zinc-400 text-center">
-			Create an Account{" "}
+		<span className="forgot-password-con flex flex-col gap-5">
+			<p className="text-xs text-zinc-400 text-center">
+				Create an Account{" "}
+				<button
+					onClick={redirectFallBack}
+					type="button"
+					data-type="login"
+					data-rrtype="signup"
+					className="redirect-button text-red-500 underline"
+				>
+					Signup
+				</button>
+			</p>
 			<button
 				onClick={redirectFallBack}
 				type="button"
 				data-type="login"
-				data-rrtype="signup"
-				className="redirect-button text-red-500 underline"
+				data-rrtype="forgot_password"
+				className="redirect-button text-sm text-zinc-500 underline"
 			>
-				Signup
+				Forgot Password
 			</button>
-		</p>
+		</span>
 	),
 	forgot_password: (
-		<p className="text-xs text-zinc-400 text-center">
-			Back to{" "}
+		<span className="forgot-password-con flex flex-col gap-5">
+			<p className="text-xs text-zinc-400 text-center">
+				Back to{" "}
+				<button
+					onClick={redirectFallBack}
+					type="button"
+					data-type="forgot_password"
+					data-rrtype="login"
+					className="redirect-button text-red-500 underline"
+				>
+					Login
+				</button>
+			</p>
 			<button
-				onClick={redirectFallBack}
 				type="button"
 				data-type="forgot_password"
-				data-rrtype="login"
-				className="redirect-button text-red-500 underline"
+				className="resend-button text-sm text-zinc-500 underline"
 			>
-				Login
+				Resend
 			</button>
-		</p>
+		</span>
 	),
 	cancel: (
 		<button
