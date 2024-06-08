@@ -76,7 +76,7 @@ export const Authentication = () => {
 		const className =
 			count == 0 ? "outer-auth-form-con active" : "outer-auth-form-con";
 		const ele = (
-			<div data-type={authType} className={className}>
+			<div key={count} data-type={authType} className={className}>
 				<AuthForm
 					redirect={redirects[authType]}
 					authType={authType}
@@ -139,5 +139,4 @@ function redirectFallBack(event: React.MouseEvent<HTMLButtonElement>) {
 
 	activeAuthCon?.removeClass("active")
 	authCon?.addClass("active")
-
 }
