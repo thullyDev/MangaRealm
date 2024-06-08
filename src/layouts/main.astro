@@ -21,7 +21,6 @@ const favicon = "/favicon.png"
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{title}</title>
     <link rel="icon" type="image/x-icon" href={favicon}>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
 
   <body class="bg-zinc-900 dark:text-white scrollable relative">
@@ -37,25 +36,13 @@ const favicon = "/favicon.png"
 <script define:vars={{HCAPTCHA_SITE_KEY}}>
   window.captchas = {}
 
-  window.renderCaptchas = (captchaIDs) => {
-    for (let i = 0; i < captchaIDs.length; i++) {
-      const id = captchaIDs[i]
+  window.renderCaptchaWidgets = () => {
+    document.querySelector(".captcha-widgets").forEach(function(ele) {
+      const id = ele.getAttribute("id")
       captchas[id] = hcaptcha.render(id, {
             'sitekey' : HCAPTCHA_SITE_KEY,
           });
-    }
-  }
-
-  window.renderCaptchaWidgets = () => {
-    const captchaIDs = []
-    $(".captcha-widgets").each(function() {
-      const thisEle = $(this)
-      const id = thisEle.attr("id")
-
-      captchaIDs.push(id)
     })
-
-    renderCaptchas(captchaIDs)
   }
 
   window.getCaptchaResponse = (id) => {
@@ -67,5 +54,5 @@ const favicon = "/favicon.png"
     const script = document.createElement("script")
     script.src = "https://js.hcaptcha.com/1/api.js?hl=es&onload=renderCaptchaWidgets&render=explicit"
     document.body.appendChild(script)
-  }, 15000)
+  }, 17000) 
 </script>
