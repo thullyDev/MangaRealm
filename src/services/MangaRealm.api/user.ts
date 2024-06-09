@@ -31,7 +31,7 @@ export function signup({
 		return;
 	}
 
-	if (password.length <= 10) {
+	if (password.length < 10) {
 		_Alert("password should be atleast 10 characters");
 		return;
 	}
@@ -53,7 +53,7 @@ export function login({ captchaResponse, email, password }: _Login) {
 		return;
 	}
 
-	if (password.length <= 10) {
+	if (password.length < 10) {
 		_Alert("password should be atleast 10 characters");
 		return;
 	}
@@ -77,7 +77,7 @@ export function renewPassword({
 	confirm,
 	password,
 }: _RenewPassword) {
-	if (password.length <= 10) {
+	if (password.length < 10) {
 		_Alert("password should be atleast 10 characters");
 		return;
 	}

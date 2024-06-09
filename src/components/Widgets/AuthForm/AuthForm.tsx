@@ -1,6 +1,6 @@
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "../../../services/MangaRealm.api/types";
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
-import { _Alert, formatKey, getInputs, isEmailValid, titleCase, trans500 } from "../../../utilities/misc";
+import { _Alert, formatKey, getInputs, titleCase, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
@@ -18,10 +18,15 @@ const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 	const thisEle = $(event.currentTarget);
 	const authType: string = thisEle.data("type")
 	 // @ts-ignore
+	if (!window.captchas) {
+		_Alert("please wait for captcha block to show up")
+		return
+	}
+	 // @ts-ignore
 	const captchaResponse = window.getCaptchaResponse(`captcha-${authType}`)
-	
+
 	if (!captchaResponse) {
-		_Alert("Please do the captcha")
+		_Alert("please do the captcha")
 		return
 	}
 
@@ -31,13 +36,13 @@ const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 	for (const [key, value] of Object.entries(data)) {
 		if (value) continue
 
-		_Alert(`${titleCase(key)} is empty`)
+		_Alert(`${key} is empty`)
 		return 
 	}
 
 	const authFuncs: Record<string, Function> = {
 		signup: signup,
-		login: signup,
+		login: login,
 		forgot_password: forgotPassword,
 		renew_password: renewPassword,
 	}

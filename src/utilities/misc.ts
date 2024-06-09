@@ -56,7 +56,7 @@ export const _Alert = (message: string | number, noTitle: boolean = false) => {
    if (!msgEle || !alertbox) return;
 
    // @ts-ignore
-   msgEle.textContent = noTitile == true ? message : titleCase(message);
+   msgEle.textContent = noTitle == true ? message : titleCase(message);
    // @ts-ignore
    alertbox.style.display = "flex";
    const fiveSecs = 5000;

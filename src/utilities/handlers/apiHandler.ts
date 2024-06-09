@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse } from 'axios';
 import { CRASH, SUCCESSFUL } from '../errors';
+import { authApiUrl } from '../config';
 
 export interface RequestOptions {
     [key: string]: any;

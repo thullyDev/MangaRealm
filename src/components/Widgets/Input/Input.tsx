@@ -15,7 +15,7 @@ export const Input = ({ item, className }: { className: string, item: Item }) =>
 				<div className="icon-con">
 					<i className={ "text-zinc-600 " + icon }></i>
 				</div>
-				<input className={ `${className} bg-inherit text-zinc-600 text-xs border-none outline-none w-full`} data-key={label} type={input} placeholder={titleCase(label)} />				
+				<input className={ `${className} bg-inherit text-zinc-400 text-xs border-none outline-none w-full`} data-key={label} type={input} placeholder={titleCase(label)} />				
 			</div>
 		</div>
 	)
