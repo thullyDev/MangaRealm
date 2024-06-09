@@ -1,27 +1,52 @@
-import { formatKey, titleCase, trans500 } from "../../../utilities/misc";
+import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
+import { formatKey, getInputs, titleCase, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
-import { Input, type _Input } from "../Input/Input";
+import { Input, type Item } from "../Input/Input";
 
 
 interface _AuthForm {
 	authType: string;
 	label: string;
-	inputs: _Input[];
+	inputs: Item[];
 	redirect: JSX.Element;
 }
 
-
-
 const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-	const eventEle = $(event.currentTarget);
+	const thisEle = $(event.currentTarget);
+	const authType: string = thisEle.data("type")
+
+	
+
+	// const data = getInputs(`.auth-input-${authType}`)
+
+
+	// if (authType == "signup") {
+	// 	signup()
+	// 	return
+	// }
+
+	// if (_type == "lgoin") {
+	// 	login()
+	// 	return
+	// }
+
+	// if (_type == "forgot_password") {
+	// 	forgotPassword()
+	// 	return
+	// }
+
+	// if (_type == "renew_password") {
+	// 	renewPassword()
+	// 	return
+	// }
 }
 
 
 export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
 	const captchaId = authType
 	return (
-		<div className="auth-form-con flex justify-center ">
-			<div className="inner-con px-5 py-1 w-96">
+		<div className="auth-form-con flex justify-center" >
+			<div className="inner-con px-5 py-1">
 				<div className="form-label-text-con flex flex-col gap-2 mb-2">
 					<p className="form-label text-2xl">
 						{formatKey(authType)}
@@ -34,7 +59,7 @@ export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
 					<form action="post">
 						<div className="inputs-con flex flex-col gap-5">
 							{
-								inputs.map((item, index) => <Input item={item} key={index} />)
+								inputs.map((item, index) => <Input className={`auth-input-${authType}`} item={item} key={index} />)
 							}
 						</div>
 						<HCaptcha captchaId={captchaId} />

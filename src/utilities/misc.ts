@@ -36,9 +36,9 @@ export function getInputs(selector: string) {
   selectInputs.each((_, ele) => {
     const thisEle = $(ele)
     const name = thisEle.data("key")
-    const value = thisEle.val()
+    let value = thisEle.val()
 
-    if (!value) return 
+    if (!value) value = "" 
 
     if (typeof value == 'object' || typeof value == 'number') return 
 
@@ -48,7 +48,7 @@ export function getInputs(selector: string) {
   return data
 }
 
-const _Alert = (message: string | number) => {
+export const _Alert = (message: string | number) => {
    const alertbox = document.querySelector(".alertbox")
    const msgEle = document.querySelector(".alertbox .msg")
 
@@ -72,3 +72,9 @@ export const titleCase = (str: string) => {
     return firstLetter.toUpperCase();
   });
 }
+
+export const isEmailValid = (email: string): boolean => {
+  const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+

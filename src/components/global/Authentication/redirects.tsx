@@ -1,28 +1,6 @@
-import $ from "jquery"
+import $ from "jquery";
 import { cancelRenewPassword } from "../../../services/MangaRealm.api/user";
 import { showCloseEle } from "../../../utilities/misc";
-
-function redirectFallBack(event: React.MouseEvent<HTMLButtonElement>) {
-	const eventEle = $(event.currentTarget);
-	const rrtype = eventEle.data("rrtype");
-	const type = eventEle.data("type");
-
-	if (rrtype == "cancel") {
-		cancelRenewPassword();
-		showCloseEle(event);
-		return;
-	}
-
-	const activeAuthCon = $(".outer-auth-form-con.active");
-	const authCon = $(
-		`.outer-auth-form-con[data-type="${rrtype}"]`,
-	);
-
-
-	activeAuthCon?.removeClass("active")
-	authCon?.addClass("active")
-}
-
 
 export const labels: Record<string, string> = {
 	signup: "Create an account to use full range of functions",
@@ -32,8 +10,16 @@ export const labels: Record<string, string> = {
 	renew_password:
 		"Please renew your password, you can use your old password if needed",
 };
+
 export const redirects: Record<string, JSX.Element> = {
-	signup: (
+	signup: <SignupRedirectBlock />,
+	login: <LoginRedirectBlock />,
+	forgot_password: <ForgotPasswordRedirectBlock />,
+	renew_password: <RenewPasswordRedirectBlock />,
+};
+
+function SignupRedirectBlock() {
+	return (
 		<p className="text-xs text-zinc-400 text-center">
 			Already Have an Account{" "}
 			<button
@@ -46,8 +32,11 @@ export const redirects: Record<string, JSX.Element> = {
 				Login
 			</button>
 		</p>
-	),
-	login: (
+	);
+}
+
+function LoginRedirectBlock() {
+	return (
 		<span className="forgot-password-con flex flex-col gap-5">
 			<p className="text-xs text-zinc-400 text-center">
 				Create an Account{" "}
@@ -71,8 +60,25 @@ export const redirects: Record<string, JSX.Element> = {
 				Forgot Password
 			</button>
 		</span>
-	),
-	forgot_password: (
+	);
+}
+
+function RenewPasswordRedirectBlock() {
+	return (
+		<button
+			onClick={redirectFallBack}
+			type="button"
+			data-type="renew_password"
+			data-rrtype="cancel"
+			className="redirect-button text-red-500 text-center underline"
+		>
+			Cancel
+		</button>
+	);
+}
+
+function ForgotPasswordRedirectBlock() {
+	return (
 		<span className="forgot-password-con flex flex-col gap-5">
 			<p className="text-xs text-zinc-400 text-center">
 				Back to{" "}
@@ -94,16 +100,23 @@ export const redirects: Record<string, JSX.Element> = {
 				Resend
 			</button>
 		</span>
-	),
-	cancel: (
-		<button
-			onClick={redirectFallBack}
-			type="button"
-			data-type="renew_password"
-			data-rrtype="cancel"
-			className="redirect-button text-red-500 underline"
-		>
-			Cancel
-		</button>
-	),
-};
+	);
+}
+
+function redirectFallBack(event: React.MouseEvent<HTMLButtonElement>) {
+	const eventEle = $(event.currentTarget);
+	const rrtype = eventEle.data("rrtype");
+	const type = eventEle.data("type");
+
+	if (rrtype == "cancel") {
+		cancelRenewPassword();
+		showCloseEle(event);
+		return;
+	}
+
+	const activeAuthCon = $(".outer-auth-form-con.active");
+	const authCon = $(`.outer-auth-form-con[data-type="${rrtype}"]`);
+
+	activeAuthCon?.removeClass("active");
+	authCon?.addClass("active");
+}

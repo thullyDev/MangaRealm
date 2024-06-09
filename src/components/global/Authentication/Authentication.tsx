@@ -28,7 +28,7 @@ export const Authentication = () => {
 	return (
 		<div data-open="false" className="outer-auth-forms-con">
 			<div className="auth-forms-con">
-				<div className="inner-con bg-neutral-800 rounded">
+				<div className="inner-con bg-neutral-800 relative rounded">
 					<div className="close-con flex justify-end relative top-5 right-5">
 						<button
 							className="close-btn"

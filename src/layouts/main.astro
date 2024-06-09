@@ -21,8 +21,8 @@ const favicon = "/favicon.png"
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{title}</title>
     <link rel="icon" type="image/x-icon" href={favicon}>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
-
   <body class="bg-zinc-900 dark:text-white scrollable relative">
     <Authentication client:load /> 
     <Header/>
@@ -37,8 +37,8 @@ const favicon = "/favicon.png"
   window.captchas = {}
 
   window.renderCaptchaWidgets = () => {
-    document.querySelector(".captcha-widgets").forEach(function(ele) {
-      const id = ele.getAttribute("id")
+    $(".captcha-widgets").each(function() {
+      const id = $(this).attr("id")
       captchas[id] = hcaptcha.render(id, {
             'sitekey' : HCAPTCHA_SITE_KEY,
           });

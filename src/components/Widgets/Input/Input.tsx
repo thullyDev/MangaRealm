@@ -1,12 +1,12 @@
 import { titleCase } from "../../../utilities/misc";
 
-export interface _Input {
+export interface Item {
 	input: string;
 	label: string;
 	icon: string;
 }
 
-export const Input = ({ item }: { item: _Input }) => {
+export const Input = ({ item, className }: { className: string, item: Item }) => {
 	const { label, input, icon  } = item
 
 	return (
@@ -15,7 +15,7 @@ export const Input = ({ item }: { item: _Input }) => {
 				<div className="icon-con">
 					<i className={ "text-zinc-600 " + icon }></i>
 				</div>
-				<input className="bg-inherit text-zinc-600 text-xs border-none outline-none w-full" type={input} placeholder={titleCase(label)} />				
+				<input className={ `${className} bg-inherit text-zinc-600 text-xs border-none outline-none w-full`} data-key={label} type={input} placeholder={titleCase(label)} />				
 			</div>
 		</div>
 	)
