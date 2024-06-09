@@ -1,5 +1,6 @@
+import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "../../../services/MangaRealm.api/types";
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
-import { _Alert, formatKey, getInputs, titleCase, trans500 } from "../../../utilities/misc";
+import { _Alert, formatKey, getInputs, isEmailValid, titleCase, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
@@ -10,6 +11,8 @@ interface _AuthForm {
 	inputs: Item[];
 	redirect: JSX.Element;
 }
+
+interface _AuthInputData extends _Signup, _Login, _ForgotPassword, _RenewPassword {}
 
 const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 	const thisEle = $(event.currentTarget);
@@ -22,29 +25,24 @@ const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 		return
 	}
 
+	// @ts-ignore
+	const data: _AuthInputData = getInputs(`.auth-input-${authType}`)
 
-	// const data = getInputs(`.auth-input-${authType}`)
+	for (const [key, value] of Object.entries(data)) {
+		if (value) continue
 
+		_Alert(`${titleCase(key)} is empty`)
+		return 
+	}
 
-	// if (authType == "signup") {
-	// 	signup()
-	// 	return
-	// }
+	const authFuncs: Record<string, Function> = {
+		signup: signup,
+		login: signup,
+		forgot_password: forgotPassword,
+		renew_password: renewPassword,
+	}
 
-	// if (_type == "lgoin") {
-	// 	login()
-	// 	return
-	// }
-
-	// if (_type == "forgot_password") {
-	// 	forgotPassword()
-	// 	return
-	// }
-
-	// if (_type == "renew_password") {
-	// 	renewPassword()
-	// 	return
-	// }
+	authFuncs[authType](data)
 }
 
 
