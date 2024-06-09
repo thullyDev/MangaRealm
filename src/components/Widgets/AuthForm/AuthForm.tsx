@@ -1,6 +1,6 @@
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "../../../services/MangaRealm.api/types";
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
-import { _Alert, formatKey, getInputs, titleCase, trans500 } from "../../../utilities/misc";
+import { _Alert, formatKey, getInputs, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
