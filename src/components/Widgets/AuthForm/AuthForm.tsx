@@ -1,5 +1,5 @@
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
-import { formatKey, getInputs, titleCase, trans500 } from "../../../utilities/misc";
+import { _Alert, formatKey, getInputs, titleCase, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
@@ -14,8 +14,14 @@ interface _AuthForm {
 const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 	const thisEle = $(event.currentTarget);
 	const authType: string = thisEle.data("type")
-
+	 // @ts-ignore
+	const captchaResponse = window.getCaptchaResponse(`captcha-${authType}`)
 	
+	if (!captchaResponse) {
+		_Alert("Please do the captcha")
+		return
+	}
+
 
 	// const data = getInputs(`.auth-input-${authType}`)
 
