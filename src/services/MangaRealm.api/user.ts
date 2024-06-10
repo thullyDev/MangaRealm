@@ -7,9 +7,12 @@ import { authApiUrl } from "../../utilities/config";
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "./types";
 import { _Alert, isEmailValid } from "../../utilities/misc";
 
+// @ts-ignore
 const authApi = new ApiHandler(authApiUrl);
 
 export const setBookmark = () => {
+
+
 	return true;
 };
 
