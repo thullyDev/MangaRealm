@@ -104,7 +104,6 @@ function request(
 	return authApi.post(endpoint, params, { headers });
 }
 
-
 // const options: RequestOptions = {
 //     method: 'GET',
 //     headers: {
