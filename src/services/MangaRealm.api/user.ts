@@ -3,16 +3,13 @@ import {
 	ApiHandler,
 	type RequestOptions,
 } from "../../utilities/handlers/apiHandler";
-import { authApiUrl } from "../../utilities/config";
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "./types";
 import { _Alert, isEmailValid } from "../../utilities/misc";
 
 // @ts-ignore
-const authApi = new ApiHandler(authApiUrl);
+const authApi = new ApiHandler("/auth");
 
 export const setBookmark = () => {
-
-
 	return true;
 };
 

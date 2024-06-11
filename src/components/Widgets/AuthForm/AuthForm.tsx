@@ -55,7 +55,7 @@ export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
 	const captchaId = authType
 	return (
 		<div className="auth-form-con flex justify-center" >
-			<div className="inner-con px-5 py-1">
+			<div className="inner-con px-5 py-1 w-full">
 				<div className="form-label-text-con flex flex-col gap-2 mb-2">
 					<p className="form-label text-2xl">
 						{formatKey(authType)}
