@@ -7,7 +7,7 @@ import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "./types";
 import { _Alert, isEmailValid } from "../../utilities/misc";
 
 // @ts-ignore
-const authApi = new ApiHandler("/auth");
+const authApi = new ApiHandler("");
 
 export const setBookmark = () => {
 	return true;

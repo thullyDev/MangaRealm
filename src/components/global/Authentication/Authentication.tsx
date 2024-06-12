@@ -4,7 +4,7 @@ import "./AuthenticationStyles.scss";
 import { showCloseEle } from "../../../utilities/misc.ts";
 import { labels, redirects } from "./redirects.tsx";
 
-export const Authentication = () => {
+export const Authentication = ({ AuthApiUrl }: { AuthApiUrl: string }) => {
 	const formEles: JSX.Element[] = [];
 
 	let count = 0;

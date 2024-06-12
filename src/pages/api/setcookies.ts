@@ -8,6 +8,7 @@ interface _Setcookie {
   httpOnly?: boolean,
 }
 
+// to deletcookies, just set the max-age to 0
 export const POST: APIRoute = async ({ request }) => {
   const url = new URL(request.url)
   const rawData = url.searchParams.get("data")
@@ -16,7 +17,6 @@ export const POST: APIRoute = async ({ request }) => {
     const response = new Response(
       JSON.stringify({
         message: 'no data',
-        // data: requestBody,
       })
     );
     return response;
@@ -29,8 +29,6 @@ export const POST: APIRoute = async ({ request }) => {
   const response = new Response(
     JSON.stringify({
       message: 'cookie set successfully',
-      // data: requestBody,
-      data
     })
   );
 
