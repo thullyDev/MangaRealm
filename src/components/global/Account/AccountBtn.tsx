@@ -15,7 +15,7 @@ export const AccountBtn = () => {
       data-element=".outer-auth-forms-con"
       data-animate="fade"
       className="account-button">
-      <i className="fas fa-user-circle text-3xl"></i>
+      <i className="fa-regular fa-user-circle text-3xl"></i>
     </button>  
   )
 }
