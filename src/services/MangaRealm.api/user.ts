@@ -101,7 +101,16 @@ function request(
 		"Content-Type": "application/json",
 		captchaResponse: captchaResponse,
 	};
-	return authApi.post(endpoint, params, { headers });
+	const base = getAuthApiUrl() 
+	return authApi.post(base + endpoint, params, { headers });
+}
+
+function getAuthApiUrl(): string {
+	const inp = document.querySelector(".auth-api-inpt") as HTMLInputElement
+	if (!inp)
+		return ""
+
+	return inp.value
 }
 
 // const options: RequestOptions = {

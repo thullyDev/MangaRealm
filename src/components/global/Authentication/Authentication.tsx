@@ -4,7 +4,7 @@ import "./AuthenticationStyles.scss";
 import { showCloseEle } from "../../../utilities/misc.ts";
 import { labels, redirects } from "./redirects.tsx";
 
-export const Authentication = ({ AuthApiUrl }: { AuthApiUrl: string }) => {
+export const Authentication = ({ authApiUrl }: { authApiUrl: string }) => {
 	const formEles: JSX.Element[] = [];
 
 	let count = 0;
@@ -52,6 +52,7 @@ export const Authentication = ({ AuthApiUrl }: { AuthApiUrl: string }) => {
 					</div>
 				</div>
 			</div>
+			<input value={authApiUrl} type="hidden" className="auth-api-inpt" readOnly />
 		</div>
 	);
 };
