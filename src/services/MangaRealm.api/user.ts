@@ -99,7 +99,7 @@ async function request(
 ) {
 	const headers = {
 		"Content-Type": "application/json",
-		captchaToken: captchaResponse,
+		// captchaToken: captchaResponse,
 	};
 	const base = getAuthApiUrl() 
 	return await authApi.post(base + endpoint, params, { headers });

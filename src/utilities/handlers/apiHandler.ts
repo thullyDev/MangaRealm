@@ -26,6 +26,7 @@ export class ApiHandler {
                 ...kwargs
             });
 
+
             if (response.status !== SUCCESSFUL) {
                 return { status: response.status };
             }
@@ -37,8 +38,6 @@ export class ApiHandler {
                 }
             };
         } catch (error: any) {
-            console.error('Error making request:', error);
-
             if (error.isAxiosError && error.code === 'ECONNREFUSED') {
               return { status: CRASH }; 
             } else {
@@ -51,7 +50,7 @@ export class ApiHandler {
         return await this.request(endpoint, 'GET', { params, ...kwargs });
     }
 
-    async post(endpoint: string, data: RequestOptions = {}, kwargs: RequestOptions = {}): Promise<ApiHandlerResponse> {
-        return await this.request(endpoint, 'POST', { data, ...kwargs });
+    async post(endpoint: string, params: RequestOptions = {}, kwargs: RequestOptions = {}): Promise<ApiHandlerResponse> {
+        return await this.request(endpoint, 'POST', { params, ...kwargs });
     }
 }
