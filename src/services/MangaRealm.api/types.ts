@@ -16,9 +16,12 @@ export interface _Setcookie extends _Cookie {
   httpOnly?: boolean,
 }
 
-export interface _AuthResponse {
-	status_code: number;
+export interface _Response { 
 	message: string;
+	status_code: number 
+}
+
+export interface _AuthResponse extends _Response{
 	data: _AuthUser;
 }
 

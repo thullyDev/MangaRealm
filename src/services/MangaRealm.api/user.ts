@@ -8,6 +8,7 @@ import type {
 	_ForgotPassword,
 	_Login,
 	_RenewPassword,
+	_Response,
 	_Setcookie,
 	_Signup,
 } from "./types";
@@ -50,17 +51,28 @@ export async function signup({
 
 	const params = { email, username, password, confirm };
 	const data = await request("/signup", params, captchaResponse);
+	const { status_code, message } = data.data as _Response;
+
+	if (status_code != 200) {
+		_Alert(message);
+		return false;
+	}
 
 	return true;
 }
 
-export async function setAuthCookies({ token, email, profile_image_url, username }: _AuthUser) {
+export async function setAuthCookies({
+	token,
+	email,
+	profile_image_url,
+	username,
+}: _AuthUser) {
 	const user = {
 		email,
 		profile_image_url,
 		username,
 	};
-	const sixtyDaysInSeconds = 5184000
+	const sixtyDaysInSeconds = 5184000;
 	const cookies: _Setcookie[] = [
 		{
 			key: "session_token",
@@ -71,12 +83,11 @@ export async function setAuthCookies({ token, email, profile_image_url, username
 			key: "user_data",
 			value: JSON.stringify(user),
 			maxAge: sixtyDaysInSeconds,
-		}
-	]
+		},
+	];
 
-	const data = await authApi.post("/api/setcookies", { data: cookies })
-	console.log({ data })
-
+	const data = await authApi.post("/api/setcookies", { data: cookies });
+	console.log({ data });
 }
 
 export async function login({ captchaResponse, email, password }: _Login) {
@@ -103,6 +114,10 @@ export async function login({ captchaResponse, email, password }: _Login) {
 	return true;
 }
 
+// export async function verify(data: _AuthUser) {
+// 	setAuthCookies(data);
+// }
+
 export async function forgotPassword({
 	captchaResponse,
 	email,
@@ -113,6 +128,13 @@ export async function forgotPassword({
 	}
 	const params = { email };
 	const data = await request("/forgot_password", params, captchaResponse);
+
+	const { status_code, message } = data.data as _Response;
+	if (status_code != 200) {
+		_Alert(message);
+		return false;
+	}
+
 	return true;
 }
 
@@ -133,6 +155,13 @@ export async function renewPassword({
 
 	const params = { password, confirm };
 	const data = await request("/renew_password", params, captchaResponse);
+	const { status_code, message } = data.data as _Response;
+
+	if (status_code != 200) {
+		_Alert(message);
+		return false;
+	}
+
 	return true;
 }
 
@@ -156,15 +185,3 @@ function getAuthApiUrl(): string {
 	return inp.value;
 }
 
-// const options: RequestOptions = {
-//     method: 'GET',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     timeout: 5000
-// };
-
-// function isValid(email: string, confirm: string, password: string): boolean {
-// 		const isPasswordValid = password == confirm || password.length >= 10
-// 		return !isEmailValid(email) || !isPasswordValid
-// }
