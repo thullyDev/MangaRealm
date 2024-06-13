@@ -87,7 +87,6 @@ export async function setAuthCookies({
 	];
 
 	const data = await authApi.post("/api/setcookies", { data: cookies });
-	console.log({ data });
 }
 
 export async function login({ captchaResponse, email, password }: _Login) {
@@ -117,6 +116,12 @@ export async function login({ captchaResponse, email, password }: _Login) {
 // export async function verify(data: _AuthUser) {
 // 	setAuthCookies(data);
 // }
+
+export async function verify(code: string): Promise<_AuthResponse> {
+	const base = getAuthApiUrl();
+	const data = await authApi.post(base + `/verify/${code}`);
+	return data.data as _AuthResponse;
+}
 
 export async function forgotPassword({
 	captchaResponse,

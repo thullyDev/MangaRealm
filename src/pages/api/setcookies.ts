@@ -17,7 +17,6 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const data: _Setcookie[] = JSON.parse(rawData) 
-  const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60;
 
 
   const response = new Response(
@@ -27,6 +26,13 @@ export const POST: APIRoute = async ({ request }) => {
     { status: 200 },
   );
 
+  setCookies(data, response)
+
+  return response;
+};
+
+export function setCookies(data: _Setcookie[], response: Response) {
+  const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60;
   for (let i=0; i < data.length; i++) {
     const { key, value, maxAge, secure, httpOnly } = data[i];
     const cookieOptions = {
@@ -36,6 +42,4 @@ export const POST: APIRoute = async ({ request }) => {
     };
     response.headers.append('Set-Cookie', `${key}=${value}; ${Object.entries(cookieOptions).map(([key, value]) => `${key}=${value}`).join('; ')}`);
   }
-
-  return response;
-};
+}
