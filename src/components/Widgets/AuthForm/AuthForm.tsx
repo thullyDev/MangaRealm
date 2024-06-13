@@ -18,17 +18,17 @@ const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
 	const thisEle = $(event.currentTarget);
 	const authType: string = thisEle.data("type")
 	 // @ts-ignore
-	if (!window.captchas) {
-		_Alert("please wait for captcha block to show up")
-		return
-	}
+	// if (!window.captchas) {
+	// 	_Alert("please wait for captcha block to show up")
+	// 	return
+	// }
 	 // @ts-ignore
-	const captchaResponse = window.getCaptchaResponse(`captcha-${authType}`)
+	// const captchaResponse = window.getCaptchaResponse(`captcha-${authType}`)
 
-	if (!captchaResponse) {
-		_Alert("please do the captcha")
-		return
-	}
+	// if (!captchaResponse) {
+	// 	_Alert("please do the captcha")
+	// 	return
+	// }
 
 	// @ts-ignore
 	const data: _AuthInputData = getInputs(`.auth-input-${authType}`)
