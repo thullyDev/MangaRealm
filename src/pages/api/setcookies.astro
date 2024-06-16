@@ -1,10 +1,11 @@
-import type { APIRoute } from 'astro';
+---
 import type { _Setcookie } from '../../services/MangaRealm.api/types';
 
 // to deletcookies, just set the max-age to 0
-export const POST: APIRoute = async ({ request }) => {
-  const url = new URL(request.url)
+  const url = Astro.url
   const rawData = url.searchParams.get("data")
+  // const request = Astro.request.headers.set()
+// console.log({ here: Astro.cookies.has("session_token") })
 
   if (!rawData) {
     const response = new Response(
@@ -18,7 +19,6 @@ export const POST: APIRoute = async ({ request }) => {
 
   const data: _Setcookie[] = JSON.parse(rawData) 
 
-
   const response = new Response(
     JSON.stringify({
       message: 'cookie set successfully',
@@ -26,20 +26,16 @@ export const POST: APIRoute = async ({ request }) => {
     { status: 200 },
   );
 
-  setCookies(data, response)
-
-  return response;
-};
-
-export function setCookies(data: _Setcookie[], response: Response) {
-  const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60;
+  const THIRTY_DAYS_SECONDS = 5184000 // this is not a 1 day
   for (let i=0; i < data.length; i++) {
     const { key, value, maxAge, secure, httpOnly } = data[i];
     const cookieOptions = {
-      'max-age': maxAge || THIRTY_DAYS_SECONDS, 
+      maxAge: maxAge || THIRTY_DAYS_SECONDS, 
       secure: secure || true, 
       httpOnly: httpOnly || true, 
     };
-    response.headers.append('Set-Cookie', `${key}=${value}; ${Object.entries(cookieOptions).map(([key, value]) => `${key}=${value}`).join('; ')}`);
-  }
+    Astro.cookies.set(key, value, cookieOptions)
 }
+
+return response
+---

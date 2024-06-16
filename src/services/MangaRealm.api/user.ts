@@ -13,7 +13,6 @@ import type {
 	_Signup,
 } from "./types";
 import { _Alert, isEmailValid } from "../../utilities/misc";
-import { Session } from "inspector";
 
 const authApi = new ApiHandler("");
 
@@ -73,7 +72,7 @@ export async function setAuthCookies({
 		username,
 	};
 	const sixtyDaysInSeconds = 5184000;
-	const cookies: _Setcookie[] = [
+	const cookies = JSON.stringify([
 		{
 			key: "session_token",
 			value: token,
@@ -84,9 +83,10 @@ export async function setAuthCookies({
 			value: JSON.stringify(user),
 			maxAge: sixtyDaysInSeconds,
 		},
-	];
+	]);
 
 	const data = await authApi.post("/api/setcookies", { data: cookies });
+	console.log({ data })
 }
 
 export async function login({ captchaResponse, email, password }: _Login) {

@@ -6,8 +6,10 @@ import AlertBox from "../components/global/AlertBox/AlertBox.astro"
 import "../styles/global/main.scss"
 import { HCAPTCHA_SITE_KEY, authApiUrl } from "../utilities/config.ts"
 const { title } = Astro.props;
+// console.log({ cookies: Astro.cookies.get("session_token") })
 
-
+const hasToken = Astro.cookies.has("session_token");
+console.log({ hasToken })
 const favicon = "/favicon.png"
 ---
 
