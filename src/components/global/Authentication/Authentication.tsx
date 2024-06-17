@@ -3,6 +3,7 @@ import { AuthForm } from "../../Widgets/AuthForm/AuthForm";
 import "./AuthenticationStyles.scss";
 import { showCloseEle } from "../../../utilities/misc.ts";
 import { labels, redirects } from "./redirects.tsx";
+import { Loader } from "../../Widgets/Loader/Loader.tsx";
 
 export const Authentication = ({ authApiUrl }: { authApiUrl: string }) => {
 	const formEles: JSX.Element[] = [];
@@ -40,8 +41,11 @@ export const Authentication = ({ authApiUrl }: { authApiUrl: string }) => {
 							<i className="fa-solid fa-x"></i>
 						</button>
 					</div>
-					<div className="second-inner-con">
+					<div className="second-inner-con relative">
 						<div className="inner-auth-forms-con">{formEles}</div>
+						<div className="auth-loader-con flex justify-center items-center rounded">
+							<Loader/>
+						</div>
 					</div>
 					<div className="bg-img-con">
 						<img
