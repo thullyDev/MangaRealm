@@ -65,15 +65,25 @@ function LoginRedirectBlock() {
 
 function RenewPasswordRedirectBlock() {
 	return (
-		<button
-			onClick={redirectFallBack}
-			type="button"
-			data-type="renew_password"
-			data-rrtype="cancel"
-			className="redirect-button text-red-500 text-center underline"
-		>
-			Cancel
-		</button>
+			<div className="flex justify-center">
+				<button
+					onClick={redirectFallBack}
+					type="button"
+					data-type="renew_password"
+					data-rrtype="forgot_password"
+					className="redirect-button text-sm text-center bg-zinc-700 py-1 px-5 border border-zinc-500 rounded-full"
+				>
+					Cancel
+				</button>
+				<button
+					onClick={redirectFallBack}
+					type="button"
+					data-type="login"
+					data-rrtype="renew_password"
+					className="redirect-button show-renew-btn hidden text-center underline"
+				>
+				</button>
+			</div>
 	);
 }
 
