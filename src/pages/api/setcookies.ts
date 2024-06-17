@@ -1,32 +1,19 @@
 import type { APIRoute } from 'astro';
 import type { _Setcookie } from '../../services/MangaRealm.api/types';
 
-export const post: APIRoute = async function post({ cookies, request }) {
-    // try {
-    //     const { url: requestUrl } = request;
-    //     const { searchParams } = new URL(requestUrl);
-    //     const startTime = searchParams.get('startTime');
-    //     console.log({ startTime });
-
-    //     cookies.set('start-time', '31', { path: '/' });
-
-    //     return new Response('', { status: 200 });
-    // } catch (error: unknown) {
-    //     console.error(`Error in player api route: ${error as string}`);
-    //     return redirect(`${siteUrl}/`);
-    // }
-    const url = new URL(request.url);
+// to deletcookies, just set the max-age to 0
+export const POST: APIRoute = async ({ request, cookies }) => {
+  const url = new URL(request.url)
   const rawData = url.searchParams.get("data")
-  const session_token = cookies.get("session_token")
-
-  console.log({ session_token })
+  const set_session_token = cookies.get("session_token")
+  console.log({ set_session_token })
 
   if (!rawData) {
     const response = new Response(
       JSON.stringify({
         message: 'no data',
       }),
-      { status: 400 },
+      { status: 400 }, // bad-request status_code
     );
     return response;
   }
@@ -37,19 +24,21 @@ export const post: APIRoute = async function post({ cookies, request }) {
     JSON.stringify({
       message: 'cookie set successfully',
     }),
-    { status: 200 },
+    { status: 200 }, // successfully status_code
   );
 
-  const THIRTY_DAYS_SECONDS = 5184000 // this is not a 1 day
+  const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60;
+  const rootPath = "/"
   for (let i=0; i < data.length; i++) {
-    const { key, value, maxAge, secure, httpOnly } = data[i];
+    const { key, value, path, maxAge, secure, httpOnly } = data[i];
     const cookieOptions = {
-      maxAge: maxAge || THIRTY_DAYS_SECONDS, 
+      'max-age': maxAge || THIRTY_DAYS_SECONDS, 
+      path: path || rootPath,
       secure: secure || true, 
       httpOnly: httpOnly || true, 
     };
     cookies.set(key, value, cookieOptions)
-}
+  }
 
-return response
+  return response;
 };

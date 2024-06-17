@@ -74,7 +74,7 @@ export async function setAuthCookies({
 	const sixtyDaysInSeconds = 5184000;
 	const cookies = JSON.stringify([
 		{
-			key: "session_token",
+			key: "auth_token",
 			value: token,
 			maxAge: sixtyDaysInSeconds,
 		},

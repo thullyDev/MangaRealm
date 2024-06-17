@@ -12,6 +12,7 @@ export interface _Cookie {
 
 export interface _Setcookie extends _Cookie {
   maxAge: number,
+  path?: string,
   secure?: boolean,
   httpOnly?: boolean,
 }
