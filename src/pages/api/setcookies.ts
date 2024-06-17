@@ -1,11 +1,25 @@
----
+import type { APIRoute } from 'astro';
 import type { _Setcookie } from '../../services/MangaRealm.api/types';
 
-// to deletcookies, just set the max-age to 0
-  const url = Astro.url
+export const post: APIRoute = async function post({ cookies, request }) {
+    // try {
+    //     const { url: requestUrl } = request;
+    //     const { searchParams } = new URL(requestUrl);
+    //     const startTime = searchParams.get('startTime');
+    //     console.log({ startTime });
+
+    //     cookies.set('start-time', '31', { path: '/' });
+
+    //     return new Response('', { status: 200 });
+    // } catch (error: unknown) {
+    //     console.error(`Error in player api route: ${error as string}`);
+    //     return redirect(`${siteUrl}/`);
+    // }
+    const url = new URL(request.url);
   const rawData = url.searchParams.get("data")
-  // const request = Astro.request.headers.set()
-// console.log({ here: Astro.cookies.has("session_token") })
+  const session_token = cookies.get("session_token")
+
+  console.log({ session_token })
 
   if (!rawData) {
     const response = new Response(
@@ -34,8 +48,8 @@ import type { _Setcookie } from '../../services/MangaRealm.api/types';
       secure: secure || true, 
       httpOnly: httpOnly || true, 
     };
-    Astro.cookies.set(key, value, cookieOptions)
+    cookies.set(key, value, cookieOptions)
 }
 
 return response
----
+};
