@@ -50,14 +50,10 @@ export async function signup({
 
 	const params = { email, username, password, confirm };
 	const data = await request("/signup", params, captchaResponse);
-	const { status_code, message } = data.data as _Response;
+	const { message } = data.data as _Response;
 
-	if (status_code != 200) {
-		_Alert(message);
-		return false;
-	}
-
-	return true;
+	_Alert(message);
+	return;
 }
 
 export async function setAuthCookies({
@@ -86,7 +82,6 @@ export async function setAuthCookies({
 	]);
 
 	const data = await authApi.post("/api/setcookies", { data: cookies });
-	console.log({ data })
 }
 
 export async function login({ captchaResponse, email, password }: _Login) {
@@ -105,12 +100,11 @@ export async function login({ captchaResponse, email, password }: _Login) {
 
 	if (status_code != 200) {
 		_Alert(message);
-		return false;
+		return;
 	}
 
 	setAuthCookies(userData);
-
-	return true;
+	window.location.reload()
 }
 
 // export async function verify(data: _AuthUser) {
@@ -135,12 +129,15 @@ export async function forgotPassword({
 	const data = await request("/forgot_password", params, captchaResponse);
 
 	const { status_code, message } = data.data as _Response;
-	if (status_code != 200) {
-		_Alert(message);
-		return false;
+	_Alert(message);
+	
+
+	if (status_code == 200) {
+		window.location.assign("/")
+		return;
 	}
 
-	return true;
+	return;
 }
 
 export async function renewPassword({
@@ -161,13 +158,14 @@ export async function renewPassword({
 	const params = { password, confirm };
 	const data = await request("/renew_password", params, captchaResponse);
 	const { status_code, message } = data.data as _Response;
+	_Alert(message);
 
-	if (status_code != 200) {
-		_Alert(message);
-		return false;
+	if (status_code == 200) {
+		window.location.assign("/")
+		return;
 	}
 
-	return true;
+	return;
 }
 
 async function request(
