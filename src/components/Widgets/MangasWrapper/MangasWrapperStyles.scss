@@ -1,82 +1,80 @@
-@import '../../../styles/global/mediaQueries.scss';
+@import "../../../styles/global/mediaQueries.scss";
 
 $_padding: 16px;
 
 .mangas-list {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
 
-	@include media-large {
-		justify-content: space-between;
+  @include media-large {
+    justify-content: space-between;
+  }
+
+  .manga-list-item {
+    width: calc(100% - $_padding);
+    box-sizing: border-box;
+
+    .poster {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
 
-	.manga-list-item {
-		width: calc(100% - $_padding);
-		box-sizing: border-box;
+    &.manga-list-item-2 {
+      & .inner-con {
+        min-height: 220px;
+      }
 
-		.poster {
-			width: 100%;
-			height: 200px;
-			object-fit: cover;
-		}
+      .poster-con {
+        display: inline-block;
+        height: 100%;
+      }
 
-		&.manga-list-item-2 {
-			& .inner-con {
-				min-height: 220px;
-			}
+      .inner-poster-con {
+        display: inline-block;
+        width: 125px;
+        height: 100%;
+      }
 
-			.poster-con {
-				display: inline-block;
-				height: 100%;
-			}
+      .poster {
+        height: 100%;
+      }
 
-			.inner-poster-con {
-				display: inline-block;
-				width: 125px;
-				height: 100%;
-			}
+      @include media-medium {
+        width: calc(50% - $_padding);
+      }
 
-			.poster {
-				height: 100%;
-			}
+      @include media-xxlarge {
+        width: calc(34% - $_padding);
+      }
+    }
 
+    &.manga-list-item-1 {
+      @include media-xxsmall {
+        width: calc(50% - $_padding);
+      }
 
-			@include media-medium {
-		      width: calc(50% - $_padding); 
-		    }
+      @include media-xsmall {
+        width: calc(34% - $_padding);
+      }
 
+      @include media-small {
+        width: calc(25% - $_padding);
+      }
 
-			@include media-xxlarge {
-		      width: calc(34% - $_padding); 
-		    }
-		}
+      @include media-medium {
+        width: calc(20% - $_padding);
+      }
 
-		&.manga-list-item-1 {
-			@include media-xxsmall {
-		      width: calc(50% - $_padding); 
-		    }
-		    
-			@include media-xsmall {
-		      width: calc(34% - $_padding); 
-		    }
+      @include media-large {
+        width: calc(17% - $_padding);
+      }
 
-			@include media-small {
-		      width: calc(25% - $_padding); 
-		    }
-
-			@include media-medium {
-		      width: calc(20% - $_padding); 
-		    }
-
-			@include media-large {
-		      width: calc(17% - $_padding); 
-		    }
-
-			@include media-xxlarge {
-		      width: calc(13% - $_padding); 
-		    }
-		}
-	}
+      @include media-xxlarge {
+        width: calc(13% - $_padding);
+      }
+    }
+  }
 }

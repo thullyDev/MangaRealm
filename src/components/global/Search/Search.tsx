@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import DOMPurify from 'dompurify';
+import React, { useState } from "react";
+import DOMPurify from "dompurify";
 
 const Search = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
-  const filterLink: string =  `/filter?keywords=${query}`
+  const filterLink: string = `/filter?keywords=${query}`;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rawQuery = DOMPurify.sanitize(event.target.value)
-    setQuery(encodeURIComponent(rawQuery))
+    const rawQuery = DOMPurify.sanitize(event.target.value);
+    setQuery(encodeURIComponent(rawQuery));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (query) window.location.assign(filterLink)
+    if (query) window.location.assign(filterLink);
   };
 
   return (
@@ -33,16 +33,18 @@ const Search = () => {
             />
           </div>
           <div className="filter-link-con">
-            <a href={filterLink} className="filter-link flex gap-2 items-center text-sm rounded-full py-1 px-3 bg-zinc-600">
+            <a
+              href={filterLink}
+              className="filter-link flex gap-2 items-center text-sm rounded-full py-1 px-3 bg-zinc-600"
+            >
               <i className="fas fa-filter"></i>
-               Filter
+              Filter
             </a>
           </div>
         </div>
       </form>
       <div className="result-items-con">
-        <ul className="result-list">
-        </ul>
+        <ul className="result-list"></ul>
       </div>
     </div>
   );

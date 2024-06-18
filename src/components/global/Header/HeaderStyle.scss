@@ -1,8 +1,9 @@
-@import '../../../styles/global/mediaQueries.scss';
+@import "../../../styles/global/mediaQueries.scss";
 
-
-// .nav-con, .search-con, 
-.menu-nav, .nav-con, .search-con {
+// .nav-con, .search-con,
+.menu-nav,
+.nav-con,
+.search-con {
   display: none;
 }
 
@@ -14,34 +15,34 @@
   display: none;
 }
 
-  .search-account-btn {
-    font-size: 25px;
-    margin: 0 10px;
-    // top: 0px;
-    right: 10px;
-    position: relative;
-  }
-
+.search-account-btn {
+  font-size: 25px;
+  margin: 0 10px;
+  // top: 0px;
+  right: 10px;
+  position: relative;
+}
 
 @include media-medium {
-  .nav-con   {
-    display: flex; 
+  .nav-con {
+    display: flex;
   }
 }
 
 @include media-xxlarge {
-  .inner-con .search-con   {
-    display: flex; 
+  .inner-con .search-con {
+    display: flex;
   }
-    .search-account-btn {
-      display: none;
-    }
+  .search-account-btn {
+    display: none;
+  }
 }
 
 .inner-site-logo-con {
   width: 100px;
 }
 
-.account-link > i, .menu-button > i {
+.account-link > i,
+.menu-button > i {
   font-size: 25px;
 }

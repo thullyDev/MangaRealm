@@ -19,17 +19,18 @@ const socials = [
   },
 ];
 
-
 export const Socials = () => {
   return (
-      <nav className="socials-con">
-        <ul className="flex gap-5">
-          {socials.map((item: ListItem, index: number) => (
-            <li key={index} >
-              <a href={item.link} className="hover:text-white transition duration-1000 ease-in-out">{item.name}</a>
-            </li>
-          ))}
-        </ul> 
-      </nav>
-  )
-} 
+    <nav className="socials-con">
+      <ul className="flex gap-5">
+        {socials.map((item: ListItem, index: number) => (
+          <li key={index}>
+            <a href={item.link} className="hover:text-white transition duration-1000 ease-in-out">
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
