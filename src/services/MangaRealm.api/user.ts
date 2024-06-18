@@ -10,6 +10,7 @@ import type {
   _Signup,
 } from "./types";
 import { _Alert, isEmailValid } from "../../utilities/misc";
+import type { AstroCookies } from "astro";
 
 const authApi = new ApiHandler("");
 
@@ -180,3 +181,17 @@ function setupProfile(profile_image_url: string | null, username: string) {
     if (accountBtn) accountBtn.innerHTML = profileImageEle
 }
 
+export function setCookies(data: _Setcookie[], cookies: AstroCookies) {
+  const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60;
+  const rootPath = "/";
+  for (let i = 0; i < data.length; i++) {
+    const { key, value, path, maxAge, secure, httpOnly } = data[i];
+    const cookieOptions = {
+      "max-age": maxAge || THIRTY_DAYS_SECONDS,
+      path: path || rootPath,
+      secure: secure || true,
+      httpOnly: httpOnly || true,
+    };
+    cookies.set(key, value, cookieOptions);
+  }
+} 

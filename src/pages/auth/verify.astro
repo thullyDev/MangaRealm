@@ -1,6 +1,5 @@
 ---
-import { verify } from "../../services/MangaRealm.api/user";
-import { setCookies } from "../api/setcookies"
+import { verify, setCookies } from "../../services/MangaRealm.api/user";
 import type { _Setcookie } from "../../services/MangaRealm.api/types";
 
 const { code } = Astro.params;
@@ -9,8 +8,6 @@ if (!code) return Astro.redirect("/");
 
 const { message, status_code, data } = await verify(code);
 const { email, profile_image_url, username, token } = data;
-const encodeMessage = encodeURIComponent(message);
-const response = Astro.redirect(`/?alert=${encodeMessage}`);
 
 if (status_code == 200) {
 	const user = {
@@ -19,7 +16,7 @@ if (status_code == 200) {
 		username,
 	};
 	const sixtyDaysInSeconds = 5184000;
-	const cookies: _Setcookie[] = [
+	const data: _Setcookie[] = [
 		{
 			key: "session_token",
 			value: token,
@@ -32,9 +29,8 @@ if (status_code == 200) {
 		},
 	];
 
-	setCookies(cookies, response)
-
+	setCookies(data, Astro.cookies)
 }
 
-return response;
+return Astro.redirect(`/?alert=${encodeURIComponent(message)}`);
 ---
