@@ -55,7 +55,6 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
   loader.fadeIn()
   await authFuncs[authType][0](data);
   authFuncs[authType][1]();
-  closeClearAuth()
   loader.fadeOut()
 };
 

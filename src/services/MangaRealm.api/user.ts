@@ -175,7 +175,7 @@ function setupUser({ email, username, profile_image_url}: _AuthUser) {
 
 
 function setupProfile(profile_image_url: string | null, username: string) {
-    if (profile_image_url) return 
+    if (!profile_image_url) return 
     const profileImageEle = `<img src=${profile_image_url} alt="${username}" class="profile rounded-full w-full h-full">`
     const accountBtn = document.querySelector(".account-button")
     if (accountBtn) accountBtn.innerHTML = profileImageEle
