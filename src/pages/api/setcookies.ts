@@ -5,8 +5,6 @@ import type { _Setcookie } from "../../services/MangaRealm.api/types";
 export const POST: APIRoute = async ({ request, cookies }) => {
   const url = new URL(request.url);
   const rawData = url.searchParams.get("data");
-  const set_session_token = cookies.get("session_token");
-  console.log({ set_session_token });
 
   if (!rawData) {
     const response = new Response(

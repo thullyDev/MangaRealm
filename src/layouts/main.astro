@@ -7,7 +7,9 @@ import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
 import { HCAPTCHA_SITE_KEY, authApiUrl } from "../utilities/config.ts"
 const { title } = Astro.props;
-
+const cookies = Astro.cookies
+const userData = cookies.get("user_data")?.value || "{}"
+const user = JSON.parse(userData)
 const favicon = "/favicon.png"
 ---
 
@@ -35,7 +37,8 @@ const favicon = "/favicon.png"
     <PageLoader />
   </body>
 </html>
-<script define:vars={{ HCAPTCHA_SITE_KEY }}>
+<script define:vars={{ HCAPTCHA_SITE_KEY, user }}>
+  window.user = user
   window.captchas = {}
 
   window.renderCaptchaWidgets = () => {
