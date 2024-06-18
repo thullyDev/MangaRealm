@@ -19,8 +19,10 @@ export const setBookmark = () => {
 
 export const isUserAuth = () => {
   //@ts-ignore
-  const user = window.user || {}
-  return Object.keys(user).length > 0;
+  // const user = window.user || {}
+  // return Object.keys(user).length > 0;
+
+  return false
 };
 
 export async function cancelRenewPassword() {}
@@ -69,7 +71,7 @@ export async function setAuthCookies({ token, email, profile_image_url, username
     },
   ]);
 
-  const data = await authApi.post("/api/setcookies", { data: cookies });
+  authApi.post("/api/setcookies", { data: cookies });
 }
 
 export async function login({ captchaResponse, email, password }: _Login) {
@@ -91,7 +93,7 @@ export async function login({ captchaResponse, email, password }: _Login) {
     return;
   }
 
-  const cookieResponse = setAuthCookies(userData);
+  setAuthCookies(userData);
   // window.location.reload();
 }
 

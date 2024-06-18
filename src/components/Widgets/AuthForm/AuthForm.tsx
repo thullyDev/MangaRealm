@@ -1,6 +1,6 @@
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "../../../services/MangaRealm.api/types";
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
-import { _Alert, formatKey, getInputs, trans500 } from "../../../utilities/misc";
+import { _Alert, formatKey, getInputs, showCloseEle, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
@@ -13,7 +13,8 @@ interface _AuthForm {
 
 interface _AuthInputData extends _Signup, _Login, _ForgotPassword, _RenewPassword {}
 
-const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  showCloseEle(event)
   const thisEle = $(event.currentTarget);
   const authType: string = thisEle.data("type");
   // @ts-ignore
@@ -46,7 +47,8 @@ const authHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     renew_password: renewPassword,
   };
 
-  authFuncs[authType](data);
+  await authFuncs[authType](data);
+  showCloseEle(event)
 };
 
 export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
@@ -70,6 +72,8 @@ export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
               <button
                 onClick={authHandler}
                 type="button"
+                data-element=".auth-loader-con" 
+                data-animate="fade" 
                 className={`submit-btn text-sm flex justify-center bg-red-600 hover:bg-zinc-700 rounded w-full ${trans500} py-2`}
                 data-type={authType}
               >

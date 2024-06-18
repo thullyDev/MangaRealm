@@ -37,8 +37,10 @@ export const Authentication = ({ authApiUrl }: { authApiUrl: string }) => {
           </div>
           <div className="second-inner-con relative">
             <div className="inner-auth-forms-con">{formEles}</div>
-            <div className="auth-loader-con flex justify-center items-center rounded">
-              <Loader />
+            <div className="auth-loader-con rounded">
+              <div className="flex justify-center items-center w-full h-full">
+                <Loader />
+              </div>
             </div>
           </div>
           <div className="bg-img-con">
