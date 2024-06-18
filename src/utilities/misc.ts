@@ -12,17 +12,25 @@ export const truncate = (input: string, length: number) => {
 export const formatKey = (key: string) => key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
 export const showCloseEle = (event: React.MouseEvent<HTMLButtonElement>) => {
-  const eventEle = $(event.currentTarget);
-  const element = eventEle.data("element");
-  const animate = eventEle.data("animate");
-  const showEle = $(element);
-  const open = showEle.data("open");
+  const $eventElement = $(event.currentTarget);
+  const elementSelector = $eventElement.data("element");
+  const animateType = $eventElement.data("animate");
+  const $targetElement = $(elementSelector);
+  const isOpen = $targetElement.data("open");
 
-  if (animate == "fade") {
-    !open ? showEle.fadeIn().data("open", true) : showEle.fadeOut().data("open", false);
-    return;
+  if (animateType === "fade") {
+    if (isOpen) {
+      $targetElement.fadeOut().data("open", false);
+    } else {
+      $targetElement.fadeIn().data("open", true);
+    }
+  } else {
+    if (isOpen) {
+      $targetElement.slideUp().data("open", false);
+    } else {
+      $targetElement.slideDown().data("open", true);
+    }
   }
-  !open ? showEle.slideDown().data("open", true) : showEle.slideUp().data("open", false);
 };
 
 export function getInputs(selector: string) {

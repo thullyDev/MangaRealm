@@ -16,7 +16,7 @@ export const AccountBtn = () => {
       type="button"
       data-element=".outer-auth-forms-con"
       data-animate="fade"
-      className="account-button"
+      className="account-button w-8 h-8"
     >
       <i className="fa-regular fa-user-circle text-3xl"></i>
     </button>

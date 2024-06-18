@@ -88,18 +88,14 @@ export async function login({ captchaResponse, email, password }: _Login) {
   const data = await request("/login", params, captchaResponse);
   const { status_code, message, data: userData } = data.data as _AuthResponse;
   
+  _Alert(message);
   if (status_code != 200) {
-    _Alert(message);
     return;
   }
 
   setAuthCookies(userData);
-  // window.location.reload();
+  setupUser(userData)
 }
-
-// export async function verify(data: _AuthUser) {
-// 	setAuthCookies(data);
-// }
 
 export async function verify(code: string): Promise<_AuthResponse> {
   const base = getAuthApiUrl();
@@ -165,3 +161,22 @@ function getAuthApiUrl(): string {
 
   return inp.value;
 }
+
+function setupUser({ email, username, profile_image_url}: _AuthUser) {
+    //@ts-ignore
+    window.user = {
+      email,
+      username,
+      profile_image_url,
+    }
+    setupProfile(profile_image_url, username)
+}
+
+
+function setupProfile(profile_image_url: string | null, username: string) {
+    if (profile_image_url) return 
+    const profileImageEle = `<img src=${profile_image_url} alt="${username}" class="profile rounded-full w-full h-full">`
+    const accountBtn = document.querySelector(".account-button")
+    if (accountBtn) accountBtn.innerHTML = profileImageEle
+}
+
