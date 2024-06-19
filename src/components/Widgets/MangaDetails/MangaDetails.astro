@@ -32,7 +32,7 @@ const url = Astro.url
 
 	shareBtn?.addEventListener("click", () => {
 		navigator.clipboard.writeText(url);
-		_Alert("Copied to clipboard") // TODO: this is should be a custom alert box
+		ShowAlert("Copied to clipboard") // TODO: this is should be a custom alert box
 	})
 
 	bookmarkBtn?.addEventListener("click", () => {
@@ -59,7 +59,7 @@ const url = Astro.url
 		return true
 	}
 
-	const _Alert = (message) => {
+	const ShowAlert = (message) => {
 		const alertbox = document.querySelector(".alertbox")
 		const msgEle = document.querySelector(".alertbox .msg")
 

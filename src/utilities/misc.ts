@@ -55,7 +55,7 @@ export function getInputs(selector: string) {
   return data;
 }
 
-export const _Alert = (rawMessage: string, noTitle: boolean = false) => {
+export const ShowAlert = (rawMessage: string, noTitle: boolean = false) => {
   const message = DOMPurify.sanitize(rawMessage);
   const alertbox = document.querySelector(".alertbox");
   const msgEle = document.querySelector(".alertbox .msg");
