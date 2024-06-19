@@ -3,9 +3,13 @@ import Header from "../components/global/Header/Header.astro"
 import { Authentication } from "../components/global/Authentication/Authentication"
 import Footer from "../components/global/Footer/Footer.astro"
 import AlertBox from "../components/global/AlertBox/AlertBox.astro"
+import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
+import { HCAPTCHA_SITE_KEY, authApiUrl } from "../utilities/config.ts"
 const { title } = Astro.props;
-
+const cookies = Astro.cookies
+const userData = cookies.get("user_data")?.value || "{}"
+const user = JSON.parse(userData)
 const favicon = "/favicon.png"
 ---
 
@@ -19,16 +23,41 @@ const favicon = "/favicon.png"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{title}</title>
-     <link rel="icon" type="image/x-icon" href={favicon}>
+    <link rel="icon" type="image/x-icon" href={favicon}>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
-
   <body class="bg-zinc-900 dark:text-white scrollable relative">
-    <Authentication client:load /> 
+    <Authentication authApiUrl={authApiUrl} client:load /> 
     <Header/>
     <AlertBox/>
     <main class="main-content">
       <slot /> 
     </main>
     <Footer/>
+    <PageLoader />
   </body>
 </html>
+<script define:vars={{ HCAPTCHA_SITE_KEY, user }}>
+  window.user = user
+  window.captchas = {}
+
+  window.renderCaptchaWidgets = () => {
+    $(".captcha-widgets").each(function() {
+      const id = $(this).attr("id")
+      captchas[id] = hcaptcha.render(id, {
+            'sitekey' : HCAPTCHA_SITE_KEY,
+          });
+    })
+  }
+
+  window.getCaptchaResponse = (id) => {
+    const widgetID = captchas[id] 
+    return hcaptcha.getResponse(widgetID)
+  }
+
+  setTimeout(function() {
+    const script = document.createElement("script")
+    script.src = "https://js.hcaptcha.com/1/api.js?hl=es&onload=renderCaptchaWidgets&render=explicit"
+    document.body.appendChild(script)
+  }, 17000) 
+</script>

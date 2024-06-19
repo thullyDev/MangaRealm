@@ -5,11 +5,11 @@ export const OpenSearchBtn = () => {
     <button
       data-element=".mobile-search"
       data-animate="slide"
-      onClick={showCloseEle} 
-      type="button" 
+      onClick={showCloseEle}
+      type="button"
       className="search-account-btn h-full "
-      >
+    >
       <i className="fas fa-search"></i>
-    </button> 
-  )
-}
+    </button>
+  );
+};

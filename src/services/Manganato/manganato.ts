@@ -1,10 +1,6 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler";
 import { mangaApiUrl } from "../../utilities/config";
-import type {
-  MangaChapterRead,
-  MangaRead,
-  MangasResponse,
-} from "./manganatoTypes";
+import type { MangaChapterRead, MangaRead, MangasResponse } from "./manganatoTypes";
 import { Cache } from "../../database/Cache/cache";
 import malScraper from "mal-scraper";
 import { SUCCESSFUL } from "../../utilities/errors";
@@ -70,9 +66,7 @@ export async function getManga(slug: string): Promise<MangaRead | null> {
     };
   }
 
-  const malData = await malScraper.getInfoFromURL(
-    `https://myanimelist.net/manga/${malId}/`,
-  );
+  const malData = await malScraper.getInfoFromURL(`https://myanimelist.net/manga/${malId}/`);
 
   return {
     ...manga,
@@ -80,10 +74,7 @@ export async function getManga(slug: string): Promise<MangaRead | null> {
   };
 }
 
-export async function getMangaChapter(
-  slug: string,
-  chapter: string,
-): Promise<MangaChapterRead> {
+export async function getMangaChapter(slug: string, chapter: string): Promise<MangaChapterRead> {
   const response = await api.get(`/${slug}/${chapter}`);
 
   if (response.status !== SUCCESSFUL)
@@ -98,9 +89,7 @@ export async function getMangaChapter(
   };
 }
 
-export async function getCachedManga(
-  slug: string | undefined,
-): Promise<MangaRead | null> {
+export async function getCachedManga(slug: string | undefined): Promise<MangaRead | null> {
   if (!slug) return null;
 
   const cache = new Cache();

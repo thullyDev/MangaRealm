@@ -4,11 +4,19 @@
 }
 
 .scrollable::-webkit-scrollbar-track {
-  background: #18181b;    
+  background: #18181b;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-  background-color: #39393f;    
-  border-radius: .25rem;      
+  background-color: #39393f;
+  border-radius: 0.25rem;
 }
 
+// .page-loader-con {
+//   display: none;
+//   width: 100%;
+//   height: 100%;
+//   top: 0;
+//   position: absolute;
+//   background: #232121d1;
+// }

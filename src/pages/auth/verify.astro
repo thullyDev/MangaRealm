@@ -1,0 +1,38 @@
+---
+import { verify, setCookies } from "../../services/MangaRealm.api/user";
+import { authApiUrl } from "../../utilities/config";
+import type { _Setcookie } from "../../services/MangaRealm.api/types";
+
+const code  = Astro.url.searchParams.get("code");
+
+if (!code) return Astro.redirect("/");
+
+const { message, status_code, data } = await verify(`${authApiUrl}/verify/`, code);
+const response = Astro.redirect(`/?alert=${encodeURIComponent(message)}`); 
+const { email, profile_image_url, username, token } = data;
+
+if (status_code == 200) {
+	const user = {
+		email,
+		profile_image_url,
+		username,
+	};
+	const sixtyDaysInSeconds = 5184000;
+	const data: _Setcookie[] = [
+		{
+			key: "session_token",
+			value: token,
+			maxAge: sixtyDaysInSeconds,
+		},
+		{
+			key: "user_data",
+			value: JSON.stringify(user),
+			maxAge: sixtyDaysInSeconds,
+		},
+	];
+
+	setCookies(data, Astro.cookies)
+}
+
+return response 
+---
