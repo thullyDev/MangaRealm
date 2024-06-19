@@ -109,19 +109,12 @@ export async function forgotPassword({ captchaResponse, email }: _ForgotPassword
   }
   const params = { email };
   const data = await request("/forgot_password", params, captchaResponse);
-
-  const { status_code, message } = data.data as _Response;
+  const { message } = data.data as _Response;
   ShowAlert(message);
-
-  if (status_code == 200) {
-    window.location.assign("/");
-    return;
-  }
-
-  return;
 }
 
 export async function renewPassword({ captchaResponse, confirm, password }: _RenewPassword) {
+  console.log("i am here")
   if (password.length < 10) {
     ShowAlert("password should be atleast 10 characters");
     return;
@@ -132,7 +125,8 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
     return;
   }
 
-  const params = { password, confirm };
+  const code = $(".code-inp").val() 
+  const params = { password, confirm, code };
   const data = await request("/renew_password", params, captchaResponse);
   const { status_code, message } = data.data as _Response;
   ShowAlert(message);
@@ -141,8 +135,6 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
     window.location.assign("/");
     return;
   }
-
-  return;
 }
 
 async function request(endpoint: string, params: RequestOptions, captchaResponse: string) {

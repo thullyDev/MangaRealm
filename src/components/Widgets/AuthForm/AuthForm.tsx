@@ -21,6 +21,7 @@ const closeClearAuth = () => {
 const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
   const thisEle = $(event.currentTarget);
   const authType: string = thisEle.data("type");
+
   // @ts-ignore
   // if (!window.captchas) {
   // 	ShowAlert("please wait for captcha block to show up")
@@ -36,7 +37,6 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
 
   // @ts-ignore
   const data: _AuthInputData = getInputs(`.auth-input-${authType}`);
-  console.log({ data });
 
   for (const [key, value] of Object.entries(data)) {
     if (value) continue;
@@ -50,12 +50,7 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     signup: [signup, () => {}],
     login: [login, closeClearAuth],
     forgot_password: [forgotPassword, () => {}],
-    renew_password: [
-      renewPassword,
-      () => {
-        window.location.assign("/");
-      },
-    ],
+    renew_password: [ renewPassword, () => {}],
   };
 
   loader.fadeIn();
