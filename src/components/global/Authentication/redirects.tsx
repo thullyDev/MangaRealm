@@ -99,7 +99,14 @@ function ForgotPasswordRedirectBlock() {
           Login
         </button>
       </p>
-      <button type="button" onClick={ () => { $(".submit-btn[data-type='forgot_password']").click() }} data-type="forgot_password" className="resend-button text-sm text-zinc-500 underline">
+      <button
+        type="button"
+        onClick={() => {
+          $(".submit-btn[data-type='forgot_password']").click();
+        }}
+        data-type="forgot_password"
+        className="resend-button text-sm text-zinc-500 underline"
+      >
         Resend
       </button>
     </span>

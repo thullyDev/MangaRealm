@@ -7,8 +7,7 @@ const code  = Astro.url.searchParams.get("code");
 
 if (!code) return Astro.redirect("/");
 
-const { message, status_code, data } = await verify(`${authApiUrl}/verify/`, code);
-const response = Astro.redirect(`/?alert=${encodeURIComponent(message)}`); 
+const { status_code, data } = await verify(`${authApiUrl}/verify/`, code);
 const { email, profile_image_url, username, token } = data;
 
 if (status_code == 200) {
@@ -34,5 +33,5 @@ if (status_code == 200) {
 	setCookies(data, Astro.cookies)
 }
 
-return response 
+return Astro.redirect(`/`); 
 ---

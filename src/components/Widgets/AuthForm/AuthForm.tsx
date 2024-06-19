@@ -50,7 +50,7 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     signup: [signup, () => {}],
     login: [login, closeClearAuth],
     forgot_password: [forgotPassword, () => {}],
-    renew_password: [ renewPassword, () => {}],
+    renew_password: [renewPassword, () => {}],
   };
 
   loader.fadeIn();

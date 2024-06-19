@@ -1,8 +1,6 @@
 import DOMPurify from "dompurify";
 import $ from "jquery";
 
-
-
 export const trans1000 = "transition duration-1000 ease-in-out";
 export const trans500 = "transition duration-500 ease-in-out";
 export const truncate = (input: string, length: number) => {

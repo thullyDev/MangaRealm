@@ -50,3 +50,9 @@ export interface _RenewPassword {
   confirm: string;
   captchaResponse: string;
 }
+
+export interface _User {
+  email: string;
+  username: string;
+  createdAt: string;
+}

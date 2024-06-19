@@ -20,10 +20,8 @@ export const setBookmark = () => {
 
 export const isUserAuth = () => {
   //@ts-ignore
-  // const user = window.user || {}
-  // return Object.keys(user).length > 0;
-
-  return false;
+  const user = window.user || {}
+  return Object.keys(user).length > 0;
 };
 
 export async function cancelRenewPassword() {}
@@ -114,7 +112,7 @@ export async function forgotPassword({ captchaResponse, email }: _ForgotPassword
 }
 
 export async function renewPassword({ captchaResponse, confirm, password }: _RenewPassword) {
-  console.log("i am here")
+  console.log("i am here");
   if (password.length < 10) {
     ShowAlert("password should be atleast 10 characters");
     return;
@@ -125,7 +123,7 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
     return;
   }
 
-  const code = $(".code-inp").val() 
+  const code = $(".code-inp").val();
   const params = { password, confirm, code };
   const data = await request("/renew_password", params, captchaResponse);
   const { status_code, message } = data.data as _Response;

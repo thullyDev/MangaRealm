@@ -6,6 +6,7 @@ import AlertBox from "../components/global/AlertBox/AlertBox.astro"
 import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
 import { HCAPTCHA_SITE_KEY, authApiUrl } from "../utilities/config.ts"
+import { ShowAlert } from "../utilities/misc.ts"
 const { title } = Astro.props;
 const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
@@ -37,7 +38,7 @@ const favicon = "/favicon.png"
     <PageLoader />
   </body>
 </html>
-<script define:vars={{ HCAPTCHA_SITE_KEY, user }}>
+<script type="module" define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert }}>
   window.user = user
   window.captchas = {}
 
@@ -54,10 +55,4 @@ const favicon = "/favicon.png"
     const widgetID = captchas[id] 
     return hcaptcha.getResponse(widgetID)
   }
-
-  setTimeout(function() {
-    const script = document.createElement("script")
-    script.src = "https://js.hcaptcha.com/1/api.js?hl=es&onload=renderCaptchaWidgets&render=explicit"
-    document.body.appendChild(script)
-  }, 17000) 
 </script>
