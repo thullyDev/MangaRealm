@@ -3,13 +3,12 @@ import { verify, setCookies } from "../../services/MangaRealm.api/user";
 import { authApiUrl } from "../../utilities/config";
 import type { _Setcookie } from "../../services/MangaRealm.api/types";
 
-// http://localhost:4321/auth/verify?code=0fcdcadc-3e68-4902-b3d8-9cdac4fa04fd to
-
 const code  = Astro.url.searchParams.get("code");
 
 if (!code) return Astro.redirect("/");
 
 const { message, status_code, data } = await verify(`${authApiUrl}/verify/`, code);
+const response = Astro.redirect(`/?alert=${encodeURIComponent(message)}`); 
 const { email, profile_image_url, username, token } = data;
 
 if (status_code == 200) {
@@ -35,5 +34,5 @@ if (status_code == 200) {
 	setCookies(data, Astro.cookies)
 }
 
-return Astro.redirect(`/?alert=${encodeURIComponent(message)}`);
+return response 
 ---

@@ -1,4 +1,7 @@
+import DOMPurify from "dompurify";
 import $ from "jquery";
+
+
 
 export const trans1000 = "transition duration-1000 ease-in-out";
 export const trans500 = "transition duration-500 ease-in-out";
@@ -52,7 +55,8 @@ export function getInputs(selector: string) {
   return data;
 }
 
-export const _Alert = (message: string | number, noTitle: boolean = false) => {
+export const _Alert = (rawMessage: string, noTitle: boolean = false) => {
+  const message = DOMPurify.sanitize(rawMessage);
   const alertbox = document.querySelector(".alertbox");
   const msgEle = document.querySelector(".alertbox .msg");
 
