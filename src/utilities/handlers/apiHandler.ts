@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
-import { CRASH, SUCCESSFUL } from "../errors";
+import { CRASH, CRASH_MSG, SUCCESSFUL } from "../errors";
 import { authApiUrl } from "../config";
 
 export interface RequestOptions {
@@ -26,22 +26,19 @@ export class ApiHandler {
         ...kwargs,
       });
 
-      if (response.status !== SUCCESSFUL) {
+      if (response.status != SUCCESSFUL) {
         return { status: response.status };
       }
 
       return {
-        status: SUCCESSFUL,
+        status: response.data.status_code,
         data: {
           ...response.data,
         },
       };
     } catch (error: any) {
-      if (error.isAxiosError && error.code === "ECONNREFUSED") {
-        return { status: CRASH };
-      } else {
-        throw error;
-      }
+      console.error(error);
+      return { status: CRASH, message: CRASH };
     }
   }
 

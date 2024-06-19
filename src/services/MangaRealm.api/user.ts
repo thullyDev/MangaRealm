@@ -23,7 +23,7 @@ export const isUserAuth = () => {
   // const user = window.user || {}
   // return Object.keys(user).length > 0;
 
-  return false
+  return false;
 };
 
 export async function cancelRenewPassword() {}
@@ -47,7 +47,6 @@ export async function signup({ captchaResponse, email, username, password, confi
   const params = { email, username, password, confirm };
   const data = await request("/signup", params, captchaResponse);
   const { message } = data.data as _Response;
-
   _Alert(message);
   return;
 }
@@ -88,19 +87,18 @@ export async function login({ captchaResponse, email, password }: _Login) {
   const params = { email, password };
   const data = await request("/login", params, captchaResponse);
   const { status_code, message, data: userData } = data.data as _AuthResponse;
-  
+
   _Alert(message);
   if (status_code != 200) {
     return;
   }
 
   setAuthCookies(userData);
-  setupUser(userData)
+  setupUser(userData);
 }
 
-export async function verify(code: string): Promise<_AuthResponse> {
-  const base = getAuthApiUrl();
-  const data = await authApi.post(base + `/verify/${code}`);
+export async function verify(url: string, code: string): Promise<_AuthResponse> {
+  const data = await authApi.post(url, { code });
   return data.data as _AuthResponse;
 }
 
@@ -163,22 +161,21 @@ function getAuthApiUrl(): string {
   return inp.value;
 }
 
-function setupUser({ email, username, profile_image_url}: _AuthUser) {
-    //@ts-ignore
-    window.user = {
-      email,
-      username,
-      profile_image_url,
-    }
-    setupProfile(profile_image_url, username)
+function setupUser({ email, username, profile_image_url }: _AuthUser) {
+  //@ts-ignore
+  window.user = {
+    email,
+    username,
+    profile_image_url,
+  };
+  setupProfile(profile_image_url, username);
 }
 
-
 function setupProfile(profile_image_url: string | null, username: string) {
-    if (!profile_image_url) return 
-    const profileImageEle = `<img src=${profile_image_url} alt="${username}" class="profile rounded-full w-full h-full">`
-    const accountBtn = document.querySelector(".account-button")
-    if (accountBtn) accountBtn.innerHTML = profileImageEle
+  if (!profile_image_url) return;
+  const profileImageEle = `<img src=${profile_image_url} alt="${username}" class="profile rounded-full w-full h-full">`;
+  const accountBtn = document.querySelector(".account-button");
+  if (accountBtn) accountBtn.innerHTML = profileImageEle;
 }
 
 export function setCookies(data: _Setcookie[], cookies: AstroCookies) {
@@ -194,4 +191,4 @@ export function setCookies(data: _Setcookie[], cookies: AstroCookies) {
     };
     cookies.set(key, value, cookieOptions);
   }
-} 
+}

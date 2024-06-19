@@ -1,6 +1,6 @@
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "../../../services/MangaRealm.api/types";
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
-import { _Alert, formatKey, getInputs, showCloseEle, trans500 } from "../../../utilities/misc";
+import { _Alert, formatKey, getInputs, trans500 } from "../../../utilities/misc";
 import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
@@ -14,9 +14,9 @@ interface _AuthForm {
 interface _AuthInputData extends _Signup, _Login, _ForgotPassword, _RenewPassword {}
 
 const closeClearAuth = () => {
-  $(".auth-input").val("")
-  $(".close-btn").click()
-}
+  $(".auth-input").val("");
+  $(".close-btn").click();
+};
 
 const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
   const thisEle = $(event.currentTarget);
@@ -36,6 +36,7 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
 
   // @ts-ignore
   const data: _AuthInputData = getInputs(`.auth-input-${authType}`);
+  console.log({ data });
 
   for (const [key, value] of Object.entries(data)) {
     if (value) continue;
@@ -44,18 +45,23 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
     return;
   }
 
-  const loader = $(".auth-loader-con") 
+  const loader = $(".auth-loader-con");
   const authFuncs: Record<string, Function[]> = {
-    signup: [ signup, () => {} ],
-    login: [ login, closeClearAuth ],
-    forgot_password: [ forgotPassword, () => {} ],
-    renew_password: [ renewPassword, () => { window.location.assign("/") } ],
+    signup: [signup, () => {}],
+    login: [login, closeClearAuth],
+    forgot_password: [forgotPassword, () => {}],
+    renew_password: [
+      renewPassword,
+      () => {
+        window.location.assign("/");
+      },
+    ],
   };
 
-  loader.fadeIn()
+  loader.fadeIn();
   await authFuncs[authType][0](data);
   authFuncs[authType][1]();
-  loader.fadeOut()
+  loader.fadeOut();
 };
 
 export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {

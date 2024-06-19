@@ -14,7 +14,7 @@ export const authItems = {
   signup: [
     {
       input: "text",
-      label: "user",
+      label: "username",
       icon: "fas fa-user",
     },
     {

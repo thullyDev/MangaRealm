@@ -25,6 +25,6 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }),
     { status: 200 }, // successfully status_code
   );
-  setCookies(data, cookies)
+  setCookies(data, cookies);
   return response;
 };
