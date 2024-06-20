@@ -1,10 +1,9 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes";
 import { trans1000, truncate } from "../../../utilities/misc";
-import { DescriptionWrapper } from "../DescriptionWrapper/DescriptionWrapper";
 import { Poster } from "../Poster/Poster";
 
 export const MangaWrapperOne = ({ item }: { item: Manga }) => {
-  const { title, image_url, description, slug } = item;
+  const { title, image_url, slug } = item;
   const posterProps = {
     image_url,
     title,
@@ -25,7 +24,6 @@ export const MangaWrapperOne = ({ item }: { item: Manga }) => {
           </span>
         </a>
       </div>
-      {/*<DescriptionWrapper description={description} slug={slug}/>*/}
     </div>
   );
 };

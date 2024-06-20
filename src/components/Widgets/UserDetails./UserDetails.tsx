@@ -24,14 +24,12 @@ export const UserDetails = ({ user }: { user: _User }) => {
 		},
 	]
 	const inputs: JSX.Element[] =  []
-	  let count = 0;
 	  for (let i = 0; i < udInpItems.length; i++) {
 	  	const data = udInpItems[i]
 	    const ele = (
-	    	<UDInput key={count} {...data} />
+	    	<UDInput key={i} {...data} />
 	    );
 	    inputs.push(ele);
-	    count++;
 	  }
 
 	return (
