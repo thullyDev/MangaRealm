@@ -32,22 +32,24 @@ export const UserDetails = ({ user }: { user: _User }) => {
   }
 
   return (
-    <div className="user-details-con">
-      <div className="form-con">
-        <form action="post" className="user-detailt-form">
-          {inputs}
-          <div className="change-password-text-con">
-            <button className="change-password-btn">
-              <i className="fas fa-lock"></i>
-              <p className="change-password-text">change password</p>
-            </button>
-          </div>
-          <div className="update-con w-full my-3">
-            <button type="button" className={`update-btn`}>
-              Update
-            </button>
-          </div>
-        </form>
+    <div className="outer-user-details-con">
+      <div className="user-details-con">
+        <div className="form-con">
+          <form action="post" className="user-detailt-form">
+            {inputs}
+            <div className="change-password-text-con">
+              <button className="change-password-btn">
+                <i className="fas fa-lock"></i>
+                <p className="change-password-text">change password</p>
+              </button>
+            </div>
+            <div className="update-con w-full my-3">
+              <button type="button" className={`update-btn`}>
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

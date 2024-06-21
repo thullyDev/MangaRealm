@@ -54,5 +54,6 @@ export interface _RenewPassword {
 export interface _User {
   email: string;
   username: string;
+  profile_image_url: string;
   createdAt: string;
 }

@@ -10,15 +10,19 @@ export const AccountBtn = () => {
 
     window.location.assign("/profile");
   };
+  
+  const profile_image_url = null
+  const profile_image = profile_image_url || "/default-img.jpeg";
+
   return (
     <button
       onClick={redirect}
       type="button"
       data-element=".outer-auth-forms-con"
       data-animate="fade"
-      className="account-button w-8 h-8"
+      className="account-button w-10 h-10"
     >
-      <i className="fa-regular fa-user-circle text-3xl"></i>
+      <img src={profile_image} alt={"account profile image"} className="profile-image w-full h-full rounded-full cover border border-zinc-300" />
     </button>
   );
 };
