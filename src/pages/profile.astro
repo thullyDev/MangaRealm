@@ -1,14 +1,25 @@
 ---
 import MainLayout from '../layouts/main.astro';
+import { getMangas } from '../services/Manganato/manganato';
 import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDetails'
+import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
 
 const cookies = Astro.cookies
 const authToken = cookies.get("auth_token")?.value
 
-if (!authToken) {
-	return Astro.redirect("/")
+// if (!authToken) {
+// 	return Astro.redirect("/")
+// }
+
+const user = {
+	email: "testUser@gmail.com",
+	username: "testUser",
+	createdAt: new Date().getDate().toString(),
 }
+const listMangas = await getMangas("/complete")
 ---
 
-<MainLayout title="Profile">	
+<MainLayout title="Profile">
+	<ProfileDetails client:load user={user} />	
+	<UserListCon client:load listMangas={listMangas}>	
 </MainLayout>

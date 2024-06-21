@@ -1,29 +1,30 @@
-import type { Manga } from "../../../services/Manganato/manganatoTypes";
-import { truncate } from "../../../utilities/misc";
+import type { Manga, MangasResponse } from "../../../services/Manganato/manganatoTypes";
+import { trans1000, truncate } from "../../../utilities/misc";
 import { Poster } from "../Poster/Poster";
 
-export const UserListCon = ({ mangas }: { mangas: Manga[] }) => {
-	const mangasEle: JSX.Element[] = []
+export const UserListCon = ({ listMangas }: { listMangas: MangasResponse[] }) => {
+  const { mangas } = listMangas;
+  const mangasEle: JSX.Element[] = [];
 
-	for(let i=0; i < mangas.length; i++) 
-		mangasEle.push(<ListMangaWrapper key={i} item={mangas[i]}/>)
+  for (let i = 0; i < mangas.length; i++) {
+    // console.log({ manga: mangas[i] })
+    mangasEle.push(<ListMangaWrapper key={i} item={mangas[i]} />);
+  }
 
-	return (
-		<div className="user-list-con">
-			<div className="inner-con">
-				<div className="list-search-label-con">
-					<h3 className="list-label">My list</h3>
-					<input type="search" name="list-search" className="list-search" />
-				</div>
-				<div className="list-items-con">
-					<ul className="manga-list">
-						{mangasEle}
-					</ul>
-				</div>
-			</div>
-		</div>
-	)
-} 
+  return (
+    <div className="user-list-con">
+      <div className="inner-con">
+        <div className="list-search-label-con">
+          <h3 className="list-label">My list</h3>
+          <input type="search" name="list-search" className="list-search" />
+        </div>
+        <div className="list-items-con">
+          <ul className="manga-list">{mangasEle}</ul>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ListMangaWrapper = ({ item }: { item: Manga }) => {
   const { title, image_url, slug } = item;
@@ -48,7 +49,7 @@ const ListMangaWrapper = ({ item }: { item: Manga }) => {
         </a>
       </div>
       <button className="lm-remove-btn">
-      <i className="fa-solid fa-x"></i>
+        <i className="fa-solid fa-x"></i>
       </button>
     </div>
   );

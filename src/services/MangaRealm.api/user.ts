@@ -20,7 +20,7 @@ export const setBookmark = () => {
 
 export const isUserAuth = () => {
   //@ts-ignore
-  const user = window.user || {}
+  const user = window.user || {};
   return Object.keys(user).length > 0;
 };
 
