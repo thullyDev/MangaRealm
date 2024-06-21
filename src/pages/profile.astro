@@ -11,10 +11,16 @@ const authToken = cookies.get("auth_token")?.value
 // 	return Astro.redirect("/")
 // }
 
+const options = {
+	weekday: "long", 
+  	day: "numeric",
+  	month: "long", 
+  	year: "numeric"
+}
 const user = {
 	email: "testUser@gmail.com",
 	username: "testUser",
-	createdAt: new Date().getDate().toString(),
+	createdAt: new Date().toLocaleDateString("en-US", options),
 	profile_image_url:  null,
 }
 const listMangas = await getMangas("/complete")

@@ -10,11 +10,11 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
   const { profile_image_url, username } = user
   const profile_image = profile_image_url || "/default-img.jpeg";
   return (
-    <div className="user-account-image-con flex flex-col gap-2">
+    <div className="user-account-image-con flex flex-col gap-5">
       <div className="user-account-image-label-con">
         <h3 className="edit-avatar-label text-sm text-zinc-400">Edit Avatar</h3>
       </div>
-      <div className="account-image-con">
+      <div className="account-image-con h-full">
         <div className="inner-account-image-con">
           <div className="account-backdrop-con">
             {/*<img src="/account-backdrop.png" alt="backdrop" />*/}

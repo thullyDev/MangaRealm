@@ -32,19 +32,19 @@ export const UserDetails = ({ user }: { user: _User }) => {
   }
 
   return (
-    <div className="outer-user-details-con">
+    <div className="outer-user-details-con w-full">
       <div className="user-details-con">
         <div className="form-con">
-          <form action="post" className="user-detailt-form">
+          <form action="post" className="user-detailt-form flex gap-4 flex-col">
             {inputs}
-            <div className="change-password-text-con">
-              <button className="change-password-btn">
+            <div className="change-password-text-con flex justify-center">
+              <button className="change-password-btn flex gap-2 items-center justify-center text-xs text-zinc-500">
                 <i className="fas fa-lock"></i>
                 <p className="change-password-text">change password</p>
               </button>
             </div>
-            <div className="update-con w-full my-3">
-              <button type="button" className={`update-btn`}>
+            <div className="update-con w-full my-3 flex justify-center">
+              <button type="button" className={`update-btn bg-zinc-600 py-1 px-2 rounded-md text-black text-xs`}>
                 Update
               </button>
             </div>
@@ -66,14 +66,14 @@ const UDInput = ({ type, name, value, isReadOnly }: _UDInput) => {
   const label = formatKey(name);
   const key = name + "_input";
   const input = isReadOnly ? (
-    <input className="bg-inherit" value={value} name={key} type={type} readOnly />
+    <input className="border border-zinc-400 px-2 rounded bg-zinc-600 bg-opacity-70 text-sm" value={value} name={key} type={type} readOnly />
   ) : (
-    <input className="bg-inherit" onChange={() => {}} value={value} name={key} type={type} />
+    <input className="border border-zinc-400 px-2 rounded bg-zinc-700 bg-opacity-40 text-sm" onChange={() => {}} value={value} name={key} type={type} />
   );
   return (
     <div className="udinput-con">
-      <div className="inner-con">
-        <label htmlFor={key} className="udinput-label">
+      <div className="inner-con flex flex-col gap-1">
+        <label htmlFor={key} className="udinput-label text-xs text-zinc-400">
           {titleCase(label)}
         </label>
         {input}

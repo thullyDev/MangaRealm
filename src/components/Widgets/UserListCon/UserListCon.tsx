@@ -2,7 +2,7 @@ import type { Manga, MangasResponse } from "../../../services/Manganato/manganat
 import { trans1000, truncate } from "../../../utilities/misc";
 import { Poster } from "../Poster/Poster";
 
-export const UserListCon = ({ listMangas }: { listMangas: MangasResponse[] }) => {
+export const UserListCon = ({ listMangas }: { listMangas: MangasResponse }) => {
   const { mangas } = listMangas;
   const mangasEle: JSX.Element[] = [];
 
