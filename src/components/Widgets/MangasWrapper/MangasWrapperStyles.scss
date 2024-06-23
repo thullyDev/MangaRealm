@@ -19,7 +19,6 @@ $_padding: 16px;
     .poster {
       width: 100%;
       height: 200px;
-      min-width: 150px;
       object-fit: cover;
     }
 
@@ -53,6 +52,10 @@ $_padding: 16px;
     }
 
     &.manga-list-item-1 {
+      .poster {
+        min-width: 150px;
+      }
+      
       @include media-xxsmall {
         width: calc(50% - $_padding);
       }

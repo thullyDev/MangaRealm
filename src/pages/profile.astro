@@ -6,6 +6,7 @@ import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
 
 const cookies = Astro.cookies
 const authToken = cookies.get("auth_token")?.value
+const urlPath = Astro.url.toString()
 
 // if (!authToken) {
 // 	return Astro.redirect("/")
@@ -20,6 +21,7 @@ const options = {
 const user = {
 	email: "testUser@gmail.com",
 	username: "testUser",
+	// @ts-ignore
 	createdAt: new Date().toLocaleDateString("en-US", options),
 	profile_image_url:  null,
 }
@@ -28,5 +30,5 @@ const listMangas = await getMangas("/complete")
 
 <MainLayout title="Profile">
 	<ProfileDetails client:load user={user} />	
-	<UserListCon client:load listMangas={listMangas}>	
+	<UserListCon client:load listMangas={listMangas} urlPath={urlPath} >	
 </MainLayout>

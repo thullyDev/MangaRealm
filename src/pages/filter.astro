@@ -6,7 +6,7 @@ import { Pagination } from '../components/Widgets/Pagination/Pagination'
 import { MangasFilter } from '../components/Widgets/MangasFilter/MangasFilter'
 
 const url = Astro.url
-const page = url.searchParams.get('page') || "1";
+// const page = url.searchParams.get('page') || "1";
 const genre = url.searchParams.get('genres') || "all";
 const type = url.searchParams.get('type');
 let status = url.searchParams.get('status');
@@ -30,5 +30,5 @@ const title = "Filter - MangaRealm"
 <MainLayout title={ title }>
 	<MangasFilter client:load/>	
 	<MangasWrapper {...props} />
-	<Pagination pagination={pagination} query={query} />	
+	<Pagination pagination={pagination} url={url} />	
 </MainLayout>

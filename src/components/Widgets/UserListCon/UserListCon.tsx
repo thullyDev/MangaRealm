@@ -1,11 +1,11 @@
 import type { Manga, MangasResponse } from "../../../services/Manganato/manganatoTypes";
 import { ListMangaWrapper } from "../ListMangaWrapper/ListMangaWrapper";
 import "../MangasWrapper/MangasWrapperStyles.scss"
+import { Pagination } from "../Pagination/Pagination";
 
-export const UserListCon = ({ listMangas }: { listMangas: MangasResponse }) => {
-  console.log({ listMangas })
-  const { mangas } = listMangas;
-
+export const UserListCon = ({ listMangas, urlPath }: { urlPath: string; listMangas: MangasResponse }) => {
+  const { mangas, pagination } = listMangas;
+  const url = new URL(urlPath)
   return (
     <div className={"mangas-con mt-5 "}>
       <div className="inner-con px-2">
@@ -25,6 +25,7 @@ export const UserListCon = ({ listMangas }: { listMangas: MangasResponse }) => {
           </ul>
         </div>
       </div>
+      <Pagination pagination={pagination} url={url} />  
     </div>
   );
 };
