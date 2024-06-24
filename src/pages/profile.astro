@@ -3,15 +3,19 @@ import MainLayout from '../layouts/main.astro';
 import { getMangas } from '../services/Manganato/manganato';
 import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDetails'
 import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
+import { getUser } from '../database/Sequel/userDatabase'
 
-const cookies = Astro.cookies
-const authToken = cookies.get("auth_token")?.value
-const urlPath = Astro.url.toString()
-
+// const cookies = Astro.cookies
+// const authToken = cookies.get("auth_token")?.value
 // if (!authToken) {
 // 	return Astro.redirect("/")
 // }
 
+
+const urlPath = Astro.url.toString()
+const email = "testuser@example.com"
+const data = await getUser({ key:"email", entity:email })
+console.log({ data })
 const options = {
 	weekday: "long", 
   	day: "numeric",
