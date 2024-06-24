@@ -7,8 +7,8 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
 
   for (let i = 1; i < parseInt(pages); i++) {
     const highlight = parseInt(page) == i ? "active bg-red-700 rounded-l" : "bg-zinc-800";
-    url.searchParams.set("page", JSON.stringify(i))
-    const query = url.toString()
+    url.searchParams.set("page", JSON.stringify(i));
+    const query = url.toString();
     const pageEle = (
       <a href={`${query}`} className={pageClass + highlight}>
         {i}
@@ -18,8 +18,8 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
 
     if (i > 6) break;
   }
-  url.searchParams.append("page", pages)
-  const query = url.toString()
+  url.searchParams.append("page", pages);
+  const query = url.toString();
 
   pageEles.push(
     <>

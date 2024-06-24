@@ -25,7 +25,7 @@ export const ListMangaWrapper = ({ item }: { item: Manga }) => {
         </a>
       </div>
       <button className="lm-remove-btn bg-red-600 absolute w-8 h-8 rounded-full top-2 right-2 flex justify-center items-center">
-      <i className="fa-regular fa-trash-can"></i>
+        <i className="fa-regular fa-trash-can"></i>
       </button>
     </div>
   );

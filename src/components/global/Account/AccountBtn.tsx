@@ -10,8 +10,8 @@ export const AccountBtn = () => {
 
     window.location.assign("/profile");
   };
-  
-  const profile_image_url = null
+
+  const profile_image_url = null;
   const profile_image = profile_image_url || "/default-img.jpeg";
 
   return (
@@ -22,7 +22,11 @@ export const AccountBtn = () => {
       data-animate="fade"
       className="account-button w-10 h-10"
     >
-      <img src={profile_image} alt={"account profile image"} className="profile-image w-full h-full rounded-full cover border border-zinc-300" />
+      <img
+        src={profile_image}
+        alt={"account profile image"}
+        className="profile-image w-full h-full rounded-full cover border border-zinc-300"
+      />
     </button>
   );
 };

@@ -55,7 +55,7 @@ $_padding: 16px;
       .poster {
         min-width: 150px;
       }
-      
+
       @include media-xxsmall {
         width: calc(50% - $_padding);
       }

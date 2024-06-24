@@ -5,29 +5,30 @@ import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDeta
 import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
 import { getUser } from '../database/Sequel/userDatabase'
 
-// const cookies = Astro.cookies
-// const authToken = cookies.get("auth_token")?.value
-// if (!authToken) {
-// 	return Astro.redirect("/")
-// }
+const cookies = Astro.cookies
+const authToken = cookies.get("auth_token")?.value
+const rawUserData = cookies.get("user_data")?.value
 
+//! checks if the authToken and rawUserData from cookies is valid 
+if (!authToken || !rawUserData) { 
+	return Astro.redirect("/")
+}
 
 const urlPath = Astro.url.toString()
-const email = "testuser@example.com"
-const data = await getUser({ key:"email", entity:email })
-console.log({ data })
-const options = {
-	weekday: "long", 
-  	day: "numeric",
-  	month: "long", 
-  	year: "numeric"
+const { email } = JSON.parse(rawUserData)
+const dbUser = await getUser({ key: "email", entity: email })
+
+if (!dbUser) {
+	return Astro.redirect("/")
 }
+const { username, profile_image_url, created_at } = dbUser
+const createdAtDate = new Date(created_at).toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
+
 const user = {
-	email: "testUser@gmail.com",
-	username: "testUser",
-	// @ts-ignore
-	createdAt: new Date().toLocaleDateString("en-US", options),
-	profile_image_url:  null,
+	email,
+	username,
+	createdAt: createdAtDate,
+	profile_image_url,
 }
 const listMangas = await getMangas("/complete")
 ---

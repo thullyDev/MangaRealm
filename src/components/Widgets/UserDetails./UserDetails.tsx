@@ -66,9 +66,21 @@ const UDInput = ({ type, name, value, isReadOnly }: _UDInput) => {
   const label = formatKey(name);
   const key = name + "_input";
   const input = isReadOnly ? (
-    <input className="border border-zinc-400 px-2 rounded bg-zinc-600 bg-opacity-70 text-sm" value={value} name={key} type={type} readOnly />
+    <input
+      className="border border-zinc-400 px-2 rounded bg-zinc-600 bg-opacity-70 text-sm"
+      value={value}
+      name={key}
+      type={type}
+      readOnly
+    />
   ) : (
-    <input className="border border-zinc-400 px-2 rounded bg-zinc-700 bg-opacity-40 text-sm" onChange={() => {}} value={value} name={key} type={type} />
+    <input
+      className="border border-zinc-400 px-2 rounded bg-zinc-700 bg-opacity-40 text-sm"
+      onChange={() => {}}
+      value={value}
+      name={key}
+      type={type}
+    />
   );
   return (
     <div className="udinput-con">
