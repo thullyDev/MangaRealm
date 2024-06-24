@@ -4,6 +4,7 @@ import { getMangas } from '../services/Manganato/manganato';
 import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDetails'
 import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
 import { getUser } from '../database/Sequel/userDatabase'
+import '../styles/pages/profile.scss';
 
 const cookies = Astro.cookies
 const authToken = cookies.get("auth_token")?.value

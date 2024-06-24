@@ -5,6 +5,7 @@ import { Pagination } from "../Pagination/Pagination";
 
 export const UserListCon = ({ listMangas, urlPath }: { urlPath: string; listMangas: MangasResponse }) => {
   const { mangas, pagination } = listMangas;
+  // mangas.splice(10)
   const url = new URL(urlPath);
   return (
     <div className={"mangas-con mt-5 "}>
@@ -19,10 +20,10 @@ export const UserListCon = ({ listMangas, urlPath }: { urlPath: string; listMang
           />
         </div>
         <div className="inner-con">
-          <ul className="mangas-list">
+          <ul className="mangas-list user-mangas-list">
             {mangas.map((item, index) => {
               return (
-                <li className={`manga-list-item manga-list-item-1`}>
+                <li className={`manga-list-item manga-list-item-1 user-manga-item`}>
                   <ListMangaWrapper key={index} item={item} />
                 </li>
               );

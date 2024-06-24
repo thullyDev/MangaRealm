@@ -1,0 +1,20 @@
+@import "../global/mediaQueries.scss";
+// $_padding: 16px;
+
+
+.main-content {
+  @include media-xlarge {
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+  }
+
+  .profile-details-con {
+    @include media-xlarge {
+      position: relative;
+      top: 22.5px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

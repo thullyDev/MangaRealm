@@ -1,6 +1,7 @@
 import type { _User } from "../../../services/MangaRealm.api/types";
 import { UserAccountImage } from "../UserAccountImage/UserAccountImage";
 import { UserDetails } from "../UserDetails./UserDetails";
+import "./ProfileDetailsStyles.scss"
 
 export const ProfileDetails = ({ user }: { user: _User }) => {
   return (
