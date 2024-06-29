@@ -35,6 +35,8 @@
     "@types/dompurify": "^3.0.5",
     "@types/jquery": "^3.5.30",
     "@types/node": "^20.12.11",
-    "@types/pg": "^8.11.6"
+    "@types/pg": "^8.11.6",
+    "prettier": "^3.3.2",
+    "prettier-plugin-astro": "^0.14.0"
   }
 }

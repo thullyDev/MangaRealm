@@ -81,7 +81,6 @@ $_padding: 16px;
       }
     }
 
-
     &.user-manga-item {
       @include media-xlarge {
         width: calc(20% - $_padding);
@@ -92,7 +91,7 @@ $_padding: 16px;
 
         .manga-item {
           width: 100%;
-          
+
           .inner-con {
             width: 100%;
           }
@@ -100,7 +99,7 @@ $_padding: 16px;
       }
 
       .poster {
-          min-width: 130px;
+        min-width: 130px;
       }
     }
   }

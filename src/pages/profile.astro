@@ -1,40 +1,74 @@
----
-import MainLayout from '../layouts/main.astro';
-import { getMangas } from '../services/Manganato/manganato';
-import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDetails'
-import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
-import { getUser } from '../database/Sequel/userDatabase'
+--- import MainLayout from '../layouts/main.astro';
+
+import {
+	getMangas
+}
+
+from '../services/Manganato/manganato';
+
+import {
+	ProfileDetails
+}
+
+from '../components/Widgets/ProfileDetails/ProfileDetails'
+
+import {
+	UserListCon
+}
+
+from '../components/Widgets/UserListCon/UserListCon'
+
+import {
+	getUser
+}
+
+from '../database/Sequel/userDatabase'
 import '../styles/pages/profile.scss';
 
-const cookies = Astro.cookies
-const authToken = cookies.get("auth_token")?.value
-const rawUserData = cookies.get("user_data")?.value
+const cookies=Astro.cookies const authToken=cookies.get("auth_token")?.value const rawUserData=cookies.get("user_data")?.value //! checks if the authToken and rawUserData from cookies is valid
 
-//! checks if the authToken and rawUserData from cookies is valid 
-if (!authToken || !rawUserData) { 
+if ( !authToken || !rawUserData) {
 	return Astro.redirect("/")
 }
 
-const urlPath = Astro.url.toString()
-const { email } = JSON.parse(rawUserData)
-const dbUser = await getUser({ key: "email", entity: email })
+const urlPath=Astro.url.toString() const {
+	email
+}
 
-if (!dbUser) {
+=JSON.parse(rawUserData) const dbUser=await getUser({
+	key: "email", entity: email
+
+}) if ( !dbUser) {
 	return Astro.redirect("/")
 }
-const { username, profile_image_url, created_at } = dbUser
-const createdAtDate = new Date(created_at).toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
 
-const user = {
+const {
+	username,
+	profile_image_url,
+	created_at
+}
+
+=dbUser const createdAtDate=new Date(created_at).toLocaleDateString("en-US", {
+	weekday: "long", day: "numeric", month: "long",
+	year: "numeric"
+
+}) const user= {
 	email,
 	username,
 	createdAt: createdAtDate,
-	profile_image_url,
+		profile_image_url,
 }
-const listMangas = await getMangas("/complete")
----
 
-<MainLayout title="Profile">
-	<ProfileDetails client:load user={user} />	
-	<UserListCon client:load listMangas={listMangas} urlPath={urlPath} >	
-</MainLayout>
+const listMangas=await getMangas("/complete") --- <MainLayout title="Profile"><ProfileDetails client:load user= {
+	user
+}
+
+/><UserListCon client:load listMangas= {
+	listMangas
+}
+
+urlPath= {
+	urlPath
+}
+
+></MainLayout>

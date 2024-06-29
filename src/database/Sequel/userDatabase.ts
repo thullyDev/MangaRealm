@@ -34,19 +34,19 @@ interface _updateUser {
  * @returns Returns `true` if the user record was successfully updated, and false if the no user is founded, or if the execution fails`.
  */
 export async function updateUser({ key, entity, data }: _updateUser): Promise<boolean> {
-    const updateQuery = data.map(({ column, value }) => `set ${column} = '${value}'`).join(", ")
-    const query = `UPDATE "user" ${updateQuery} where ${key} = '${entity}'`
-    let response;
-    try {
-      response = await psqlDB.execute(query);
-    } catch(error) {
-      console.error(error)
-      return false
-    } 
+  const updateQuery = data.map(({ column, value }) => `set ${column} = '${value}'`).join(", ");
+  const query = `UPDATE "user" ${updateQuery} where ${key} = '${entity}'`;
+  let response;
+  try {
+    response = await psqlDB.execute(query);
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 
   if (response.rowCount == 0) {
-    console.error(`no user row as ${entity}`)
-    return false
+    console.error(`no user row as ${entity}`);
+    return false;
   }
 
   return true;
