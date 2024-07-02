@@ -17,15 +17,15 @@ const rawUserData = cookies.get("user_data")?.value
 // }
 
 const urlPath = Astro.url.toString()
-// const { email } = JSON.parse(rawUserData)
-const email = "demykunta@gmail.com"
+const { email } = JSON.parse(rawUserData)
 const profileData = await getProfileData({ email, auth_token: "auth_token" })
-console.log({ profileData })
+
 if (!profileData) {
 	return Astro.redirect("/")
 }
 
-
+const { list, pagination, profile: user } = profileData
+const listMangas = { mangas: list, pagination }
 ---
 
 <MainLayout title="Profile">

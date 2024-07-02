@@ -16,6 +16,7 @@ interface _ProfileData {
     username: string,
     email: string,
     deleted: boolean,
+    created_at: string,
     profile_image_url: string | null,
   }
 }

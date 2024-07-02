@@ -55,5 +55,5 @@ export interface _User {
   email: string;
   username: string;
   profile_image_url: string | null;
-  createdAt: string;
+  created_at: string;
 }
