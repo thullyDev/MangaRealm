@@ -12,29 +12,20 @@ const authToken = cookies.get("auth_token")?.value
 const rawUserData = cookies.get("user_data")?.value
 
 //! checks if the authToken and rawUserData from cookies is valid 
-//if (!authToken || !rawUserData) { 
-//	return Astro.redirect("/")
-//}
+// if (!authToken || !rawUserData) { 
+// return Astro.redirect("/")
+// }
 
 const urlPath = Astro.url.toString()
-//const { email } = JSON.parse(rawUserData)
+// const { email } = JSON.parse(rawUserData)
 const email = "demykunta@gmail.com"
 const profileData = await getProfileData({ email, auth_token: "auth_token" })
-const dbUser = await getUser({ key: "email", entity: email })
-
-if (!dbUser) {
+console.log({ profileData })
+if (!profileData) {
 	return Astro.redirect("/")
 }
-const { username, profile_image_url, created_at } = dbUser
-const createdAtDate = new Date(created_at).toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
 
-const user = {
-	email,
-	username,
-	createdAt: createdAtDate,
-	profile_image_url,
-}
-const listMangas = await getMangas("/complete")
+
 ---
 
 <MainLayout title="Profile">

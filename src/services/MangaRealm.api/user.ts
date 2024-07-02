@@ -24,7 +24,7 @@ export const isUserAuth = () => {
   return Object.keys(user).length > 0;
 };
 
-export async function cancelRenewPassword() {}
+export async function cancelRenewPassword() { }
 
 export async function signup({ captchaResponse, email, username, password, confirm }: _Signup) {
   if (!isEmailValid(email)) {
@@ -173,8 +173,11 @@ export function setCookies(data: _Setcookie[], cookies: AstroCookies) {
   const rootPath = "/";
   for (let i = 0; i < data.length; i++) {
     const { key, value, path, maxAge, secure, httpOnly } = data[i];
+    const expirationDate = new Date();
+    expirationDate.setSeconds(expirationDate.getSeconds() + (maxAge || THIRTY_DAYS_SECONDS));
     const cookieOptions = {
       "max-age": maxAge || THIRTY_DAYS_SECONDS,
+      expires: expirationDate,
       path: path || rootPath,
       secure: secure || true,
       httpOnly: httpOnly || true,
