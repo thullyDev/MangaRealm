@@ -17,13 +17,13 @@ const rawUserData = cookies.get("user_data")?.value
 // }
 
 const urlPath = Astro.url.toString()
-const { email } = JSON.parse(rawUserData)
+// const { email } = JSON.parse(rawUserData)
+const email = "demykunta@gmail.com"
 const profileData = await getProfileData({ email, auth_token: "auth_token" })
 
-if (!profileData) {
-	return Astro.redirect("/")
-}
-
+// if (!profileData) {
+	// return Astro.redirect("/")
+// }
 const { list, pagination, profile: user } = profileData
 const listMangas = { mangas: list, pagination }
 ---
