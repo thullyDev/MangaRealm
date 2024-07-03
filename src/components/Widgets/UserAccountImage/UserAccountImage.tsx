@@ -1,10 +1,5 @@
 import type { _User } from "../../../services/MangaRealm.api/types";
-import { trans1000, trans500 } from "../../../utilities/misc";
-
-interface _UserAccountImage {
-  profile_image_url: string | null;
-  username: string;
-}
+import { trans500 } from "../../../utilities/misc";
 
 export const UserAccountImage = ({ user }: { user: _User }) => {
   const { profile_image_url, username } = user;
@@ -25,7 +20,9 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
                 className="profile-image w-full h-full rounded-full cover border border-zinc-400"
               />
               <span
-                className={`layover-cover ${trans500} cursor-pointer opacity-0 hover:opacity-100 hover:bg-black hover:bg-opacity-60 bg-opacity-60 absolute w-full h-full top-0 flex justify-center items-center flex-col gap-2 rounded-full`}
+                className={`layover-cover ${trans500} cursor-pointer opacity-0 hover:opacity-100 hover:bg-black
+            hover:bg-opacity-60 bg-opacity-60 absolute w-full h-full top-0 flex justify-center items-center flex-col
+            gap-2 rounded-full`}
               >
                 <i className="fa fa-pencil text-sm"></i>
                 <p className="avatar-text text-sm">change Avatar</p>

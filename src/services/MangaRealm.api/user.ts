@@ -14,8 +14,11 @@ import type { AstroCookies } from "astro";
 
 const authApi = new ApiHandler("");
 
-export const setBookmark = () => {
-  return true;
+export const setBookmark = async (slug: string) => {
+  const data = await backendRequest(`/add_to_list/${slug}`);
+  console.log({ data })
+
+  return true
 };
 
 export const isUserAuth = () => {
@@ -23,8 +26,6 @@ export const isUserAuth = () => {
   const user = window.user || {};
   return Object.keys(user).length > 0;
 };
-
-export async function cancelRenewPassword() { }
 
 export async function signup({ captchaResponse, email, username, password, confirm }: _Signup) {
   if (!isEmailValid(email)) {
@@ -43,34 +44,18 @@ export async function signup({ captchaResponse, email, username, password, confi
   }
 
   const params = { email, username, password, confirm };
-  const data = await request("/signup", params, captchaResponse);
-  const { message } = data.data as _Response;
+  const data = await authRequest("/signup", params, captchaResponse);
+  const { status_code, message, data: userData } = data.data as _AuthResponse;
+
   ShowAlert(message);
-  return;
+  if (status_code != 200) {
+    return;
+  }
+
+  setAuthCookies(userData);
+  setupUser(userData);
 }
 
-export async function setAuthCookies({ token, email, profile_image_url, username }: _AuthUser) {
-  const user = {
-    email,
-    profile_image_url,
-    username,
-  };
-  const sixtyDaysInSeconds = 5184000;
-  const cookies = JSON.stringify([
-    {
-      key: "auth_token",
-      value: token,
-      maxAge: sixtyDaysInSeconds,
-    },
-    {
-      key: "user_data",
-      value: JSON.stringify(user),
-      maxAge: sixtyDaysInSeconds,
-    },
-  ]);
-
-  authApi.post("/api/setcookies", { data: cookies });
-}
 
 export async function login({ captchaResponse, email, password }: _Login) {
   if (!isEmailValid(email)) {
@@ -83,7 +68,7 @@ export async function login({ captchaResponse, email, password }: _Login) {
     return;
   }
   const params = { email, password };
-  const data = await request("/login", params, captchaResponse);
+  const data = await authRequest("/login", params, captchaResponse);
   const { status_code, message, data: userData } = data.data as _AuthResponse;
 
   ShowAlert(message);
@@ -106,7 +91,7 @@ export async function forgotPassword({ captchaResponse, email }: _ForgotPassword
     return;
   }
   const params = { email };
-  const data = await request("/forgot_password", params, captchaResponse);
+  const data = await authRequest("/forgot_password", params, captchaResponse);
   const { message } = data.data as _Response;
   ShowAlert(message);
 }
@@ -125,7 +110,7 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
 
   const code = $(".code-inp").val();
   const params = { password, confirm, code };
-  const data = await request("/renew_password", params, captchaResponse);
+  const data = await authRequest("/renew_password", params, captchaResponse);
   const { status_code, message } = data.data as _Response;
   ShowAlert(message);
 
@@ -135,17 +120,35 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
   }
 }
 
-async function request(endpoint: string, params: RequestOptions, captchaResponse: string) {
+interface _Request { endpoint: string, params: RequestOptions, base: string, headers: Record<string, string> }
+
+async function request({ endpoint, params, base, headers }: _Request) {
+  return await authApi.post(base + endpoint, params, { headers });
+}
+
+async function authRequest(endpoint: string, params: RequestOptions, captchaResponse: string) {
   const headers = {
     "Content-Type": "application/json",
     captchaToken: captchaResponse,
   };
   const base = getAuthApiUrl();
-  return await authApi.post(base + endpoint, params, { headers });
+  return await request({ endpoint, params, base, headers });
+}
+
+async function backendRequest(endpoint: string, params: RequestOptions = {}) {
+  const base = getBackendApiUrl();
+  return await request({ endpoint, params, base, headers: {} });
 }
 
 function getAuthApiUrl(): string {
   const inp = document.querySelector(".auth-api-inpt") as HTMLInputElement;
+  if (!inp) return "";
+
+  return inp.value;
+}
+
+function getBackendApiUrl(): string {
+  const inp = document.querySelector(".backend-api-inpt") as HTMLInputElement;
   if (!inp) return "";
 
   return inp.value;
@@ -184,4 +187,27 @@ export function setCookies(data: _Setcookie[], cookies: AstroCookies) {
     };
     cookies.set(key, value, cookieOptions);
   }
+}
+
+export async function setAuthCookies({ token, email, profile_image_url, username }: _AuthUser) {
+  const user = {
+    email,
+    profile_image_url,
+    username,
+  };
+  const sixtyDaysInSeconds = 5184000;
+  const cookies = JSON.stringify([
+    {
+      key: "auth_token",
+      value: token,
+      maxAge: sixtyDaysInSeconds,
+    },
+    {
+      key: "user_data",
+      value: JSON.stringify(user),
+      maxAge: sixtyDaysInSeconds,
+    },
+  ]);
+
+  authApi.post("/api/setcookies", { data: cookies });
 }

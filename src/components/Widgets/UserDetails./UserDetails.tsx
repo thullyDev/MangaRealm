@@ -4,9 +4,11 @@ import { formatKey, titleCase } from "../../../utilities/misc";
 export const UserDetails = ({ user }: { user: _User }) => {
   const { email, username, created_at } = user;
   const createdAtDate = new Date(created_at).toLocaleDateString("en-US", {
-    weekday: "long", day: "numeric", month: "long",
-    year: "numeric"
-  })
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
   const udInpItems = [
     {
       type: "text",
@@ -29,9 +31,9 @@ export const UserDetails = ({ user }: { user: _User }) => {
   ];
 
   const inputs: JSX.Element[] = [];
-  for (let i = 0; i
-    < udInpItems.length; i++) {
-      const data = udInpItems[i]; const ele = <UDInput key={i} {...data} />;
+  for (let i = 0; i < udInpItems.length; i++) {
+    const data = udInpItems[i];
+    const ele = <UDInput key={i} {...data} />;
     inputs.push(ele);
   }
 
@@ -70,10 +72,17 @@ const UDInput = ({ type, name, value, isReadOnly }: _UDInput) => {
   const label = formatKey(name);
   const key = name + "_input";
   const input = isReadOnly ? (
-    <input className="border border-zinc-400 px-2 rounded bg-zinc-600 bg-opacity-70 text-sm" value={value} name={key}
-      type={type} readOnly />
+    <input
+      className="border border-zinc-400 px-2 rounded bg-zinc-600 bg-opacity-70 text-sm"
+      value={value}
+      name={key}
+      type={type}
+      readOnly
+    />
   ) : (
-    <input className="border border-zinc-400 px-2 rounded bg-zinc-700 bg-opacity-40 text-sm" onChange={() => { }}
+    <input
+      className="border border-zinc-400 px-2 rounded bg-zinc-700 bg-opacity-40 text-sm"
+      onChange={() => {}}
       value={value}
       name={key}
       type={type}
