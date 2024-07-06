@@ -17,7 +17,8 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
     return;
   }
 
-  const isSet: null | boolean = await setBookmark(slug);
+  const email = "demykunta@gmail.com";
+  const isSet: null | boolean = await setBookmark(slug, email);
 
   if (isSet == null) {
     ShowAlert("Failed to set bookmark");
@@ -150,5 +151,5 @@ export const MangaInfoCon = ({ manga, url }: { manga: MangaRead; url: string }) 
         </div>
       </div>
     </div>
-    );
-    };
+  );
+};

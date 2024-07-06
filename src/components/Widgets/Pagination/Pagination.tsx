@@ -5,7 +5,7 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
   const pageEles: JSX.Element[] = [];
   const pageClass = `page-link inline-block py-1 px-3 text-sm `;
 
-  for (let i = 1; i < parseInt(pages); i++) {
+  for (let i = 1; i <= parseInt(pages); i++) {
     const highlight = parseInt(page) == i ? "active bg-red-700 rounded-l" : "bg-zinc-800";
     url.searchParams.set("page", JSON.stringify(i));
     const query = url.toString();
@@ -18,7 +18,7 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
 
     if (i > 6) break;
   }
-  url.searchParams.append("page", pages);
+  url.searchParams.set("page", pages);
   const query = url.toString();
 
   pageEles.push(
@@ -26,11 +26,12 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
       <span className={pageClass + "bg-zinc-800"}>
         <i className="fa-solid fa-ellipsis"></i>
       </span>
-      <a href={`${query}$page=${pages}`} className={`${pageClass + "bg-zinc-800 rounded-r"}`}>
+      <a href={`${query}`} className={`${pageClass + "bg-zinc-800 rounded-r"}`}>
         {pages}
       </a>
     </>,
   );
+
   return (
     <div className="pagination-con flex justify-center mt-10">
       <ul className="flex">

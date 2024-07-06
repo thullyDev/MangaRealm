@@ -1,3 +1,5 @@
+import type { Manga } from "../Manganato/manganatoTypes";
+
 export interface _AuthUser {
   email: string;
   profile_image_url: null | string;
@@ -57,3 +59,29 @@ export interface _User {
   profile_image_url: string | null;
   created_at: string;
 }
+
+export interface _ProfileData {
+  pagination: {
+    page: string;
+    pages: string;
+  };
+  list: Manga[];
+  profile: {
+    id: number;
+    username: string;
+    email: string;
+    deleted: boolean;
+    created_at: string;
+    profile_image_url: string | null;
+  };
+  auth_token: string;
+}
+
+export interface _GetProfileArgs {
+  auth_token: string;
+  email: string;
+  keywords: string;
+  page: string;
+}
+
+export interface _RemoveItemFromListArgs { slug: string; email: string, auth_token: string }

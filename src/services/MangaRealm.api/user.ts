@@ -11,14 +11,80 @@ import type {
 } from "./types";
 import { ShowAlert, isEmailValid } from "../../utilities/misc";
 import type { AstroCookies } from "astro";
+import { FORBIDDEN, SUCCESSFUL } from "../../utilities/errors";
 
 const authApi = new ApiHandler("");
 
-export const setBookmark = async (slug: string) => {
-  const data = await backendRequest(`/add_to_list/${slug}`);
-  console.log({ data })
+export const setBookmark = async (slug: string, email: string, auth_token: string) => {
+  const { status, data } = await backendRequest(`/add_to_list`, auth_token, { slug, email });
 
-  return true
+  if (status == FORBIDDEN) {
+    ShowAlert("user needs to login");
+    return null;
+  }
+
+  if (status != SUCCESSFUL) {
+    return null;
+  }
+
+  const { auth_token: token, message, data: listData } = data;
+  const { isAdded } = listData;
+
+  ShowAlert(message);
+
+  // const sixtyDaysInSeconds = 5184000;
+  // const cookies = JSON.stringify([
+  //   {
+  //     key: "auth_token",
+  //     value: token,
+  //     maxAge: sixtyDaysInSeconds,
+  //   },
+  // ]);
+
+  // authApi.post("/api/setcookies", { data: cookies });
+
+  return isAdded;
+};
+
+export const changeUserInfo = async ({
+  email,
+  username,
+  auth_token,
+}: {
+  email: string;
+  username: string;
+  auth_token: string;
+}) => {
+  const changeData = JSON.stringify([{ email }, { username }]);
+  const data = await backendRequest(`/change_user_info/`, auth_token, { email, data: changeData });
+  const { status } = data;
+  console.log({ status, data });
+
+  if (status == FORBIDDEN) {
+    ShowAlert("user needs to login");
+    return null;
+  }
+
+  if (status != SUCCESSFUL) {
+    return null;
+  }
+
+  const { auth_token: token, message } = data;
+
+  ShowAlert(message);
+
+  // const sixtyDaysInSeconds = 5184000;
+  // const cookies = JSON.stringify([
+  //   {
+  //     key: "auth_token",
+  //     value: token,
+  //     maxAge: sixtyDaysInSeconds,
+  //   },
+  // ]);
+
+  // authApi.post("/api/setcookies", { data: cookies });
+
+  return true;
 };
 
 export const isUserAuth = () => {
@@ -55,7 +121,6 @@ export async function signup({ captchaResponse, email, username, password, confi
   setAuthCookies(userData);
   setupUser(userData);
 }
-
 
 export async function login({ captchaResponse, email, password }: _Login) {
   if (!isEmailValid(email)) {
@@ -97,7 +162,6 @@ export async function forgotPassword({ captchaResponse, email }: _ForgotPassword
 }
 
 export async function renewPassword({ captchaResponse, confirm, password }: _RenewPassword) {
-  console.log("i am here");
   if (password.length < 10) {
     ShowAlert("password should be atleast 10 characters");
     return;
@@ -120,7 +184,12 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
   }
 }
 
-interface _Request { endpoint: string, params: RequestOptions, base: string, headers: Record<string, string> }
+interface _Request {
+  endpoint: string;
+  params: RequestOptions;
+  base: string;
+  headers: Record<string, string>;
+}
 
 async function request({ endpoint, params, base, headers }: _Request) {
   return await authApi.post(base + endpoint, params, { headers });
@@ -135,9 +204,14 @@ async function authRequest(endpoint: string, params: RequestOptions, captchaResp
   return await request({ endpoint, params, base, headers });
 }
 
-async function backendRequest(endpoint: string, params: RequestOptions = {}) {
+async function backendRequest(endpoint: string, auth_token: string, params: RequestOptions = {}) {
+  const headers = {
+    "Content-Type": "application/json",
+    auth_token: auth_token,
+  };
+
   const base = getBackendApiUrl();
-  return await request({ endpoint, params, base, headers: {} });
+  return await request({ endpoint, params, base, headers });
 }
 
 function getAuthApiUrl(): string {

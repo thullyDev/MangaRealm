@@ -1,5 +1,4 @@
 import $ from "jquery";
-import { cancelRenewPassword } from "../../../services/MangaRealm.api/user";
 import { showCloseEle } from "../../../utilities/misc";
 
 export const labels: Record<string, string> = {
@@ -119,7 +118,6 @@ function redirectFallBack(event: React.MouseEvent<HTMLButtonElement>) {
   const type = eventEle.data("type");
 
   if (rrtype == "cancel") {
-    cancelRenewPassword();
     showCloseEle(event);
     return;
   }

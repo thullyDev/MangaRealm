@@ -37,8 +37,8 @@ export class ApiHandler {
         },
       };
     } catch (error: any) {
-      // console.error(error);
-      return { status: CRASH, message: CRASH };
+      console.error(error);
+      return { status: CRASH, message: CRASH_MSG };
     }
   }
 
