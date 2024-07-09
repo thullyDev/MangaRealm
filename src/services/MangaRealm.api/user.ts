@@ -4,16 +4,41 @@ import type {
   _AuthUser,
   _ForgotPassword,
   _Login,
+  _RemoveItemFromListArgs,
   _RenewPassword,
+  _Request,
   _Response,
   _Setcookie,
   _Signup,
+  _UploadUserAvatarImageArgs,
 } from "./types";
 import { ShowAlert, isEmailValid } from "../../utilities/misc";
 import type { AstroCookies } from "astro";
 import { FORBIDDEN, SUCCESSFUL } from "../../utilities/errors";
 
-const authApi = new ApiHandler("");
+const Api = new ApiHandler("");
+
+
+export const removeItemFromList = async ({ slug, email, auth_token }: _RemoveItemFromListArgs): Promise<boolean> => {
+  const params = { email, slug };
+  const data = await backendRequest("/remove_from_list", auth_token, params);
+  const { status } = data;
+
+  if (status != SUCCESSFUL) {
+    return false;
+  }
+
+  const { auth_token: token } = data.data as {
+    auth_token: string;
+    message: string;
+    status_code: number;
+  };
+
+  setTokenToCookies(token, Api)
+
+  return true;
+};
+
 
 export const setBookmark = async (slug: string, email: string, auth_token: string) => {
   const { status, data } = await backendRequest(`/add_to_list`, auth_token, { slug, email });
@@ -32,16 +57,16 @@ export const setBookmark = async (slug: string, email: string, auth_token: strin
 
   ShowAlert(message);
 
-  // const sixtyDaysInSeconds = 5184000;
-  // const cookies = JSON.stringify([
-  //   {
-  //     key: "auth_token",
-  //     value: token,
-  //     maxAge: sixtyDaysInSeconds,
-  //   },
-  // ]);
+  const sixtyDaysInSeconds = 5184000;
+  const cookies = JSON.stringify([
+    {
+      key: "auth_token",
+      value: token,
+      maxAge: sixtyDaysInSeconds,
+    },
+  ]);
 
-  // authApi.post("/api/setcookies", { data: cookies });
+  Api.post("/api/setcookies", { data: cookies });
 
   return isAdded;
 };
@@ -73,16 +98,7 @@ export const changeUserInfo = async ({
 
   ShowAlert(message);
 
-  // const sixtyDaysInSeconds = 5184000;
-  // const cookies = JSON.stringify([
-  //   {
-  //     key: "auth_token",
-  //     value: token,
-  //     maxAge: sixtyDaysInSeconds,
-  //   },
-  // ]);
-
-  // authApi.post("/api/setcookies", { data: cookies });
+  setTokenToCookies(token, Api)
 
   return true;
 };
@@ -146,7 +162,7 @@ export async function login({ captchaResponse, email, password }: _Login) {
 }
 
 export async function verify(url: string, code: string): Promise<_AuthResponse> {
-  const data = await authApi.post(url, { code });
+  const data = await Api.post(url, { code });
   return data.data as _AuthResponse;
 }
 
@@ -184,15 +200,8 @@ export async function renewPassword({ captchaResponse, confirm, password }: _Ren
   }
 }
 
-interface _Request {
-  endpoint: string;
-  params: RequestOptions;
-  base: string;
-  headers: Record<string, string>;
-}
-
 async function request({ endpoint, params, base, headers }: _Request) {
-  return await authApi.post(base + endpoint, params, { headers });
+  return await Api.post(base + endpoint, params, { headers });
 }
 
 async function authRequest(endpoint: string, params: RequestOptions, captchaResponse: string) {
@@ -200,7 +209,7 @@ async function authRequest(endpoint: string, params: RequestOptions, captchaResp
     "Content-Type": "application/json",
     captchaToken: captchaResponse,
   };
-  const base = getAuthApiUrl();
+  const base = getApiUrl();
   return await request({ endpoint, params, base, headers });
 }
 
@@ -214,7 +223,7 @@ async function backendRequest(endpoint: string, auth_token: string, params: Requ
   return await request({ endpoint, params, base, headers });
 }
 
-function getAuthApiUrl(): string {
+function getApiUrl(): string {
   const inp = document.querySelector(".auth-api-inpt") as HTMLInputElement;
   if (!inp) return "";
 
@@ -283,5 +292,121 @@ export async function setAuthCookies({ token, email, profile_image_url, username
     },
   ]);
 
-  authApi.post("/api/setcookies", { data: cookies });
+  Api.post("/api/setcookies", { data: cookies });
 }
+
+export async function setTokenToCookies(token: string, api: ApiHandler) {
+  const sixtyDaysInSeconds = 5184000;
+  const cookies = JSON.stringify([
+    {
+      key: "auth_token",
+      value: token,
+      maxAge: sixtyDaysInSeconds,
+    },
+  ]);
+
+  const { status } = await api.post("/api/setcookies", { data: cookies }) as { message: string, status: number };
+
+  if (status == SUCCESSFUL) {
+    return true
+  }
+
+  return false
+}
+
+export function getImageSrc(thisInput: HTMLInputElement): string | null {
+  const files = thisInput.files
+
+  if (!files) {
+    console.error('No file selected');
+    return null
+  }
+
+  const file = files[0]
+
+  let source: string = ""
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const result = e.target?.result as string;
+
+    if (!result) return  
+
+    source = result;
+  };
+  reader.readAsDataURL(file);
+
+  return source
+}
+
+
+
+export const handleFileChange = (inputElement: HTMLInputElement) => {
+  // Call getImageSrc with proper context binding
+  getImageSrc(inputElement);
+};
+
+export const uploadUserAvatarImage = ({ base64Url, email, auth_token }: _UploadUserAvatarImageArgs)  {
+  const params = { email, image: base64Url };
+  const data = await backendRequest("/upload_user_profile_image", auth_token, params);
+  const { status } = data;
+
+  if (status != SUCCESSFUL) {
+    return false;
+  }
+
+  const { auth_token: token } = data.data as {
+    auth_token: string;
+    message: string;
+    status_code: number;
+  };
+
+  setTokenToCookies(token, Api)
+
+  return true;
+
+}
+
+export const removeItemFromList = async ({ slug, email, auth_token }: _RemoveItemFromListArgs): Promise<boolean> => {
+  const params = { email, slug };
+  const data = await backendRequest("/remove_from_list", auth_token, params);
+  const { status } = data;
+
+  if (status != SUCCESSFUL) {
+    return false;
+  }
+
+  const { auth_token: token } = data.data as {
+    auth_token: string;
+    message: string;
+    status_code: number;
+  };
+
+  setTokenToCookies(token, Api)
+
+  return true;
+};
+
+
+
+// const getImageSrc = function(this: FileInput): void {
+//   const file = this.files[0];
+  
+//   if (!file) {
+//     console.error('No file selected');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+//   reader.onload = (e: ProgressEvent<FileReader>) => {
+//     const result = e.target?.result;
+//     if (typeof result === 'string') {
+//       const src: string = result;
+//       // Now you can use 'src' as the base64 encoded data URL
+//       console.log(src);
+//     } else {
+//       console.error('Failed to read file as data URL');
+//     }
+//   };
+
+//   reader.readAsDataURL(file);
+// };

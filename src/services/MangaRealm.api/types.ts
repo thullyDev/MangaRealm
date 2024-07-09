@@ -85,3 +85,12 @@ export interface _GetProfileArgs {
 }
 
 export interface _RemoveItemFromListArgs { slug: string; email: string, auth_token: string }
+
+export interface _UploadUserAvatarImageArgs { base64Url: string; email: string, auth_token: string }
+
+export interface _Request {
+  endpoint: string;
+  params: RequestOptions;
+  base: string;
+  headers: Record<string, string>;
+}
