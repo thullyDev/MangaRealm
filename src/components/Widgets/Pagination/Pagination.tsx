@@ -6,11 +6,14 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
   const pageClass = `page-link inline-block py-1 px-3 text-sm `;
 
   for (let i = 1; i <= parseInt(pages); i++) {
-    const highlight = parseInt(page) == i ? "active bg-red-700 rounded-l" : "bg-zinc-800";
+    const className = i == 1 ? "rounded-l" : "";
+
+    const highlight = parseInt(page) == i ? "active bg-red-700" : "bg-zinc-800";
     url.searchParams.set("page", JSON.stringify(i));
     const query = url.toString();
+    console.log(`${pageClass} ${highlight} ${className}`)
     const pageEle = (
-      <a href={`${query}`} className={pageClass + highlight}>
+      <a href={`${query}`} className={`${pageClass} ${highlight} ${className}`}>
         {i}
       </a>
     );
