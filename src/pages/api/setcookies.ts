@@ -23,7 +23,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const response = new Response(
     JSON.stringify({
       message: "cookie set successfully",
-      status: SUCCESSFUL, // successfully status_code
+      status: SUCCESSFUL, 
     }),
   );
   setCookies(data, cookies);

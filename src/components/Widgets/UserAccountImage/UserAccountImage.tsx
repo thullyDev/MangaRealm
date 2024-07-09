@@ -13,7 +13,7 @@ const handleFileInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
       return 
     }
 
-    const res = await uploadUserAvatarImage(src)
+    const res = uploadUserAvatarImage(src)
 
     if (!res) return
 

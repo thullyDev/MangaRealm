@@ -18,37 +18,17 @@ import { FORBIDDEN, SUCCESSFUL } from "../../utilities/errors";
 
 const Api = new ApiHandler("");
 
-
-export const removeItemFromList = async ({ slug, email, auth_token }: _RemoveItemFromListArgs): Promise<boolean> => {
-  const params = { email, slug };
-  const data = await backendRequest("/remove_from_list", auth_token, params);
-  const { status } = data;
-
-  if (status != SUCCESSFUL) {
-    return false;
-  }
-
-  const { auth_token: token } = data.data as {
-    auth_token: string;
-    message: string;
-    status_code: number;
-  };
-
-  setTokenToCookies(token, Api)
-
-  return true;
+export const isUserAuth = () => {
+  //@ts-ignore
+  const user = window.user || {};
+  return Object.keys(user).length > 0;
 };
 
-
-export const setBookmark = async (slug: string, email: string, auth_token: string) => {
+export async function setBookmark(slug: string, email: string, auth_token: string) {
   const { status, data } = await backendRequest(`/add_to_list`, auth_token, { slug, email });
 
-  if (status == FORBIDDEN) {
+  if (status == FORBIDDEN || status != SUCCESSFUL) {
     ShowAlert("user needs to login");
-    return null;
-  }
-
-  if (status != SUCCESSFUL) {
     return null;
   }
 
@@ -71,7 +51,7 @@ export const setBookmark = async (slug: string, email: string, auth_token: strin
   return isAdded;
 };
 
-export const changeUserInfo = async ({
+export async function changeUserInfo({
   email,
   username,
   auth_token,
@@ -79,7 +59,7 @@ export const changeUserInfo = async ({
   email: string;
   username: string;
   auth_token: string;
-}) => {
+}) {
   const changeData = JSON.stringify([{ email }, { username }]);
   const data = await backendRequest(`/change_user_info/`, auth_token, { email, data: changeData });
   const { status } = data;
@@ -101,12 +81,6 @@ export const changeUserInfo = async ({
   setTokenToCookies(token, Api)
 
   return true;
-};
-
-export const isUserAuth = () => {
-  //@ts-ignore
-  const user = window.user || {};
-  return Object.keys(user).length > 0;
 };
 
 export async function signup({ captchaResponse, email, username, password, confirm }: _Signup) {
@@ -338,14 +312,11 @@ export function getImageSrc(thisInput: HTMLInputElement): string | null {
   return source
 }
 
-
-
 export const handleFileChange = (inputElement: HTMLInputElement) => {
-  // Call getImageSrc with proper context binding
   getImageSrc(inputElement);
 };
 
-export const uploadUserAvatarImage = ({ base64Url, email, auth_token }: _UploadUserAvatarImageArgs)  {
+export async function uploadUserAvatarImage({ base64Url, email, auth_token }: _UploadUserAvatarImageArgs) {
   const params = { email, image: base64Url };
   const data = await backendRequest("/upload_user_profile_image", auth_token, params);
   const { status } = data;
@@ -386,27 +357,3 @@ export const removeItemFromList = async ({ slug, email, auth_token }: _RemoveIte
   return true;
 };
 
-
-
-// const getImageSrc = function(this: FileInput): void {
-//   const file = this.files[0];
-  
-//   if (!file) {
-//     console.error('No file selected');
-//     return;
-//   }
-
-//   const reader = new FileReader();
-//   reader.onload = (e: ProgressEvent<FileReader>) => {
-//     const result = e.target?.result;
-//     if (typeof result === 'string') {
-//       const src: string = result;
-//       // Now you can use 'src' as the base64 encoded data URL
-//       console.log(src);
-//     } else {
-//       console.error('Failed to read file as data URL');
-//     }
-//   };
-
-//   reader.readAsDataURL(file);
-// };
