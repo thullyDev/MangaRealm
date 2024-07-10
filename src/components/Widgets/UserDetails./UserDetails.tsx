@@ -1,5 +1,5 @@
 import type { _User } from "../../../services/MangaRealm.api/types";
-import { formatKey, titleCase } from "../../../utilities/misc";
+import { formatKey, titleCase, truncate } from "../../../utilities/misc";
 
 export const UserDetails = ({ user }: { user: _User }) => {
   const { email, username, created_at } = user;
@@ -17,20 +17,20 @@ export const UserDetails = ({ user }: { user: _User }) => {
     },
     {
       type: "text",
-      name: "email",
-      value: email,
+      name: "username",
+      value: titleCase(username),
     },
     {
       type: "text",
-      name: "username",
-      value: username,
+      name: "email",
+      value: email,
     },
   ];
 
   const inputs: JSX.Element[] = [];
   for (let i = 0; i < udInpItems.length; i++) {
     const data = udInpItems[i];
-    const ele = <UDInput key={i} {...data} />;
+    const ele = <DetailText key={i} {...data} />;
     inputs.push(ele);
   }
 
@@ -45,32 +45,22 @@ export const UserDetails = ({ user }: { user: _User }) => {
   );
 };
 
-interface _UDInput {
+interface _DetailText {
   type: string;
   name: string;
   value: string;
 }
 
-const UDInput = ({ type, name, value }: _UDInput) => {
+const DetailText = ({ type, name, value }: _DetailText) => {
   const label = formatKey(name);
-  const key = name + "_input";
-  const input = (
-    <input
-      className="border outline-none border-zinc-400 px-2 rounded bg-zinc-600 bg-opacity-70 text-sm"
-      value={value}
-      name={key}
-      type={type}
-      readOnly
-    />
-  );
 
   return (
     <div className="udinput-con">
       <div className="inner-con flex flex-col gap-1">
-        <label htmlFor={key} className="udinput-label text-xs text-zinc-400">
+        <span className="udinput-label text-xs text-zinc-400">
           {titleCase(label)}
-        </label>
-        {input}
+        </span>
+        <p className="bg-zinc-800 bg-opacity-70 text-sm">{value}</p>
       </div>
     </div>
   );
