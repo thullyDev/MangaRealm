@@ -1,29 +1,31 @@
-import type { ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import type { _User } from "../../../services/MangaRealm.api/types";
 import { trans500 } from "../../../utilities/misc";
 import { getImageSrc, uploadUserAvatarImage } from "../../../services/MangaRealm.api/user";
 
-const handleFileInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
-  const fileInput = event.target;
-  if (fileInput.files) {
-    const src = await getImageSrc(fileInput);
-
-    if (!src) {
-      console.error('no Image source');
-      return 
-    }
-
-    const res = uploadUserAvatarImage(src)
-
-    if (!res) return
-
-    $(".profile-image").attr("src", src)
-  }
-};
 
 export const UserAccountImage = ({ user }: { user: _User }) => {
   const { profile_image_url, username } = user;
   const profile_image = profile_image_url || "/default-img.jpeg";
+
+  const [previewSrc, setPreviewSrc] = useState(profile_image);
+
+  const uploadHandlerEvent = async (event) => {
+    if (event.type != "load") return 
+
+    setPreviewSrc(event.target.result);
+  };
+
+  const handleChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (!selectedFile) return
+
+    const reader = new FileReader();
+    reader.addEventListener("load", uploadHandlerEvent);
+    reader.readAsDataURL(selectedFile);
+  };
+
   return (
     <div className="user-account-image-con flex flex-col gap-5">
       <div className="user-account-image-label-con">
@@ -36,7 +38,7 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
             <div className="inner-con relative w-36 h-36">
               <label className="w-full h-full" htmlFor="profileImageInput">
                 <img
-                  src={profile_image}
+                  src={previewSrc}
                   alt={username}
                   className="profile-image w-full h-full rounded-full cover border border-zinc-400"
                 />
@@ -49,7 +51,7 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
                   <p className="avatar-text text-sm">change Avatar</p>
                 </span>
               </label>
-              <input onChange={handleFileInputChange} type="file" className="hidden" id="profileImageInput"/>
+              <input onChange={handleChange} type="file" className="hidden" id="profileImageInput"/>
             </div>
           </div>
         </div>

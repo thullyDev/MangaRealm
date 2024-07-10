@@ -291,6 +291,8 @@ export async function setTokenToCookies(token: string, api: ApiHandler) {
 export function getImageSrc(thisInput: HTMLInputElement): string | null {
   const files = thisInput.files
 
+  console.log(files)
+
   if (!files) {
     console.error('No file selected');
     return null
