@@ -11,7 +11,6 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
     const highlight = parseInt(page) == i ? "active bg-red-700" : "bg-zinc-800";
     url.searchParams.set("page", JSON.stringify(i));
     const query = url.toString();
-    console.log(`${pageClass} ${highlight} ${className}`)
     const pageEle = (
       <a href={`${query}`} className={`${pageClass} ${highlight} ${className}`}>
         {i}

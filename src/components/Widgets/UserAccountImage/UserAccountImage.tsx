@@ -32,7 +32,7 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
       <div className="account-image-con h-full">
         <div className="inner-account-image-con">
           <div className="account-backdrop-con">{/*<img src="/account-backdrop.png" alt="backdrop" />*/}</div>
-          <div className="profile-image-con">
+          <div className="profile-image-con flex items-center justify-center">
             <div className="inner-con relative w-36 h-36">
               <label className="w-full h-full" htmlFor="profileImageInput">
                 <img

@@ -34,7 +34,7 @@ export const UserListCon = ({ listMangas, urlPath }: { urlPath: string; listMang
               name="list-search"
               value={decodeURIComponent(value)}
               onChange={handleChange}
-              className="list-search bg-zinc-800 text-sm px-2 py-1 border border-zinc-400 rounded w-full"
+              className="list-search outline-none bg-zinc-800 text-sm px-2 py-1 border border-zinc-400 rounded w-full"
             />
           </form>
         </div>

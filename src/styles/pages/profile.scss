@@ -2,6 +2,48 @@
 // $_padding: 16px;
 
 .main-content {
+  & > .inner-con {
+    display: flex;
+    flex-direction: column;
+
+    @include media-xlarge {
+      flex-direction: row;
+    }
+
+    .outer-profile-details-con {
+        align-items: start;
+        border: solid;
+        
+        @include media-xsmall {
+          flex-direction: column;
+          width: 20%;
+        }
+    }
+
+    .profile-details-con {
+        @include media-xsmall {
+          flex-direction: column;
+          // width: 20%;
+        }
+      }
+  }
+
+  // @include media-medium {
+  // }
+
+  .profile-details-con {
+    flex-direction: column;
+    max-width: 700px;
+
+    @include media-xsmall {
+      flex-direction: row;
+    }
+
+    @include media-xsmall {
+      flex-direction: row;
+    }
+  }
+
   @include media-xlarge {
     display: flex;
     align-items: start;
@@ -10,10 +52,10 @@
 
   .profile-details-con {
     @include media-xlarge {
-      position: relative;
-      top: 22.5px;
+      // position: relative;
+      // top: 22.5px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
     }
   }
 }
