@@ -11,54 +11,45 @@
     }
 
     .outer-profile-details-con {
+        justify-content: center;
+        align-items: center;
+
         @include media-xsmall {
           flex-direction: column;
         }
         
         @include media-xlarge {
-          width: 20%;
-        }
-    }
-
-    .profile-details-con {
-        @include media-xsmall {
-          flex-direction: column;
+          justify-content: start;
+          align-items: start;
+          width: 30%;
+          position: relative;
+          top: 27px;
         }
 
-        @include media-medium {
-          flex-direction: row;
-        }
+
+        .profile-details-con {
+            flex-direction: column;
+            max-width: 700px;
+
+            @include media-xsmall {
+              flex-direction: column;
+            }
+
+            @include media-medium {
+              flex-direction: row;
+            }
+
+            @include media-xlarge {
+              flex-direction: column;
+            }
+          }
       }
-  }
-
-  // @include media-medium {
-  // }
-
-  .profile-details-con {
-    flex-direction: column;
-    max-width: 700px;
-
-    @include media-xsmall {
-      flex-direction: row;
     }
 
-    @include media-xsmall {
-      flex-direction: row;
-    }
-  }
 
   @include media-xlarge {
     display: flex;
     align-items: start;
     flex-direction: row;
-  }
-
-  .profile-details-con {
-    @include media-xlarge {
-      // position: relative;
-      // top: 22.5px;
-      display: flex;
-      flex-direction: row;
-    }
   }
 }

@@ -5,8 +5,8 @@ import "./ProfileDetailsStyles.scss";
 
 export const ProfileDetails = ({ user }: { user: _User }) => {
   return (
-    <div className="outer-profile-details-con flex w-full justify-center items-center border">
-      <div className="profile-details-con bg-zinc-800 mx-1 flex p-2 gap-5 rounded-md border border-zinc-700 w-full">
+    <div className="outer-profile-details-con flex w-full">
+      <div className="profile-details-con bg-zinc-800 flex p-2 gap-5 rounded-md border border-zinc-700 w-full">
         <UserAccountImage user={user} />
         <UserDetails user={user} />
       </div>
