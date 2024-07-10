@@ -1,7 +1,7 @@
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type SetStateAction } from "react";
 import type { _User } from "../../../services/MangaRealm.api/types";
 import { trans500 } from "../../../utilities/misc";
-import { getImageSrc, uploadUserAvatarImage } from "../../../services/MangaRealm.api/user";
+import { uploadUserAvatarImage } from "../../../services/MangaRealm.api/user";
 
 
 export const UserAccountImage = ({ user }: { user: _User }) => {
@@ -10,13 +10,20 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
 
   const [previewSrc, setPreviewSrc] = useState(profile_image);
 
-  const uploadHandlerEvent = async (event) => {
+  const uploadHandlerEvent = async (event: any) => {
     if (event.type != "load") return 
 
-    setPreviewSrc(event.target.result);
+    // @ts-ignore
+    const { email, auth_token, username } = window.user
+    const source = event.target.result
+    const response = await uploadUserAvatarImage({ base64Url: source, email, auth_token, username })
+
+    if (!response) return 
+
+    setPreviewSrc(source);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { files: any[]; }; }) => {
     const selectedFile = event.target.files[0];
 
     if (!selectedFile) return

@@ -287,39 +287,8 @@ export async function setTokenToCookies(token: string, api: ApiHandler) {
 
   return false
 }
-
-export function getImageSrc(thisInput: HTMLInputElement): string | null {
-  const files = thisInput.files
-
-  console.log(files)
-
-  if (!files) {
-    console.error('No file selected');
-    return null
-  }
-
-  const file = files[0]
-
-  let source: string = ""
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const result = e.target?.result as string;
-
-    if (!result) return  
-
-    source = result;
-  };
-  reader.readAsDataURL(file);
-
-  return source
-}
-
-export const handleFileChange = (inputElement: HTMLInputElement) => {
-  getImageSrc(inputElement);
-};
-
-export async function uploadUserAvatarImage({ base64Url, email, auth_token }: _UploadUserAvatarImageArgs) {
-  const params = { email, image: base64Url };
+export async function uploadUserAvatarImage({ base64Url, email, username, auth_token }: _UploadUserAvatarImageArgs) {
+  const params = { email, username, image: base64Url  };
   const data = await backendRequest("/upload_user_profile_image", auth_token, params);
   const { status } = data;
 

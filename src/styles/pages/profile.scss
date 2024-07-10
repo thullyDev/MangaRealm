@@ -11,11 +11,11 @@
     }
 
     .outer-profile-details-con {
-        align-items: start;
-        border: solid;
-        
         @include media-xsmall {
           flex-direction: column;
+        }
+        
+        @include media-xlarge {
           width: 20%;
         }
     }
@@ -23,7 +23,10 @@
     .profile-details-con {
         @include media-xsmall {
           flex-direction: column;
-          // width: 20%;
+        }
+
+        @include media-medium {
+          flex-direction: row;
         }
       }
   }
