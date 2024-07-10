@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { MangasResponse } from "../../../services/Manganato/manganatoTypes";
 import { ListMangaWrapper } from "../ListMangaWrapper/ListMangaWrapper";
-import "../MangasWrapper/MangasWrapperStyles.scss";
 import { Pagination } from "../Pagination/Pagination";
 import DOMPurify from "dompurify";
 
@@ -39,7 +38,7 @@ export const UserListCon = ({ listMangas, urlPath }: { urlPath: string; listMang
           </form>
         </div>
         <div className="inner-con">
-          <ul className="mangas-list user-mangas-list flex justify-start">
+          <ul className="mangas-list user-mangas-list">
             {mangas.map((item, index) => {
               return (
                 <li className={`manga-list-item manga-list-item-1 user-manga-item`}>

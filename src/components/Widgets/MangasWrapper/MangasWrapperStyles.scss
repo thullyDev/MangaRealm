@@ -80,31 +80,6 @@ $_padding: 16px;
         width: calc(13% - $_padding);
       }
     }
-
-    &.user-manga-item {
-      @include media-xlarge {
-        width: calc(20% - $_padding);
-      }
-
-      @include media-xxlarge {
-        width: calc(17% - $_padding);
-
-        .manga-item {
-          width: 100%;
-
-          .inner-con {
-            width: 100%;
-          }
-        }
-      }
-
-      .poster {
-        min-width: 130px;
-      }
-    }
   }
 }
 
-.user-mangas-list {
-  justify-content: start !important;
-}
