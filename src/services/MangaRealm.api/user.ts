@@ -13,8 +13,8 @@ import type {
   _UploadUserAvatarImageArgs,
 } from "./types";
 import { ShowAlert, isEmailValid } from "../../utilities/misc";
-import type { AstroCookies } from "astro";
 import { FORBIDDEN, SUCCESSFUL } from "../../utilities/errors";
+import { setAuthCookies, setTokenToCookies } from "./cookies";
 
 const Api = new ApiHandler("");
 
@@ -78,7 +78,7 @@ export async function changeUserInfo({
 
   ShowAlert(message);
 
-  setTokenToCookies(token, Api)
+  setTokenToCookies(token)
 
   return true;
 };
@@ -228,65 +228,6 @@ function setupProfile(profile_image_url: string | null, username: string) {
   if (accountBtn) accountBtn.innerHTML = profileImageEle;
 }
 
-export function setCookies(data: _Setcookie[], cookies: AstroCookies) {
-  const THIRTY_DAYS_SECONDS = 30 * 24 * 60 * 60;
-  const rootPath = "/";
-  for (let i = 0; i < data.length; i++) {
-    const { key, value, path, maxAge, secure, httpOnly } = data[i];
-    const expirationDate = new Date();
-    expirationDate.setSeconds(expirationDate.getSeconds() + (maxAge || THIRTY_DAYS_SECONDS));
-    const cookieOptions = {
-      "max-age": maxAge || THIRTY_DAYS_SECONDS,
-      expires: expirationDate,
-      path: path || rootPath,
-      secure: secure || true,
-      httpOnly: httpOnly || true,
-    };
-    cookies.set(key, value, cookieOptions);
-  }
-}
-
-export async function setAuthCookies({ token, email, profile_image_url, username }: _AuthUser) {
-  const user = {
-    email,
-    profile_image_url,
-    username,
-  };
-  const sixtyDaysInSeconds = 5184000;
-  const cookies = JSON.stringify([
-    {
-      key: "auth_token",
-      value: token,
-      maxAge: sixtyDaysInSeconds,
-    },
-    {
-      key: "user_data",
-      value: JSON.stringify(user),
-      maxAge: sixtyDaysInSeconds,
-    },
-  ]);
-
-  Api.post("/api/setcookies", { data: cookies });
-}
-
-export async function setTokenToCookies(token: string, api: ApiHandler) {
-  const sixtyDaysInSeconds = 5184000;
-  const cookies = JSON.stringify([
-    {
-      key: "auth_token",
-      value: token,
-      maxAge: sixtyDaysInSeconds,
-    },
-  ]);
-
-  const { status } = await api.post("/api/setcookies", { data: cookies }) as { message: string, status: number };
-
-  if (status == SUCCESSFUL) {
-    return true
-  }
-
-  return false
-}
 export async function uploadUserAvatarImage({ base64Url, email, username, auth_token }: _UploadUserAvatarImageArgs) {
   const params = { email, username, image: base64Url  };
   const data = await backendRequest("/upload_user_profile_image", auth_token, params);
@@ -296,13 +237,14 @@ export async function uploadUserAvatarImage({ base64Url, email, username, auth_t
     return false;
   }
 
-  const { auth_token: token } = data.data as {
+  const { auth_token: token, data: userData } = data.data as {
     auth_token: string;
     message: string;
     status_code: number;
+    data: _AuthUser,
   };
-
-  setTokenToCookies(token, Api)
+  setAuthCookies(userData);
+  setTokenToCookies(token)
 
   return true;
 
@@ -323,7 +265,7 @@ export const removeItemFromList = async ({ slug, email, auth_token }: _RemoveIte
     status_code: number;
   };
 
-  setTokenToCookies(token, Api)
+  setTokenToCookies(token)
 
   return true;
 };

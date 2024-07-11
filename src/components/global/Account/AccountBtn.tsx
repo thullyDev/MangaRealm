@@ -1,6 +1,8 @@
 import { isUserAuth } from "../../../services/MangaRealm.api/user";
 import { showCloseEle } from "../../../utilities/misc";
 
+const defaultImg = "/default-img.jpeg"
+
 export const AccountBtn = () => {
   const redirect = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!isUserAuth()) {
@@ -11,8 +13,8 @@ export const AccountBtn = () => {
     window.location.assign("/profile");
   };
 
-  const profile_image_url = null;
-  const profile_image = profile_image_url || "/default-img.jpeg";
+  //@ts-ignore
+  const profile_image_url = window.user.profile_image_url || defaultImg
 
   return (
     <button
@@ -23,7 +25,7 @@ export const AccountBtn = () => {
       className="account-button w-10 h-10"
     >
       <img
-        src={profile_image}
+        src={profile_image_url}
         alt={"account profile image"}
         className="profile-image w-full h-full rounded-full cover border border-zinc-300"
       />

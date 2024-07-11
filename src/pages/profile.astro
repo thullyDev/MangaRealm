@@ -4,7 +4,7 @@ import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDeta
 import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
 import '../styles/pages/profile.scss';
 import { getProfileData } from '../services/MangaRealm.api/api';
-import { setCookies } from '../services/MangaRealm.api/user';
+import { setCookies } from '../services/MangaRealm.api/cookies';
 
 const cookies = Astro.cookies
 const authToken = cookies.get("auth_token")?.value
@@ -36,6 +36,7 @@ const cookiesToSet = [
 	  maxAge: sixtyDaysInSeconds,
 	}
 ]
+
 setCookies(cookiesToSet, cookies)
 ---
 
