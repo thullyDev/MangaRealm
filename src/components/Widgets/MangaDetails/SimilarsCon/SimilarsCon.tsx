@@ -1,7 +1,7 @@
 import type { Manga } from "../../../../services/Manganato/manganatoTypes";
 import { MangaWrapperThree } from "../../MangaWrapperThree/MangaWrapperThree";
 
-export const SimilarsCon = ({ similars }: { similars: Manga[] }) => {
+export const SimilarsCon = ({ similars, mangaSlug }: { similars: Manga[], mangaSlug: string }) => {
   return (
     <div className="similars-con mt-10">
       <div className="label-con">
@@ -10,6 +10,8 @@ export const SimilarsCon = ({ similars }: { similars: Manga[] }) => {
       <div className="inner-similars-con">
         <ul className="similars-list mt-2 flex flex-col gap-2 items-center scrollable">
           {similars.map((manga, index) => {
+            const { slug } = manga
+            if (slug == mangaSlug) return (<></>)
             return (
               <li key={index} className="similar-item w-full max-w-96">
                 <MangaWrapperThree item={manga} />

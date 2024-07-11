@@ -5,7 +5,7 @@ import type { genre } from '../../services/Manganato/manganatoTypes';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
 import MangaDetails  from '../../components/Widgets/MangaDetails/MangaDetails.astro'
 
-let { slug } = Astro.params;
+const { slug } = Astro.params;
 const url = Astro.url
 
 const manga = await getCachedManga(slug)

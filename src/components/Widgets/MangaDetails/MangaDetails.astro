@@ -8,6 +8,7 @@ import '../../../styles/pages/mangaRead.scss';
 
 const { manga, similars } = Astro.props
 const { title, malData } = manga;
+const { slug } = Astro.params;
 const url = Astro.url
 ---
 
@@ -18,7 +19,7 @@ const url = Astro.url
 	</div>
 	<div class="manga-chapters-similars-con">
 		<ChaptersCon client:load manga={manga} />
-		<SimilarsCon similars={similars} />
+		<SimilarsCon mangaSlug={slug} similars={similars} />
 	</div>
 	{malData && malData.characters && (
 		<CharactersCon title={title} characters={malData.characters} />
