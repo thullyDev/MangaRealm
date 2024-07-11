@@ -1,7 +1,13 @@
-import { useState, type ChangeEvent, type SetStateAction } from "react";
+import { useState } from "react";
 import type { _User } from "../../../services/MangaRealm.api/types";
 import { trans500 } from "../../../utilities/misc";
 import { uploadUserAvatarImage } from "../../../services/MangaRealm.api/user";
+import $ from "jquery";
+import { ClickLoader } from "../ClickLoader/ClickLoader";
+
+const showLoader = () => {
+  $(".close-ploader-btn").click()
+} 
 
 
 export const UserAccountImage = ({ user }: { user: _User }) => {
@@ -16,14 +22,15 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
     // @ts-ignore
     const { email, auth_token, username } = window.user
     const source = event.target.result
+    showLoader()
     const response = await uploadUserAvatarImage({ base64Url: source, email, auth_token, username })
-
+    showLoader()
     if (!response) return 
 
     setPreviewSrc(source);
   };
 
-  const handleChange = (event: { target: { files: any[]; }; }) => {
+  const handleChange = (event: any) => {
     const selectedFile = event.target.files[0];
 
     if (!selectedFile) return
@@ -58,6 +65,7 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
                   <p className="avatar-text text-sm">change Avatar</p>
                 </span>
               </label>
+              <ClickLoader buttonId="close-ploader-btn" loaderId="outer-p-loader" />
               <input onChange={handleChange} type="file" className="hidden" id="profileImageInput"/>
             </div>
           </div>
@@ -66,3 +74,4 @@ export const UserAccountImage = ({ user }: { user: _User }) => {
     </div>
   );
 };
+
