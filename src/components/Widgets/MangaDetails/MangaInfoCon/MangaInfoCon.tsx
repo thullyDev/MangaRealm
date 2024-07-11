@@ -9,6 +9,10 @@ interface socialsType {
   name: string;
 }
 
+const showLoader = () => {
+  $(".close-ploader-btn").click()
+
+
 const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
   const slug: string | undefined = event.currentTarget.dataset.slug;
 
@@ -17,8 +21,19 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
     return;
   }
 
-  const email = "demykunta@gmail.com";
-  const isSet: null | boolean = await setBookmark(slug, email);
+  //@ts-ignore
+  const email = window.user.email;
+  //@ts-ignore
+  const auth_token = window.user.auth_token;
+
+  if (!email || !auth_token) {
+    $(".outer-auth-forms-con .close-btn").click()
+    return
+  }
+
+  showLoader()
+  const isSet: null | boolean = await setBookmark(slug, email, auth_token);
+  showLoader()
 
   if (isSet == null) {
     ShowAlert("Failed to set bookmark");
@@ -72,8 +87,9 @@ export const MangaInfoCon = ({ manga, url }: { manga: MangaRead; url: string }) 
     <div className="image-info-con">
       <div className="poster-side">
         <div className="inner-poster-btns-con flex flex-col justify-center">
-          <div className="inner-image-con h-60 flex justify-center">
+          <div className="inner-image-con h-60 flex justify-center relative">
             <img src={image} alt={title} title={title} className="poster h-full border border-zinc-500 rounded-md" />
+            <ClickLoader buttonId="close-al-loader-btn" loaderId="outer-al-loader" />
           </div>
           <div className="actions-btns-con flex justify-center mt-2">
             <button

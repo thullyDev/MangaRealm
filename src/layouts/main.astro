@@ -10,6 +10,7 @@ import { ShowAlert } from "../utilities/misc.ts"
 const { title } = Astro.props;
 const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
+const auth_token = cookies.get("auth_token")?.value || ""
 const user = JSON.parse(userData)
 const favicon = "/favicon.png"
 ---
@@ -39,8 +40,9 @@ const favicon = "/favicon.png"
     <input value={backendApiUrl} type="hidden" class="backend-api-inpt" readonly />
   </body>
 </html>
-<script type="module" define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert }}>
+<script type="module" define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert, auth_token }}>
   window.user = user
+  window.auth_token = auth_token
   window.captchas = {}
 
   window.renderCaptchaWidgets = () => {
