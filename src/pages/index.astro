@@ -1,6 +1,6 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import { getFeatures, getMangas } from '../services/Manganato/manganato';
+import { getFeatures, getMangas, getTopAiringMangas } from '../services/Manganato/manganato';
 import { FeaturesSlider }  from '../components/Widgets/FeaturesSlider/FeaturesSlider'
 import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
 import Comments from '../components/Widgets/Comments/Comments.astro'
@@ -16,7 +16,7 @@ async function getData() {
 
 	if (cacheData != null) {
 		return {
-			recent,
+			recent: recent.mangas,
 			...cacheData
 		}
 	}
@@ -25,16 +25,18 @@ async function getData() {
 	const complete = await getMangas("/complete")
 	const newest = await getMangas("/newest")
 
-	const data = {
+	cache.hset(cacheID, {
+		features,
+		complete: complete.mangas,
+		newest: newest.mangas,
+	})
+
+	return {
 		features,
 		recent: recent.mangas,
 		complete: complete.mangas,
 		newest: newest.mangas,
 	}
-
-	cache.hset(cacheID, data)
-
-	return data
 }
 
 const { features, recent, complete, newest } = await getData()
@@ -44,9 +46,9 @@ const PAGE_ID = "home" //! keep this the as "home" to have all old and new comme
 
 <MainLayout title="Home">	
 	<FeaturesSlider data={features} className='home-features'/>		
-	<MangasWrapper moreLink="/filter?status=complete" wrapper={1} label="Complete" className="complete-con" data={complete} />		
+	<MangasWrapper moreLink="/filter?status=complete" wrapper={1} label="Complete" className="complete-con" data={complete} />
 	<MangasWrapper moreLink="/filter" wrapper={2} label="Recent" className="recent-con" data={recent} />		
-	<MangasWrapper moreLink="/filter?status=newest" wrapper={1} label="Newest" className="newest-con" data={newest} />	
+	<MangasWrapper moreLink="/filter?status=newest" wrapper={1} label="Newest" className="newest-con" data={newest} />
 	<Comments isOnClick={true} PAGE_URL={Astro.url.toString()} PAGE_IDENTIFIER={PAGE_ID}/>	
 </MainLayout>
 

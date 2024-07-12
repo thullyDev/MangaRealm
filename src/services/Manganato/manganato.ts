@@ -1,6 +1,6 @@
 import { ApiHandler } from "../../utilities/handlers/apiHandler";
 import { mangaApiUrl } from "../../utilities/config";
-import type { MangaChapterRead, MangaRead, MangasResponse } from "./manganatoTypes";
+import type { MangaChapterRead, MangaRead, MangasResponse, TopAiringManga } from "./manganatoTypes";
 import { Cache } from "../../database/Cache/cache";
 import malScraper from "mal-scraper";
 import { SUCCESSFUL } from "../../utilities/errors";
@@ -49,6 +49,18 @@ export async function getMangas(endpoint: string): Promise<MangasResponse> {
     pagination,
     mangas,
   };
+}
+
+export async function getTopAiringMangas(): Promise<TopAiringManga[]> {
+  const response = await api.get("/top");
+
+  if (response.status !== SUCCESSFUL)
+    return []
+
+  const data = response.data.data as MangasResponse;
+  const mangas = data.mangas;
+
+  return mangas
 }
 
 export async function getManga(slug: string): Promise<MangaRead | null> {
