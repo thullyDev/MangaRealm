@@ -4,17 +4,26 @@ import { CharactersCon } from "./CharactersCon/CharactersCon";
 import { MangaInfoCon } from "./MangaInfoCon/MangaInfoCon";
 import { MangaSideInfoCon } from "./MangaSideInfoCon/MangaSideInfoCon";
 import { SimilarsCon } from "./SimilarsCon/SimilarsCon";
+import { checkIfBookMarked } from "../../../services/MangaRealm.api/api.ts"
+
 import '../../../styles/pages/mangaRead.scss';
 
 const { manga, similars } = Astro.props
 const { title, malData } = manga;
-const { slug } = Astro.params;
+const { slug } = Astro.params as { slug: string };
+
+const cookies = Astro.cookies
+const auth_token = cookies.get("auth_token")?.value
+const rawUserData = cookies.get("user_data")?.value || "{}"
+const { email } = JSON.parse(rawUserData)
+const { isIn: isBookMarked, token } =  await checkIfBookMarked({ slug, email, auth_token })
+
 const url = Astro.url
 ---
 
 <div class="manga-details-con px-3">
 	<div class="manga-outer-info-con">
-		<MangaInfoCon client:load url={url.toString()} manga={manga} />
+		<MangaInfoCon client:load isBookMarked={isBookMarked} token={token} url={url.toString()} manga={manga} />
 		<MangaSideInfoCon manga={manga} />
 	</div>
 	<div class="manga-chapters-similars-con">

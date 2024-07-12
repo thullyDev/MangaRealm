@@ -1,7 +1,8 @@
 import { backendApiUrl } from "../../utilities/config";
 import { SUCCESSFUL } from "../../utilities/errors";
 import { ApiHandler, type RequestOptions } from "../../utilities/handlers/apiHandler";
-import type { _GetProfileArgs, _ProfileData, _Response } from "./types";
+import { setCookies } from "./cookies";
+import type { _CheckIfBookMarkedArgs, _GetProfileArgs, _ProfileData, _Response } from "./types";
 
 const api = new ApiHandler(backendApiUrl);
 
@@ -36,4 +37,27 @@ async function request(endpoint: string, params: RequestOptions, auth_token: str
     auth_token: auth_token,
   };
   return await api.post(endpoint, params, { headers });
+}
+
+export const checkIfBookMarked =  async ({ slug, email, auth_token }: _CheckIfBookMarkedArgs) => {
+  if (!email || !auth_token) {
+    return false
+  } 
+
+  const params = { email, slug };
+  const data = await request("/is_in_list", params, auth_token);
+  const { status } = data;
+
+  if (status != SUCCESSFUL) {
+    return false;
+  }
+
+  const { auth_token: token, data: resData } = data.data as {
+    auth_token: string;
+    message: string;
+    data: { isIn: boolean }
+    status_code: number;
+  };
+
+  return { isIn: resData.isIn, token }
 }

@@ -1,3 +1,4 @@
+import type { RequestOptions } from "../../utilities/handlers/apiHandler";
 import type { Manga } from "../Manganato/manganatoTypes";
 
 export interface _AuthUser {
@@ -85,6 +86,8 @@ export interface _GetProfileArgs {
 }
 
 export interface _RemoveItemFromListArgs { slug: string; email: string, auth_token: string }
+
+export interface _CheckIfBookMarkedArgs { slug: string; email: string, auth_token: string }
 
 export interface _UploadUserAvatarImageArgs { base64Url: string; username: string,  email: string, auth_token: string }
 

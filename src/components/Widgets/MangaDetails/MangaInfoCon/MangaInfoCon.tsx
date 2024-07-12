@@ -1,3 +1,4 @@
+import { setTokenToCookies } from "../../../../services/MangaRealm.api/cookies";
 import { setBookmark } from "../../../../services/MangaRealm.api/user";
 import type { MangaRead } from "../../../../services/Manganato/manganatoTypes";
 import { ShowAlert, trans500, truncate } from "../../../../utilities/misc";
@@ -58,7 +59,9 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
   }
 };
 
-export const MangaInfoCon = ({ manga, url }: { manga: MangaRead; url: string }) => {
+export const MangaInfoCon = ({ token, isBookMarked, manga, url }: { token: string; isBookMarked: boolean; manga: MangaRead; url: string }) => {
+  setTokenToCookies(token) //! setting the token on the frontend cause of problems with astro server
+
   const { title, image, description, alt_names, status, manga_id } = manga;
 
   const siteName = "MangaRealm";
@@ -85,7 +88,7 @@ export const MangaInfoCon = ({ manga, url }: { manga: MangaRead; url: string }) 
       link: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
     },
   ];
-
+  const bookMarkStyleAndColor = isBookMarked == true ? "fa-solid text-red-700" : "fa-regular"
   return (
     <div className="image-info-con">
       <div className="poster-side">
@@ -102,7 +105,7 @@ export const MangaInfoCon = ({ manga, url }: { manga: MangaRead; url: string }) 
               className={`bookmark-btn border border-zinc-500
               w-20 py-1 bg-zinc-700 hover:bg-zinc-400 rounded-l-full ${trans500}`}
             >
-              <i className="fa-regular fa-bookmark bookmark-icon"></i>
+              <i className={ `${bookMarkStyleAndColor} fa-bookmark bookmark-icon` }></i>
               {/*<i className="fa-solid fa-bookmark"></i>*/}
             </button>
             <button

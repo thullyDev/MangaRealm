@@ -269,4 +269,3 @@ export const removeItemFromList = async ({ slug, email, auth_token }: _RemoveIte
 
   return true;
 };
-
