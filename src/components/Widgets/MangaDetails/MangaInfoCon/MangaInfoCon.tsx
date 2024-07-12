@@ -1,6 +1,8 @@
 import { setBookmark } from "../../../../services/MangaRealm.api/user";
 import type { MangaRead } from "../../../../services/Manganato/manganatoTypes";
 import { ShowAlert, trans500, truncate } from "../../../../utilities/misc";
+import { ClickLoader } from "../../ClickLoader/ClickLoader";
+import $ from "jquery"
 
 interface socialsType {
   icon: JSX.Element;
@@ -10,7 +12,8 @@ interface socialsType {
 }
 
 const showLoader = () => {
-  $(".close-ploader-btn").click()
+  $(".close-al-loader-btn").click()
+}
 
 
 const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {

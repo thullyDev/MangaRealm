@@ -3,13 +3,21 @@ import type { Manga } from "../../../services/Manganato/manganatoTypes";
 import { trans1000, truncate } from "../../../utilities/misc";
 import { Poster } from "../Poster/Poster";
 import { removeItemFromList } from "../../../services/MangaRealm.api/user";
+import $ from "jquery"
+
+const showLoader = () => {
+  $(".close-al-loader-btn").click()
+}
 
 const removeHandler = (event:  React.MouseEvent<HTMLButtonElement>) => {
   const thisEle = $(event.currentTarget);
   const slug: string = thisEle.data("slug");
   // @ts-ignore
   const { email, auth_token } = window.user
+  showLoader()
   const res = removeItemFromList({slug, email, auth_token}) 
+  showLoader()
+  
 
   if (!res) return  
 
