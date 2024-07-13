@@ -1,11 +1,9 @@
 import { createClient } from "redis";
 import { REDIS_URL } from "../../utilities/config";
 
-// const client = await createClient({
-//         url: REDIS_URL,
-//     })
-//   .connect();
-const client = await createClient().connect();
+const client = await createClient({
+        url: REDIS_URL,
+    }).connect();
 
 export class Cache {
   private static _instance: Cache;
