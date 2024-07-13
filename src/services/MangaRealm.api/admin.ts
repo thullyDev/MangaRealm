@@ -44,6 +44,8 @@ export class Admin {
         	return this.getDefaultSiteData()
 		}
 
+        this.siteData = siteData
+
         return siteData;
     }
 
