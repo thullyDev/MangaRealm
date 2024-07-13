@@ -14,7 +14,7 @@ export class Admin {
     private siteData: SiteData | null = null;
 
     private constructor() {
-        this.adminNeedsRestarting = false;
+        this.adminNeedsRestarting = true;
     }
 
     public static getInstance(): Admin {
@@ -29,7 +29,7 @@ export class Admin {
     }
 
     private async getSiteData(): Promise<SiteData> {
-    	if (this.adminNeedsRestarting == true) {
+    	if (this.adminNeedsRestarting == true || this.siteData == null) {
         	return await this.getFreshSiteData()
 		}
 
@@ -37,17 +37,14 @@ export class Admin {
 	}
 
     private async getFreshSiteData(): Promise<SiteData> {
-        let siteData = await cache.hget("site_data");
+        this.adminNeedsRestarting = false
+        const siteData = await cache.hget("site_data");
 
         if (!siteData) {
-        	siteData = this.getDefaultSiteData()
+        	return this.getDefaultSiteData()
 		}
 
-        this.siteData = siteData
-        this.adminNeedsRestarting = false
-
         return siteData;
-
     }
 
     private getDefaultSiteData(): SiteData {
