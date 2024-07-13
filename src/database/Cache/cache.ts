@@ -25,7 +25,7 @@ export class Cache {
     await client.set(name, value, { EX: expiry });
   }
 
-  public async hget(name: string): Promise<any> {
+  public async hget(name: string): Promise<any | null> {
     const data = await client.get(name);
     return data ? JSON.parse(data) : null;
   }
