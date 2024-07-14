@@ -1,4 +1,4 @@
-import { Cache } from '../../database/Cache/cache.ts'
+import { Cache } from '../../../database/Cache/cache.ts'
 
 
 const cache = new Cache()
@@ -23,18 +23,6 @@ export class Admin {
         }
         return Admin.instance;
     }
-
-    public adminShouldRestart(state: boolean) {
-    	this.adminNeedsRestarting = state
-    }
-
-    private async getSiteData(): Promise<SiteData> {
-    	if (this.adminNeedsRestarting == true || this.siteData == null) {
-        	return await this.getFreshSiteData()
-		}
-
-		return this.siteData || this.getDefaultSiteData()
-	}
 
     private async getFreshSiteData(): Promise<SiteData> {
         this.adminNeedsRestarting = false
@@ -134,24 +122,16 @@ export class Admin {
         return data
     }
 
-    public async getDisabledAnimes(): Promise<Record<string, any>> {
-        const siteData = await this.getSiteData();
-        return siteData.disabled_animes;
+    public adminShouldRestart(state: boolean) {
+        this.adminNeedsRestarting = state
     }
 
-    public async getValues(): Promise<Record<string, any>> {
-        const siteData = await this.getSiteData();
-        return siteData.values;
-    }
+    public async getSiteData(): Promise<SiteData> {
+        if (this.adminNeedsRestarting == true || this.siteData == null) {
+            return await this.getFreshSiteData()
+        }
 
-    public async getScripts(): Promise<Record<string, any>> {
-        const siteData = await this.getSiteData();
-        return siteData.scripts;
+        return this.siteData || this.getDefaultSiteData()
     }
-
-    public async getSettings(): Promise<Record<string, any>> {
-        const siteData = await this.getSiteData();
-        return siteData.settings;
-    }
-
 }
+
