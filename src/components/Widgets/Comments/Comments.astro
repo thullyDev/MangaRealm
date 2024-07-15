@@ -1,9 +1,16 @@
 ---
 import { DISQUS_URL } from "../../../utilities/config";
 import { trans500 } from "../../../utilities/misc";
+import { getScripts } from "../../../services/MangaRealm.api/admin/handlers.ts"
+import AdContainer from "../AdContainer/AdContainer.astro"
+
 const { PAGE_URL, PAGE_IDENTIFIER, isOnClick } = Astro.props;
+const scripts = await getScripts()
+const commentsAdscript = scripts.ads_scripts.above_comments_advertisement.value
+const commentsAdscriptHeight = scripts.ads_scripts.above_comments_advertisement.height
 ---
 
+<AdContainer value={commentsAdscript} height={commentsAdscriptHeight} />
 <div class="comment-section mt-10">
     <div class="inner-con">
         <div id="disqus_thread"></div>

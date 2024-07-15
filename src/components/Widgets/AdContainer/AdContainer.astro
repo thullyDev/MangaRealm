@@ -1,0 +1,8 @@
+---
+const { value, height } = Astro.props;
+const styleHeight = height == "0px" ? "auto" : height;
+
+---
+
+<div class="ad-con" set:html={value} style={ `height: ${styleHeight};` } ></div>
+<div class="ads"></div>
