@@ -24,7 +24,7 @@ if (!slug || !manga) {
 const siteName = "MangaRealm"
 ---
 
-<MainLayout title={ `Reading ${manga.title} on ${siteName}` } >	
+<MainLayout title={ `Reading ${manga.title} on ${siteName}` } page="read" >	
 	<MangaDetails manga={manga} similars={similars} />
 	<Comments isOnClick={true} PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>

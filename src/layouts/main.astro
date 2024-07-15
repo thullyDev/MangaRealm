@@ -9,7 +9,8 @@ import "../styles/global/main.scss"
 import { HCAPTCHA_SITE_KEY, authApiUrl, backendApiUrl } from "../utilities/config.ts"
 import { getScripts } from "../services/MangaRealm.api/admin/handlers.ts"
 import { ShowAlert } from "../utilities/misc.ts"
-const { title } = Astro.props;
+
+const { title, page } = Astro.props;
 const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
 const auth_token = cookies.get("auth_token")?.value || ""
@@ -23,10 +24,21 @@ const bottomAdscript = scripts.ads_scripts.bottom_advertisement.value
 const bottomAdscriptHeight = scripts.ads_scripts.bottom_advertisement.height
 const topAdscript = scripts.ads_scripts.top_advertisement.value
 const topAdscriptHeight = scripts.ads_scripts.top_advertisement.height
+const pageHeadScript = scripts.head_scripts[page].value
+const pageFootScript = scripts.foot_scripts[page].value
+
+                    // global_foot: { name: "global_foot", value: "" },
+                    // home_foot: { name: "home_foot", value: "" },
+                    // filter_foot: { name: "filter_foot", value: "" },
+                    // profile_foot: { name: "profile_foot", value: "" },
+                    // read_foot: { name: "read_foot", value: "" },
+                    // chapter_foot: { name: "chapter_foot", value: "" },
+
+
 ---
 
 <html lang="en">
-  <head set:html={globalHeadScript}>
+  <head set:html={globalHeadScript + pageHeadScript}>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
@@ -37,9 +49,8 @@ const topAdscriptHeight = scripts.ads_scripts.top_advertisement.height
     <title>{title}</title>
     <link rel="icon" type="image/x-icon" href={favicon}>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script></script>
   </head>
-  <body class="bg-zinc-900 dark:text-white scrollable relative"  set:html={globalFootScript}>
+  <body class="bg-zinc-900 dark:text-white scrollable relative"  set:html={globalFootScript + pageFootScript}>
     <Authentication authApiUrl={authApiUrl} client:load /> 
     <Header/>
     <AdContainer value={topAdscript} height={topAdscriptHeight} />

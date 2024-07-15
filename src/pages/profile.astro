@@ -40,7 +40,7 @@ const cookiesToSet = [
 setCookies(cookiesToSet, cookies)
 ---
 
-<MainLayout title="Profile">
+<MainLayout title="Profile" page="profile">
 	<div class="inner-con w-full flex">
 		<ProfileDetails client:load user={user} />	
 		<UserListCon client:load listMangas={listMangas} urlPath={urlPath} >	
