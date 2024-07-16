@@ -1,21 +1,28 @@
+import { getValues } from "../../../services/MangaRealm.api/admin/handlers";
 import type { ListItem } from "../LinkList/LinkList";
+
+const values = await getValues()
 
 const socials = [
   {
-    name: <i className="fab fa-instagram"></i>,
-    link: "https://www.instagram.com/",
-  },
-  {
     name: <i className="fab fa-reddit"></i>,
-    link: "https://www.reddit.com/",
+    link: values.socials.reddit.value,
   },
   {
-    name: <i className="fab fa-facebook"></i>,
-    link: "https://www.facebook.com/",
+    name: <i className="fab fa-twitter"></i>,
+    link: values.socials.twitter.value,
   },
   {
     name: <i className="fab fa-discord"></i>,
-    link: "https://discord.com/",
+    link: values.socials.discord.value,
+  },
+  {
+    name: <i className="fa-solid fa-envelope"></i>,
+    link: values.inputs.email.value,
+  },
+  {
+    name: <i className="fas fa-donate"></i>,
+    link: values.socials.donate.value,
   },
 ];
 
