@@ -1,12 +1,8 @@
 import { Cache } from '../../../database/Cache/cache.ts'
+import type { SiteData } from './types.ts';
 
 
 const cache = new Cache()
-
-
-interface SiteData {
-    [key: string]: any;
-}
 
 export class Admin {
     private static instance: Admin;
@@ -68,8 +64,8 @@ export class Admin {
                     site_logo: { name: "site_logo", value: "/site-logo.png" },
                     favicon_logo: { name: "favicon_logo", value: "/favicon.png" },
                     alert: { name: "alert", value: "/alert.gif" },
-                    maintenance: { name: "maintenance", value: "/maintenance.gif" },
-                    empty: { name: "empty", value: "/empty.gif" },
+                    // maintenance: { name: "maintenance", value: "/maintenance.gif" },
+                    // empty: { name: "empty", value: "/empty.gif" },
                     authentication_background: { name: "authentication_background", value: "/auth-bg-image.png" },
                     default_account_image: { name: "default_account_image", value: "/default-img.jpeg" },
                 },

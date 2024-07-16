@@ -1,17 +1,20 @@
 ---
 import MainLayout from '../layouts/main.astro';
+import { getValues } from "../services/MangaRealm.api/admin/handlers.ts"
 
 const decodedMessage = decodeURIComponent(Astro.url.searchParams.get('message') || "");
 const decodedDescription = decodeURIComponent(Astro.url.searchParams.get('description') || "");
 
 const message = decodedMessage ?  decodedMessage : "Unexpected Issue Occurred"
 const description = decodedDescription ?  decodedDescription : "An internal error may have occured with our servers, please try again later"
+const values = await getValues()
+const alertImage = values.images.alert.value
 ---
 
 <MainLayout title={ message } >
 	<div class="inner-alert-con flex flex-col items-center px-2">
 		<div class="alert-img-con">
-			<img src="/alert.gif" alt="Alert Image">
+			<img src={alertImage} alt="Alert Image">
 		</div>
 		<div class="texts-con flex flex-col items-center gap-2 mt-5">
 			<h3 class="message text-2xl">{message}</h3>

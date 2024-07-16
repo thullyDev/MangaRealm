@@ -1,7 +1,9 @@
+import { getValues } from "../../../services/MangaRealm.api/admin/handlers";
 import { isUserAuth } from "../../../services/MangaRealm.api/user";
 import { showCloseEle } from "../../../utilities/misc";
 
-const defaultImg = "/default-img.jpeg"
+const values = await getValues()
+const defaultImg = values.images.default_account_image.value
 
 export const AccountBtn = () => {
   const redirect = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -7,7 +7,7 @@ import AdContainer from "../components/Widgets/AdContainer/AdContainer.astro"
 import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
 import { HCAPTCHA_SITE_KEY, authApiUrl, backendApiUrl } from "../utilities/config.ts"
-import { getScripts } from "../services/MangaRealm.api/admin/handlers.ts"
+import { getScripts, getValues } from "../services/MangaRealm.api/admin/handlers.ts"
 import { ShowAlert } from "../utilities/misc.ts"
 
 const { title, page } = Astro.props;
@@ -15,8 +15,7 @@ const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
 const auth_token = cookies.get("auth_token")?.value || ""
 const user = JSON.parse(userData)
-const favicon = "/favicon.png"
-
+const values = await getValues()
 const scripts = await getScripts()
 const globalHeadScript = scripts.head_scripts.global_head.value
 const globalFootScript = scripts.foot_scripts.global_foot.value
@@ -26,15 +25,7 @@ const topAdscript = scripts.ads_scripts.top_advertisement.value
 const topAdscriptHeight = scripts.ads_scripts.top_advertisement.height
 const pageHeadScript = scripts.head_scripts[page].value
 const pageFootScript = scripts.foot_scripts[page].value
-
-                    // global_foot: { name: "global_foot", value: "" },
-                    // home_foot: { name: "home_foot", value: "" },
-                    // filter_foot: { name: "filter_foot", value: "" },
-                    // profile_foot: { name: "profile_foot", value: "" },
-                    // read_foot: { name: "read_foot", value: "" },
-                    // chapter_foot: { name: "chapter_foot", value: "" },
-
-
+const favicon = values.images.favicon_logo.value
 ---
 
 <html lang="en">

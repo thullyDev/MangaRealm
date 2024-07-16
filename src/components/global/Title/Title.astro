@@ -1,5 +1,8 @@
 ---
-const siteLogo: string = "/site-logo.png";
+import { getValues } from "../../../services/MangaRealm.api/admin/handlers.ts"
+
+const values = await getValues()
+const siteLogo = values.images.site_logo.value
 ---
 
 <div class="site-logo-con pl-3">
