@@ -46,6 +46,8 @@ const pageHeadScript = headScripts[`${page}_head`].value
 //@ts-ignore
 const pageFootScript = footScripts[`${page}_foot`].value
 const favicon = values.images.favicon_logo.value
+const devToolsDetection = settings.dev_tools_detection.value
+const adblockDetection = settings.adblocker_detection.value
 ---
 
 <html lang="en">
@@ -75,7 +77,18 @@ const favicon = values.images.favicon_logo.value
     <input value={backendApiUrl} type="hidden" class="backend-api-inpt" readonly />
   </body>
 </html>
-<script type="module" define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert, auth_token }}>
+<script define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert, auth_token, devToolsDetection, adblockDetection }}>
+  import "../utilities/devToolsDetector.js"
+  import "../utilities/adblockerDetection.js"
+
+  if (devToolsDetection == true) {
+    activateDevToolsDetector()
+  }
+
+  if (adblockDetection == true) {
+    adblockDetector()
+  }
+
   window.user = user
   window.auth_token = auth_token
   window.captchas = {}

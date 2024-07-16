@@ -101,4 +101,3 @@ export interface SiteData {
     settings: _Settings;
     disabled_animes: Record<string, any>;
 }
-
