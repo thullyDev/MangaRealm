@@ -82,3 +82,14 @@ export const isEmailValid = (email: string): boolean => {
   const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
+
+
+export function getAlertRedirectUrl(base: string, message: string, description: string): string {
+  const encodedMessage = encodeURIComponent(message);
+  const encodedDescription = encodeURIComponent(description);
+  const redirectUrl = new URL("/alert", base)
+  redirectUrl.searchParams.set("message", encodedMessage)
+  redirectUrl.searchParams.set("description", encodedDescription)
+
+  return redirectUrl.toString()
+}

@@ -7,7 +7,8 @@ import AdContainer from "../components/Widgets/AdContainer/AdContainer.astro"
 import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
 import { HCAPTCHA_SITE_KEY, authApiUrl, backendApiUrl } from "../utilities/config.ts"
-import { getScripts, getValues } from "../services/MangaRealm.api/admin/handlers.ts"
+import { getAlertRedirectUrl } from "../utilities/misc"
+import { getScripts, getValues, getSettings } from "../services/MangaRealm.api/admin/handlers.ts"
 import { ShowAlert } from "../utilities/misc.ts"
 
 const { title, page } = Astro.props as { title: string; page: string };
@@ -15,6 +16,21 @@ const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
 const auth_token = cookies.get("auth_token")?.value || ""
 const user = JSON.parse(userData)
+
+
+const settings = await getSettings()
+const maintanence = settings.maintanence.value
+
+if (maintanence) {
+  const base = Astro.url.origin
+  const message = "Site in under maintanence";
+  const description = "Hello! We're currently making some improvements to our site to serve you better. Please bear with us, and we'll be back shortly!";
+  const redirectUrl = getAlertRedirectUrl(base, message, description)
+
+  return Astro.redirect(redirectUrl) 
+} 
+
+
 const values = await getValues()
 const scripts = await getScripts()
 const headScripts = scripts.head_scripts
