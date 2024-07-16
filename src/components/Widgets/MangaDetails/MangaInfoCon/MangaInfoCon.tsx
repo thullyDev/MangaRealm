@@ -1,3 +1,4 @@
+import { getValues } from "../../../../services/MangaRealm.api/admin/handlers";
 import { setTokenToCookies } from "../../../../services/MangaRealm.api/cookies";
 import { setBookmark } from "../../../../services/MangaRealm.api/user";
 import type { MangaRead } from "../../../../services/Manganato/manganatoTypes";
@@ -59,12 +60,14 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
   }
 };
 
+
+const values = await getValues()
+const siteName = values.inputs.site_name.value 
+
 export const MangaInfoCon = ({ token, isBookMarked, manga, url }: { token: string; isBookMarked: boolean; manga: MangaRead; url: string }) => {
   setTokenToCookies(token) //! setting the token on the frontend cause of problems with astro server
 
   const { title, image, description, alt_names, status, manga_id } = manga;
-
-  const siteName = "MangaRealm";
   const shareText = `Read on ${title} On ${siteName} for and with no ads`;
   const encodedShareText = encodeURIComponent(shareText);
   const socials: socialsType[] = [

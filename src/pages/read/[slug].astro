@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import { getMangas, getCachedManga } from '../../services/Manganato/manganato';
+import { getValues } from "../../services/MangaRealm.api/admin/handlers.ts"
 import type { genre } from '../../services/Manganato/manganatoTypes';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
 import MangaDetails  from '../../components/Widgets/MangaDetails/MangaDetails.astro'
@@ -21,7 +22,8 @@ if (!slug || !manga) {
 	return Astro.redirect("/not_found")
 }
 
-const siteName = "MangaRealm"
+const values = await getValues()
+const siteName =  values.inputs.site_name.value
 ---
 
 <MainLayout title={ `Reading ${manga.title} on ${siteName}` } page="read" >	

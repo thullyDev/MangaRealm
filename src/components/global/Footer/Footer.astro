@@ -2,8 +2,11 @@
 import Title from "../Title/Title.astro"
 import { Socials } from "../../Widgets/Socials/Socials"
 import { ReferenceLinks } from "../../Widgets/ReferenceLinks/ReferenceLinks"
+import { getValues } from "../../../services/MangaRealm.api/admin/handlers.ts"
 import "./FooterStyling.scss"
-const siteName = "MangaRealm" // make this change, when the admin panel allows it
+
+const values = await getValues()
+const siteName =  values.inputs.site_name.value
 ---
 
 <footer class="main-footer mt-10">

@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import { getMangas } from '../services/Manganato/manganato';
+import { getValues } from "../services/MangaRealm.api/admin/handlers.ts"
 import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
 import { Pagination } from '../components/Widgets/Pagination/Pagination'
 import { MangasFilter } from '../components/Widgets/MangasFilter/MangasFilter'
@@ -24,7 +25,10 @@ const props = {
 	data: mangas, 
 	moreLink: ""
 }
-const title = "Filter - MangaRealm"
+
+const values = await getValues()
+const siteName =  values.inputs.site_name.value
+const title = `Filter - ${siteName}`
 ---
 
 <MainLayout title={ title } page="filter">

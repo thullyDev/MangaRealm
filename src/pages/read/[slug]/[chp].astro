@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../../../layouts/main.astro';
-import type { Chapter, MangaRead } from "../../../services/Manganato/manganatoTypes"
+import { getValues } from "../../../services/MangaRealm.api/admin/handlers.ts"
+import type { MangaRead } from "../../../services/Manganato/manganatoTypes"
 import { getMangaChapter, getCachedManga } from '../../../services/Manganato/manganato';
 import { Panels } from '../../../components/Widgets/Panels/Panels'
 import { ChapterMangaDetails } from '../../../components/Widgets/ChapterMangaDetails/ChapterMangaDetails'
@@ -44,6 +45,7 @@ async function getChapterData(manga: MangaRead) {
 
 		break
 	}
+
 	return { 
 		title,
 		chapters,
@@ -72,7 +74,8 @@ if (!manga) {
 
 const chapterData = await getChapterData(manga)
 const { chapter }  = chapterData
-const siteName = "MangaRealm"
+const values = await getValues()
+const siteName =  values.inputs.site_name.value
 ---
 
 <MainLayout title={ `Reading ${chapter.name} on ${siteName}` } page="chapter">
