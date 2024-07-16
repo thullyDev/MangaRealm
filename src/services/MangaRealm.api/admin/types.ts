@@ -70,7 +70,6 @@ export interface _Scripts {
     ads_scripts: _AdsScript;
 }
 
-
 export interface _Values {
     images: _Images;
     inputs: _Inputs;

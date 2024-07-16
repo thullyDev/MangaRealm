@@ -10,21 +10,25 @@ import { HCAPTCHA_SITE_KEY, authApiUrl, backendApiUrl } from "../utilities/confi
 import { getScripts, getValues } from "../services/MangaRealm.api/admin/handlers.ts"
 import { ShowAlert } from "../utilities/misc.ts"
 
-const { title, page } = Astro.props;
+const { title, page } = Astro.props as { title: string; page: string };
 const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
 const auth_token = cookies.get("auth_token")?.value || ""
 const user = JSON.parse(userData)
 const values = await getValues()
 const scripts = await getScripts()
-const globalHeadScript = scripts.head_scripts.global_head.value
-const globalFootScript = scripts.foot_scripts.global_foot.value
+const headScripts = scripts.head_scripts
+const footScripts = scripts.foot_scripts
+const globalHeadScript = headScripts.global_head.value
+const globalFootScript = footScripts.global_foot.value
 const bottomAdscript = scripts.ads_scripts.bottom_advertisement.value
 const bottomAdscriptHeight = scripts.ads_scripts.bottom_advertisement.height
 const topAdscript = scripts.ads_scripts.top_advertisement.value
 const topAdscriptHeight = scripts.ads_scripts.top_advertisement.height
-const pageHeadScript = scripts.head_scripts[page].value
-const pageFootScript = scripts.foot_scripts[page].value
+//@ts-ignore
+const pageHeadScript = headScripts[`${page}_head`].value
+//@ts-ignore
+const pageFootScript = footScripts[`${page}_foot`].value
 const favicon = values.images.favicon_logo.value
 ---
 
