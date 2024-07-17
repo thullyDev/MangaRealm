@@ -1,4 +1,4 @@
-import { getValues } from "../../../../services/MangaRealm.api/admin/handlers";
+import { getSettings, getValues } from "../../../../services/MangaRealm.api/admin/handlers";
 import { setTokenToCookies } from "../../../../services/MangaRealm.api/cookies";
 import { setBookmark } from "../../../../services/MangaRealm.api/user";
 import type { MangaRead } from "../../../../services/Manganato/manganatoTypes";
@@ -19,6 +19,15 @@ const showLoader = () => {
 
 
 const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
+  const settings = await getSettings()
+  const disableAddToList = settings.add_list.value
+
+  if (disableAddToList == false) {
+    ShowAlert("book mark has been disabled");
+    return;
+  }
+
+
   const slug: string | undefined = event.currentTarget.dataset.slug;
 
   if (!slug) {

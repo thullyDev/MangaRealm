@@ -6,6 +6,14 @@ import { getMangaChapter, getCachedManga } from '../../../services/Manganato/man
 import { Panels } from '../../../components/Widgets/Panels/Panels'
 import { ChapterMangaDetails } from '../../../components/Widgets/ChapterMangaDetails/ChapterMangaDetails'
 import Comments  from '../../../components/Widgets/Comments/Comments.astro'
+import { getSettings } from "../../../services/MangaRealm.api/admin/handlers.ts"
+
+const settings = await getSettings()
+const disableChapter = settings.read.value
+
+if (disableChapter == true) {
+  return Astro.redirect("/") 
+} 
 
 const { slug, chp } = Astro.params;
 
