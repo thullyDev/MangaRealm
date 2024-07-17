@@ -48,18 +48,42 @@ const pageFootScript = footScripts[`${page}_foot`].value
 const favicon = values.images.favicon_logo.value
 const devToolsDetection = settings.dev_tools_detection.value
 const adblockDetection = settings.adblocker_detection.value
+const siteDesciption = values.inputs.site_description.value
+const siteTitle = values.inputs.title.value
+const siteImage = values.images.site_logo.value
+const siteName = values.inputs.site_name.value
+const siteBase = Astro.url.origin
+
 ---
 
 <html lang="en">
   <head set:html={globalHeadScript + pageHeadScript}>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="canonical" href={siteBase} />
+    <meta name="robots" content="index,follow" />
+    <title>{title} | {siteTitle}</title>
+    <meta name="description" content={siteDesciption} />
+    <meta name="keywords" itemprop="keywords" content="read manga online, read manga, manga online, manga online free, free manga, manga reader, manga scans, manga raw, manga, manhwa, manhua, mangarealm, mangarealm.to, mangarealm.com, manganato, manganato.com, manganato.com, 9anime, 9 anime, 9animeto, watch anime online, free anime, anime free, online anime, anime website" />
+    <meta name="copyright" content={ `Copyright © 2024 ${siteName}` } />
+    <meta name="Author" content={siteName} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={siteName} />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDesciption} />
+    <meta name="twitter:image" content={siteImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:url" content={siteBase} />
+    <meta property="og:image" content={siteImage} />
+    <meta property="og:description" content={siteDesciption} />
+    <meta property="og:site_name" content={siteBase} />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{title}</title>
     <link rel="icon" type="image/x-icon" href={favicon}>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>

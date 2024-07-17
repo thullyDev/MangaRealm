@@ -70,7 +70,7 @@ export class Admin {
                 inputs: {
                     site_name: { value: "MangaRealm", name: "site_name" },
                     email: { value: "", name: "email" },
-                    title: { value: "Read Manga On MangaRealm For No ads", name: "title" },
+                    title: { value: "Read Manga On MangaRealm With No ads", name: "title" },
                     site_description: {
                         value: "Best website to Read Manga online. We have the biggest library of over 200,000 manga available for Free download. Read Manga now!",
                         name: "site_description",
