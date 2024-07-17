@@ -1,7 +1,11 @@
-import { getValues } from "../../../services/MangaRealm.api/admin/handlers";
+import { getSettings, getValues } from "../../../services/MangaRealm.api/admin/handlers";
 import type { ListItem } from "../LinkList/LinkList";
 
 const values = await getValues()
+const settings = await getSettings()
+const disableDonate = settings.donation.value
+const disableSocials = settings.socials.value
+const disableEmail = settings.contact.value
 
 const socials = [
   {
@@ -16,17 +20,31 @@ const socials = [
     name: <i className="fab fa-discord"></i>,
     link: values.socials.discord.value,
   },
+];
+
+if (disableDonate == true) {
+  socials.push(
+    {
+      name: <i className="fas fa-donate"></i>,
+      link: values.socials.donate.value,
+    })
+}
+
+if (disableEmail == true) {
+  socials.push(
   {
     name: <i className="fa-solid fa-envelope"></i>,
     link: values.inputs.email.value,
-  },
-  {
-    name: <i className="fas fa-donate"></i>,
-    link: values.socials.donate.value,
-  },
-];
+  })
+}
 
 export const Socials = () => {
+  if (disableSocials == true) {
+    return (
+      <></>
+    )
+  }
+
   return (
     <nav className="socials-con">
       <ul className="flex gap-5">

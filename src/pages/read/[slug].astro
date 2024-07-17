@@ -1,9 +1,9 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import { getMangas, getCachedManga } from '../../services/Manganato/manganato';
-import { getValues } from "../../services/MangaRealm.api/admin/handlers.ts"
-import { getSettings } from "../../services/MangaRealm.api/admin/handlers.ts"
+import { getSettings, getValues, getDisabledAnimes } from "../../services/MangaRealm.api/admin/handlers.ts"
 import type { genre } from '../../services/Manganato/manganatoTypes';
+import { getAlertRedirectUrl } from '../../utilities/misc.ts';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
 import MangaDetails  from '../../components/Widgets/MangaDetails/MangaDetails.astro'
 
@@ -13,7 +13,6 @@ const disableManga = settings.manga.value
 if (disableManga == true) {
   return Astro.redirect("/") 
 } 
-
 
 const { slug } = Astro.params;
 const url = Astro.url
@@ -28,8 +27,25 @@ if (manga) {
 }
 
 if (!slug || !manga) {
-	return Astro.redirect("/not_found")
+  const base = Astro.url.origin
+  const message = "Manga Not found";
+  const description = "Hello! This Manga is not on our services!.";
+  const redirectUrl = getAlertRedirectUrl(base, message, description)
+
+	return Astro.redirect(redirectUrl)
 }
+
+const diabledAnimes = await getDisabledAnimes() //! :( forgot to change the disableAnimes to disableMangas in the admin panel so i am keeping
+
+if (diabledAnimes[slug] == true) {
+  const base = Astro.url.origin
+  const message = "Site in under maintanence";
+  const description = "Hello! This Manga is currently been disabled on our services!, we may enable it on a later date.";
+  const redirectUrl = getAlertRedirectUrl(base, message, description)
+
+  return Astro.redirect(redirectUrl) 
+} 
+
 
 const values = await getValues()
 const siteName =  values.inputs.site_name.value

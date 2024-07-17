@@ -22,7 +22,7 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
   const settings = await getSettings()
   const disableAddToList = settings.add_list.value
 
-  if (disableAddToList == false) {
+  if (disableAddToList == true) {
     ShowAlert("book mark has been disabled");
     return;
   }

@@ -1,11 +1,13 @@
 ---
-import { getValues } from "../../../services/MangaRealm.api/admin/handlers.ts"
+import { getValues, getSettings } from "../../../services/MangaRealm.api/admin/handlers.ts"
 
 const values = await getValues()
 const siteLogo = values.images.site_logo.value
+const settings = await getSettings()
+const disableTitle = settings.title.value
 ---
 
-<div class="site-logo-con pl-3">
+<div class={ `site-logo-con pl-3 ${ disableFooter == false ? "" : "hidden" }` }>
   <div class="inner-con inner-site-logo-con">
     <a href="/" class="site-link">
       <img src={siteLogo} alt="site logo" class="site-logo w-full h-full">
