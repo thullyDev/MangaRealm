@@ -37,7 +37,7 @@ export const ListMangaWrapper = ({ item }: { item: Manga }) => {
   return (
     <div data-slug={slug} className="manga-item flex items-start relative">
       <div className="inner-con border border-zinc-600 rounded-md w-full">
-        <a href={`read${slug}`} className="manga-link" title={title}>
+        <a href={`read/${slug}`} className="manga-link" title={title}>
           <Poster {...posterProps} />
           <span className="title-con">
             <p className={`title text-sm bg-zinc-800 p-1 rounded-b-md text-center hover:bg-zinc-600 ${trans1000}`}>

@@ -5,12 +5,14 @@ import { getSettings, getValues, getDisabledAnimes } from "../../services/MangaR
 import type { genre } from '../../services/Manganato/manganatoTypes';
 import { getAlertRedirectUrl } from '../../utilities/misc.ts';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
+import { setCookies } from '../../services/MangaRealm.api/cookies';
+import { checkIfBookMarked } from "../../services/MangaRealm.api/api.ts"
 import MangaDetails  from '../../components/Widgets/MangaDetails/MangaDetails.astro'
 
 const settings = await getSettings()
-const disableManga = settings.manga.value
+const enableManga = settings.manga.value
 
-if (disableManga == true) {
+if (enableManga == false) {
   return Astro.redirect("/") 
 } 
 
@@ -35,6 +37,28 @@ if (!slug || !manga) {
 	return Astro.redirect(redirectUrl)
 }
 
+const cookies = Astro.cookies
+const auth_token = cookies.get("auth_token")?.value || ""
+const rawUserData = cookies.get("user_data")?.value || "{}"
+const { email } = JSON.parse(rawUserData)
+const res =  await checkIfBookMarked({ slug, email, auth_token })
+let isBookMarked;
+
+if (res) {
+  const { isIn, token } = res 
+  isBookMarked = isIn
+  const sixtyDaysInSeconds = 5184000;
+  const cookiesToSet = [
+    {
+      key: "auth_token",
+      value: token,
+      maxAge: sixtyDaysInSeconds,
+    }
+  ]
+
+  setCookies(cookiesToSet, cookies)
+
+} 
 const diabledAnimes = await getDisabledAnimes() //! :( forgot to change the disableAnimes to disableMangas in the admin panel so i am keeping
 
 if (diabledAnimes[slug] == true) {
@@ -46,12 +70,19 @@ if (diabledAnimes[slug] == true) {
   return Astro.redirect(redirectUrl) 
 } 
 
-
 const values = await getValues()
 const siteName =  values.inputs.site_name.value
+const enableAddlist = settings.add_list.value
+
+const props = {
+   enableAddlist,
+   isBookMarked,
+   manga, 
+   similars,
+}
 ---
 
 <MainLayout title={ `Reading ${manga.title} on ${siteName}` } page="read" >	
-	<MangaDetails manga={manga} similars={similars} />
+	<MangaDetails {...props} />
 	<Comments isOnClick={true} PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>

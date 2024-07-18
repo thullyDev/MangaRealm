@@ -3,9 +3,8 @@ import type { ListItem } from "../LinkList/LinkList";
 
 const values = await getValues()
 const settings = await getSettings()
-const disableDonate = settings.donation.value
-const disableSocials = settings.socials.value
-const disableEmail = settings.contact.value
+const enableDonation = settings.donation.value
+const enableEmail = settings.contact.value
 
 const socials = [
   {
@@ -22,7 +21,7 @@ const socials = [
   },
 ];
 
-if (disableDonate == true) {
+if (enableDonation == true) {
   socials.push(
     {
       name: <i className="fas fa-donate"></i>,
@@ -30,7 +29,7 @@ if (disableDonate == true) {
     })
 }
 
-if (disableEmail == true) {
+if (enableEmail == true) {
   socials.push(
   {
     name: <i className="fa-solid fa-envelope"></i>,
@@ -39,11 +38,6 @@ if (disableEmail == true) {
 }
 
 export const Socials = () => {
-  if (disableSocials == true) {
-    return (
-      <></>
-    )
-  }
 
   return (
     <nav className="socials-con">

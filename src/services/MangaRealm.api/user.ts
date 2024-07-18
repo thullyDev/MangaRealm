@@ -25,7 +25,7 @@ export const isUserAuth = () => {
 };
 
 export async function setBookmark(slug: string, email: string, auth_token: string) {
-  const { status, data } = await backendRequest(`/add_to_list`, auth_token, { slug, email });
+  const { status, data } = await backendRequest(`/add_to_list/`, auth_token, { email, slug });
 
   if (status == FORBIDDEN || status != SUCCESSFUL) {
     ShowAlert("user needs to login");

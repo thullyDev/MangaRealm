@@ -8,19 +8,24 @@ import "./FooterStyling.scss"
 const values = await getValues()
 const siteName =  values.inputs.site_name.value
 const settings = await getSettings()
-const disableFooter = settings.footer.value
+const enableFooter = settings.footer.value
+const enableSocials = settings.socials.value
 
 ---
 
-<footer class={`main-footer mt-10 ${ disableFooter == false ? "" : "hidden" }`}>
+<footer class={`main-footer mt-10 ${ enableFooter == true ? "" : "hidden" }`}>
   <div class="top-side">
     <div class="outer-socials-con flex justify-center">
-      <div class="inner-socials-con flex text-gray-950 bg-zinc-700 items-center py-2 gap-5 rounded-full">
-        <Title/>
-        <div class="inner-socials-con">
-          <Socials/>
+    {
+      enableSocials == true ? (
+        <div class="inner-socials-con flex text-gray-950 bg-zinc-700 items-center py-2 gap-5 rounded-full">
+          <Title/>
+          <div class="inner-socials-con">
+            <Socials/>
+          </div>
         </div>
-      </div>
+        ) : <></>
+    }
     </div>
     <div class="outer-ref-links-con">
       <ReferenceLinks/>

@@ -9,9 +9,9 @@ import Comments  from '../../../components/Widgets/Comments/Comments.astro'
 import { getSettings } from "../../../services/MangaRealm.api/admin/handlers.ts"
 
 const settings = await getSettings()
-const disableChapter = settings.read.value
+const enableChapter = settings.read.value
 
-if (disableChapter == true) {
+if (enableChapter == false) {
   return Astro.redirect("/") 
 } 
 

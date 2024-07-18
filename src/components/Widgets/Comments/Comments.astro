@@ -1,18 +1,17 @@
 ---
 import { DISQUS_URL } from "../../../utilities/config";
 import { trans500 } from "../../../utilities/misc";
-import { getScripts } from "../../../services/MangaRealm.api/admin/handlers.ts"
+import { getScripts, getSettings } from "../../../services/MangaRealm.api/admin/handlers.ts"
 import AdContainer from "../AdContainer/AdContainer.astro"
-import { getSettings } from "../../services/MangaRealm.api/admin/handlers.ts"
 
 const settings = await getSettings()
-const disableComments = settings.comments.value
+const enableComments = settings.comments.value
 const { PAGE_URL, PAGE_IDENTIFIER, isOnClick } = Astro.props;
 const scripts = await getScripts()
 const commentsAdscript = scripts.ads_scripts.above_comments_advertisement.value
 const commentsAdscriptHeight = scripts.ads_scripts.above_comments_advertisement.height
 ---
-<div class={`outer-comment-section ${ disableChapter == false ? "" : "hidden" }`}>
+<div class={`outer-comment-section ${ enableComments == true ? "" : "hidden" }`}>
     <AdContainer value={commentsAdscript} height={commentsAdscriptHeight} />
     <div class="comment-section mt-10">
         <div class="inner-con">

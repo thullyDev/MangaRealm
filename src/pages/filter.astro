@@ -9,12 +9,12 @@ import { MangasFilter } from '../components/Widgets/MangasFilter/MangasFilter'
 const url = Astro.url
 const page = url.searchParams.get('page') || "1";
 const genre = url.searchParams.get('genres') || "all";
-const type = url.searchParams.get('type');
+const type = url.searchParams.get('type') || "";
 let status = url.searchParams.get('status');
 status = !status ? "" : `&status=${status}`
 const _type = !type ? "" : `&_type=${type}`
 const query = `?genre=${genre}${status}${_type}`
-const response = await getMangas(`/filter`)
+const response = await getMangas(`/filter/${query}`)
 const { mangas, pagination } = response
 const label = ``
 

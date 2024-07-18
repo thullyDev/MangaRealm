@@ -5,10 +5,10 @@ import { Slider } from "../Slider/Slider";
 import "./FeaturesSliderStyle.scss";
 
 const settings = await getSettings()
-const disalbeSlider = settings.features.value
+const enableSlider = settings.features.value
 
 export const FeaturesSlider = ({ data, className }: { data: Manga[]; className: string }) => {
-  if (disalbeSlider == true) {
+  if (enableSlider == false) {
     return (
       <></>
     )

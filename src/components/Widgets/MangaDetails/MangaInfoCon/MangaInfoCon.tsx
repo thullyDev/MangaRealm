@@ -1,4 +1,3 @@
-import { getSettings, getValues } from "../../../../services/MangaRealm.api/admin/handlers";
 import { setTokenToCookies } from "../../../../services/MangaRealm.api/cookies";
 import { setBookmark } from "../../../../services/MangaRealm.api/user";
 import type { MangaRead } from "../../../../services/Manganato/manganatoTypes";
@@ -19,15 +18,6 @@ const showLoader = () => {
 
 
 const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> => {
-  const settings = await getSettings()
-  const disableAddToList = settings.add_list.value
-
-  if (disableAddToList == true) {
-    ShowAlert("book mark has been disabled");
-    return;
-  }
-
-
   const slug: string | undefined = event.currentTarget.dataset.slug;
 
   if (!slug) {
@@ -38,7 +28,7 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
   //@ts-ignore
   const email = window.user.email;
   //@ts-ignore
-  const auth_token = window.user.auth_token;
+  const auth_token = window.auth_token;
 
   if (!email || !auth_token) {
     $(".outer-auth-forms-con .close-btn").click()
@@ -70,17 +60,14 @@ const bookmark = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>):
 };
 
 
-const values = await getValues()
-const siteName = values.inputs.site_name.value 
 
-export const MangaInfoCon = ({ token, isBookMarked, manga, url }: { token: string; isBookMarked: boolean; manga: MangaRead; url: string }) => {
-  setTokenToCookies(token) //! setting the token on the frontend cause of problems with astro server
+interface _MangaInfoConProps { siteName: string; enableAddToList: boolean; isBookMarked: boolean; manga: MangaRead; url: string }
 
-  const { title, image, description, alt_names, status, manga_id } = manga;
+export const MangaInfoCon = ({ siteName, enableAddToList, isBookMarked, manga, url }: _MangaInfoConProps) => {
+  const { title, image_url, description, alt_names, status, manga_id } = manga;
   const shareText = `Read on ${title} On ${siteName} for and with no ads`;
   const encodedShareText = encodeURIComponent(shareText);
   const socials: socialsType[] = [
-    // TODO: make them match their respective links
     {
       name: "Twitter",
       color: "bg-cyan-700",
@@ -106,12 +93,12 @@ export const MangaInfoCon = ({ token, isBookMarked, manga, url }: { token: strin
       <div className="poster-side">
         <div className="inner-poster-btns-con flex flex-col justify-center">
           <div className="inner-image-con h-60 flex justify-center relative">
-            <img src={image} alt={title} title={title} className="poster h-full border border-zinc-500 rounded-md" />
+            <img src={image_url} alt={title} title={title} className="poster h-full border border-zinc-500 rounded-md" />
             <ClickLoader buttonId="close-al-loader-btn" loaderId="outer-al-loader" />
           </div>
           <div className="actions-btns-con flex justify-center mt-2">
             <button
-              onClick={bookmark}
+              onClick={enableAddToList == true ? bookmark : () => {} } 
               data-slug={manga_id}
               type="button"
               className={`bookmark-btn border border-zinc-500

@@ -48,7 +48,7 @@ export const ChapterMangaDetails = ({ chapterData }: _ChapterMangaDetails) => {
             {truncate(name, 50)}
           </h3>
           <span className="manga-title-wrapper">
-            <a href={`/read/${manga_id}`} title={title} className="manga-link flex justify-center text-red-500">
+            <a href={`/read${manga_id}`} title={title} className="manga-link flex justify-center text-red-500">
               <p>{title}</p>
             </a>
           </span>
