@@ -53,7 +53,7 @@ const siteTitle = values.inputs.title.value
 const siteImage = values.images.site_logo.value
 const siteName = values.inputs.site_name.value
 const siteBase = Astro.url.origin
-
+const enableAuth = settings.authentication.value
 ---
 
 <html lang="en">
@@ -88,7 +88,7 @@ const siteBase = Astro.url.origin
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
   <body class="bg-zinc-900 dark:text-white scrollable relative"  set:html={globalFootScript + pageFootScript}>
-    <Authentication authApiUrl={authApiUrl} client:load /> 
+    { enableAuth == true ? <Authentication authApiUrl={authApiUrl} client:load /> : <></> }
     <Header/>
     <AdContainer value={topAdscript} height={topAdscriptHeight} />
     <AlertBox/>
@@ -102,9 +102,6 @@ const siteBase = Astro.url.origin
   </body>
 </html>
 <script define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert, auth_token, devToolsDetection, adblockDetection }}>
-  import "../utilities/devToolsDetector.js"
-  import "../utilities/adblockerDetection.js"
-
   if (devToolsDetection == true) {
     activateDevToolsDetector()
   }
@@ -112,6 +109,77 @@ const siteBase = Astro.url.origin
   if (adblockDetection == true) {
     adblockDetector()
   }
+
+
+  function detect_dev_tool(allow) {
+  if(isNaN(+allow)) allow = 100;
+  const start = +new Date(); // Validation of built-in Object tamper prevention.
+  debugger;
+  const end = +new Date(); // Validates too.
+
+  const redirectUrl = new URL("/alert", window.location.origin)
+  const message = encodeURIComponent("Dev Tools Detected")
+  const description = encodeURIComponent("Please dont open dev tools...")
+  redirectUrl.searchParams.set("message", message)
+  redirectUrl.searchParams.set("description", description)
+  
+  if(isNaN(start) || isNaN(end) || end - start > allow) window.location.replace(redirectUrl.toString())
+}
+
+function activateDevToolsDetector() {
+  if(window.attachEvent) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        detect_dev_tool();
+      window.attachEvent('onresize', detect_dev_tool);
+      window.attachEvent('onmousemove', detect_dev_tool);
+      window.attachEvent('onfocus', detect_dev_tool);
+      window.attachEvent('onblur', detect_dev_tool);
+    } else {
+        setTimeout(argument.callee, 0);
+    }
+  } else {
+    window.addEventListener('load', detect_dev_tool);
+    window.addEventListener('resize', detect_dev_tool);
+    window.addEventListener('mousemove', detect_dev_tool);
+    window.addEventListener('focus', detect_dev_tool);
+    window.addEventListener('blur', detect_dev_tool);
+  }
+}
+
+function adblockDetector() {
+  setTimeout(() => {
+    if (detectAdBlock()) {
+        const redirectUrl = new URL("/alert", window.location.origin)
+        const message = encodeURIComponent("Adblock Detected")
+        const description = encodeURIComponent("please turn off any adblock you may have on for this site...")
+        redirectUrl.searchParams.set("message", message)
+        redirectUrl.searchParams.set("description", description)
+        
+        if(isNaN(start) || isNaN(end) || end - start > allow) window.location.replace(redirectUrl.toString())
+    }
+  }, 1000)
+
+}
+
+function detectAdBlock() {
+    const adContainer = document.createElement('div');
+    adContainer.innerHTML = '&nbsp;';
+    adContainer.className = 'adbox';
+    adContainer.style.width = '1px';
+    adContainer.style.height = '1px';
+    adContainer.style.position = 'absolute';
+    adContainer.style.left = '-9999px';
+    adContainer.style.top = '-9999px';
+    document.body.appendChild(adContainer);
+
+    if (adContainer.clientHeight === 0) {
+        console.log('Adblock detected');
+        return true;
+    }
+
+    document.body.removeChild(adContainer);
+    return false;
+}
 
   window.user = user
   window.auth_token = auth_token

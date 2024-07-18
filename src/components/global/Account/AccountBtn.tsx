@@ -1,19 +1,7 @@
-import { getSettings, getValues } from "../../../services/MangaRealm.api/admin/handlers";
 import { isUserAuth } from "../../../services/MangaRealm.api/user";
 import { showCloseEle } from "../../../utilities/misc";
 
-const values = await getValues()
-const defaultImg = values.images.default_account_image.value
-const settings = await getSettings()
-const disableProfile = settings.user.value
-
-export const AccountBtn = () => {
-  if (disableProfile == true) {
-    return (
-      <></>
-    )
-  }
-
+export const AccountBtn = ({ defaultImg }: { defaultImg: string }) => {
   const redirect = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!isUserAuth()) {
       showCloseEle(event);

@@ -12,7 +12,7 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
     url.searchParams.set("page", JSON.stringify(i));
     const query = url.toString();
     const pageEle = (
-      <a href={`${query}`} className={`${pageClass} ${highlight} ${className}`}>
+      <a key={i} href={`${query}`} className={`${pageClass} ${highlight} ${className}`}>
         {i}
       </a>
     );
@@ -37,8 +37,8 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
   return (
     <div className="pagination-con flex justify-center mt-10">
       <ul className="flex">
-        {pageEles.map((item) => {
-          return <li className="page-item">{item}</li>;
+        {pageEles.map((item, index) => {
+          return <li key={index} className="page-item">{item}</li>;
         })}
       </ul>
     </div>

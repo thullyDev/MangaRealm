@@ -41,7 +41,7 @@ export const UserListCon = ({ listMangas, urlPath }: { urlPath: string; listMang
           <ul className="mangas-list user-mangas-list">
             {mangas.map((item, index) => {
               return (
-                <li className={`manga-list-item manga-list-item-1 user-manga-item`}>
+                <li key={index} className={`manga-list-item manga-list-item-1 user-manga-item`}>
                   <ListMangaWrapper key={index} item={item} />
                 </li>
               );

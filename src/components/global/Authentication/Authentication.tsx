@@ -4,19 +4,8 @@ import "./AuthenticationStyles.scss";
 import { showCloseEle } from "../../../utilities/misc.ts";
 import { labels, redirects } from "./redirects.tsx";
 import { Loader } from "../../Widgets/Loader/Loader.tsx";
-import { getSettings } from "../../../services/MangaRealm.api/admin/handlers.ts";
-
-const settings = await getSettings()
-const authentication = settings.authentication.value
 
 export const Authentication = ({ authApiUrl }: { authApiUrl: string }) => {
-
-  if (authentication == true) {
-    return (
-      <></>
-    )
-  }
-
   const formEles: JSX.Element[] = [];
 
   let count = 0;

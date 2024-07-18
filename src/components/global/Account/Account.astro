@@ -1,11 +1,17 @@
 ---
+import { getSettings, getValues } from "../../../services/MangaRealm.api/admin/handlers";
 import { OpenSearchBtn } from "./OpenSearchBtn"
 import { AccountBtn } from "./AccountBtn"
+
+const values = await getValues()
+const defaultImg = values.images.default_account_image.value
+const settings = await getSettings()
+const enableProfile = settings.user.value
 ---
 
 <div class="account-con">
   <div class="inner-account-con flex items-center relative">
     <OpenSearchBtn client:load /> 
-    <AccountBtn client:only="react" />   
+    { enableProfile == true ? <AccountBtn defaultImg={defaultImg} client:only="react" /> : <></>  }
   </div>
 </div>

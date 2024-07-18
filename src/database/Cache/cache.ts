@@ -1,6 +1,7 @@
 import { createClient } from "redis";
 import { REDIS_URL } from "../../utilities/config";
 
+
 const client = await createClient({
         url: REDIS_URL,
     }).connect();

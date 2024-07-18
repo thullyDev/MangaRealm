@@ -7,7 +7,7 @@ const settings = await getSettings()
 const disableTitle = settings.title.value
 ---
 
-<div class={ `site-logo-con pl-3 ${ disableFooter == false ? "" : "hidden" }` }>
+<div class={ `site-logo-con pl-3 ${ disableTitle == false ? "" : "hidden" }` }>
   <div class="inner-con inner-site-logo-con">
     <a href="/" class="site-link">
       <img src={siteLogo} alt="site logo" class="site-logo w-full h-full">
