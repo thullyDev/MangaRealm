@@ -1,4 +1,4 @@
-import { ApiHandler, type RequestOptions } from "../../utilities/handlers/apiHandler";
+import { ApiHandler } from "../../utilities/handlers/apiHandler";
 import { mangaApiUrl } from "../../utilities/config";
 import type { MangaChapterRead, MangaRead, MangasResponse, TopAiringManga } from "./manganatoTypes";
 import { Cache } from "../../database/Cache/cache";

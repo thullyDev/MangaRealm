@@ -19,7 +19,7 @@ export class ApiHandler {
 
   async request(endpoint: string, method: string = "GET", kwargs: RequestOptions = {}) {
     const url = this.BASE + endpoint;
-    console.log({ url })
+
     try {
       const response: AxiosResponse<any> = await axios.request({
         url,
