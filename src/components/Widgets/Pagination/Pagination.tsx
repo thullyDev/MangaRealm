@@ -28,7 +28,7 @@ export const Pagination = ({ pagination, url }: { pagination: pagi; url: URL }) 
       <span className={pageClass + "bg-zinc-800"}>
         <i className="fa-solid fa-ellipsis"></i>
       </span>
-      <a href={`${query}`} className={`${pageClass + "bg-zinc-800 rounded-r"}`}>
+      <a href={`${query}`} className={`${pageClass} bg-zinc-800 rounded-r`}>
         {pages}
       </a>
     </>,

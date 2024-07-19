@@ -34,7 +34,7 @@ const ApplyBtn = () => {
     const url = new URL(window.location.href);
 
     for (const [key, value] of Object.entries(data)) {
-      if (key == "None") continue;
+      if (key == "None" || value == "") continue;
       url.searchParams.set(key, value);
     }
 
