@@ -31,7 +31,7 @@ export const MangasFilter = () => {
 const ApplyBtn = () => {
   const getValues = () => {
     const data = getInputs(".filter-select");
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.origin + "/filter/");
 
     for (const [key, value] of Object.entries(data)) {
       if (key == "None" || value == "") continue;

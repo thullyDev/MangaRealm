@@ -1,0 +1,39 @@
+---
+import MainLayout from '../layouts/main.astro';
+import { getMangas } from '../services/Manganato/manganato';
+import { MangasWrapper } from '../components/Widgets/MangasWrapper/MangasWrapper'
+import { Pagination } from '../components/Widgets/Pagination/Pagination'
+import { MangasFilter } from '../components/Widgets/MangasFilter/MangasFilter'
+import { titleCase } from '../utilities/misc.ts'
+import slugify from '@sindresorhus/slugify';
+
+const url = Astro.url
+const page = url.searchParams.get('page') || "1";
+const query = url.searchParams.get('keywords');
+
+if (!query) {
+	return Astro.redirect("/")
+}
+
+const keywords = decodeURI(query);
+const slugQuery = slugify(keywords)
+const response = await getMangas(`/search/${slugQuery}?page=${page}`)
+const { mangas, pagination } = response
+const label = ``
+
+const props = {
+	wrapper: 2, 
+	label: label, 
+	className: "filter-mangas-con", 
+	data: mangas, 
+	moreLink: ""
+}
+
+const title = `Search - ${titleCase(keywords)}`
+---
+
+<MainLayout title={ title } page="filter">
+	<MangasFilter client:load/>	
+	<MangasWrapper {...props} />
+	<Pagination pagination={pagination} url={url} />	
+</MainLayout>
