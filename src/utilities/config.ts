@@ -15,3 +15,4 @@ export const SQL_URL: string = import.meta.env.SQL_URL;
 export const DISQUS_URL: string = import.meta.env.DISQUS_URL;
 export const HCAPTCHA_SITE_KEY: string = import.meta.env.HCAPTCHA_SITE_KEY;
 export const DOMAIN_ORIGIN: string = import.meta.env.DOMAIN_ORIGIN;
+export const SITE_KEY: string = import.meta.env.SITE_KEY;
