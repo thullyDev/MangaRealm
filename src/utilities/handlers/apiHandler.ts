@@ -19,6 +19,7 @@ export class ApiHandler {
 
   async request(endpoint: string, method: string = "GET", kwargs: RequestOptions = {}) {
     const url = this.BASE + endpoint;
+
     try {
       const response: AxiosResponse<any> = await axios.request({
         url,
@@ -37,8 +38,8 @@ export class ApiHandler {
         },
       };
     } catch (error: any) {
-      // console.error(error);
-      return { status: CRASH, message: CRASH };
+      console.error(error);
+      return { status: CRASH, message: CRASH_MSG };
     }
   }
 

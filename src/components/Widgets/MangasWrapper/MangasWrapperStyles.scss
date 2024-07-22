@@ -52,6 +52,10 @@ $_padding: 16px;
     }
 
     &.manga-list-item-1 {
+      // .poster {
+      //   min-width: 150px;
+      // }
+
       @include media-xxsmall {
         width: calc(50% - $_padding);
       }
@@ -78,3 +82,4 @@ $_padding: 16px;
     }
   }
 }
+

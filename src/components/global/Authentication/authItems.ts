@@ -49,7 +49,7 @@ export const authItems = {
     {
       input: "password",
       label: "confirm",
-      icon: "fas fa-key",
+      icon: "fas fa-lock",
     },
   ],
 };

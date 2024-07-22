@@ -54,10 +54,11 @@ const ChaptersList = ({ chapters, manga_id }: { manga_id: string; chapters: Chap
         {chapters.map(({ views, name, slug }, index) => {
           const chunks = slug.split("-");
           const chapterNumber = chunks[chunks.length - 1];
+
           return (
             <li key={index} data-index={chapterNumber} className="chapter-item bg-zinc-800 ">
               <a
-                href={`${manga_id}${slug}`}
+                href={`/read/${manga_id}${slug}`}
                 title={name}
                 className="chapter-link text-base flex justify-between gap-2 items-center px-2 py-3"
               >

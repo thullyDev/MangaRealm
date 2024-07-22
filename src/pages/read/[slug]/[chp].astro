@@ -1,10 +1,19 @@
 ---
 import MainLayout from '../../../layouts/main.astro';
-import type { Chapter, MangaRead } from "../../../services/Manganato/manganatoTypes"
+import { getValues } from "../../../services/MangaRealm.api/admin/handlers.ts"
+import type { MangaRead } from "../../../services/Manganato/manganatoTypes"
 import { getMangaChapter, getCachedManga } from '../../../services/Manganato/manganato';
 import { Panels } from '../../../components/Widgets/Panels/Panels'
 import { ChapterMangaDetails } from '../../../components/Widgets/ChapterMangaDetails/ChapterMangaDetails'
 import Comments  from '../../../components/Widgets/Comments/Comments.astro'
+import { getSettings } from "../../../services/MangaRealm.api/admin/handlers.ts"
+
+const settings = await getSettings()
+const enableChapter = settings.read.value
+
+if (enableChapter == false) {
+  return Astro.redirect("/") 
+} 
 
 const { slug, chp } = Astro.params;
 
@@ -44,6 +53,7 @@ async function getChapterData(manga: MangaRead) {
 
 		break
 	}
+
 	return { 
 		title,
 		chapters,
@@ -72,10 +82,11 @@ if (!manga) {
 
 const chapterData = await getChapterData(manga)
 const { chapter }  = chapterData
-const siteName = "MangaRealm"
+const values = await getValues()
+const siteName =  values.inputs.site_name.value
 ---
 
-<MainLayout title={ `Reading ${chapter.name} on ${siteName}` } >
+<MainLayout title={ `Reading ${chapter.name} on ${siteName}` } page="chapter">
 	<Panels panels={panels} />
 	<ChapterMangaDetails chapterData={chapterData} />
 	<Comments isOnClick={false} PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>

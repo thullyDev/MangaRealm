@@ -29,6 +29,10 @@ export interface Manga {
   chapter: Chapter;
 }
 
+export interface TopAiringManga { title: string; slug: string; image_url: string }
+
+export interface TopAiringMangasResponse { mangas: TopAiringManga[] }
+
 export interface MangasResponse {
   mangas: Manga[];
   pagination: Pagination;

@@ -1,11 +1,22 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import { getMangas, getCachedManga } from '../../services/Manganato/manganato';
+import { getSettings, getValues, getDisabledAnimes } from "../../services/MangaRealm.api/admin/handlers.ts"
 import type { genre } from '../../services/Manganato/manganatoTypes';
+import { getAlertRedirectUrl } from '../../utilities/misc.ts';
 import Comments  from '../../components/Widgets/Comments/Comments.astro'
+import { setCookies } from '../../services/MangaRealm.api/cookies';
+import { checkIfBookMarked } from "../../services/MangaRealm.api/api.ts"
 import MangaDetails  from '../../components/Widgets/MangaDetails/MangaDetails.astro'
 
-let { slug } = Astro.params;
+const settings = await getSettings()
+const enableManga = settings.manga.value
+
+if (enableManga == false) {
+  return Astro.redirect("/") 
+} 
+
+const { slug } = Astro.params;
 const url = Astro.url
 
 const manga = await getCachedManga(slug)
@@ -18,13 +29,60 @@ if (manga) {
 }
 
 if (!slug || !manga) {
-	return Astro.redirect("/not_found")
+  const base = Astro.url.origin
+  const message = "Manga Not found";
+  const description = "Hello! This Manga is not on our services!.";
+  const redirectUrl = getAlertRedirectUrl(base, message, description)
+
+	return Astro.redirect(redirectUrl)
 }
 
-const siteName = "MangaRealm"
+const cookies = Astro.cookies
+const auth_token = cookies.get("auth_token")?.value || ""
+const rawUserData = cookies.get("user_data")?.value || "{}"
+const { email } = JSON.parse(rawUserData)
+const res =  await checkIfBookMarked({ slug, email, auth_token })
+let isBookMarked;
+
+if (res) {
+  const { isIn, token } = res 
+  isBookMarked = isIn
+  const sixtyDaysInSeconds = 5184000;
+  const cookiesToSet = [
+    {
+      key: "auth_token",
+      value: token,
+      maxAge: sixtyDaysInSeconds,
+    }
+  ]
+
+  setCookies(cookiesToSet, cookies)
+
+} 
+const diabledAnimes = await getDisabledAnimes() //! :( forgot to change the disableAnimes to disableMangas in the admin panel so i am keeping
+
+if (diabledAnimes[slug] == true) {
+  const base = Astro.url.origin
+  const message = "Site in under maintanence";
+  const description = "Hello! This Manga is currently been disabled on our services!, we may enable it on a later date.";
+  const redirectUrl = getAlertRedirectUrl(base, message, description)
+
+  return Astro.redirect(redirectUrl) 
+} 
+
+const values = await getValues()
+const siteName =  values.inputs.site_name.value
+const enableAddlist = settings.add_list.value
+
+const props = {
+   enableAddlist,
+   isBookMarked,
+   manga, 
+   similars,
+}
 ---
 
-<MainLayout title={ `Reading ${manga.title} on ${siteName}` } >	
-	<MangaDetails manga={manga} similars={similars} />
+<MainLayout title={ `Reading ${manga.title} on ${siteName}` } page="read" >	
+	<MangaDetails {...props} />
 	<Comments isOnClick={true} PAGE_URL={url} PAGE_IDENTIFIER={slug}/>
 </MainLayout>

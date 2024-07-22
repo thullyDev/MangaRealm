@@ -1,8 +1,6 @@
 import DOMPurify from "dompurify";
 import $ from "jquery";
 
-
-
 export const trans1000 = "transition duration-1000 ease-in-out";
 export const trans500 = "transition duration-500 ease-in-out";
 export const truncate = (input: string, length: number) => {
@@ -84,3 +82,25 @@ export const isEmailValid = (email: string): boolean => {
   const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
+
+
+export function getAlertRedirectUrl(base: string, message: string, description: string): string {
+  const encodedMessage = encodeURIComponent(message);
+  const encodedDescription = encodeURIComponent(description);
+  const redirectUrl = new URL("/alert", base)
+  redirectUrl.searchParams.set("message", encodedMessage)
+  redirectUrl.searchParams.set("description", encodedDescription)
+
+  return redirectUrl.toString()
+}
+
+export function getRandomNumber(min: number, max: number) {
+  min = Math.ceil(min);  
+  max = Math.floor(max); 
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function getRandomItemFromList(list: any[]) {
+  const randomIndex = Math.floor(Math.random() * list.length);
+  return list[randomIndex];
+}

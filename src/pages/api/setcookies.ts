@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import type { _Setcookie } from "../../services/MangaRealm.api/types";
-import { setCookies } from "../../services/MangaRealm.api/user";
+import { BAD_REQUEST, SUCCESSFUL } from "../../utilities/errors";
+import { setCookies } from "../../services/MangaRealm.api/cookies";
 
 // to deletcookies, just set the max-age to 0
 export const POST: APIRoute = async ({ request, cookies }) => {
@@ -11,8 +12,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const response = new Response(
       JSON.stringify({
         message: "no data",
+        status: BAD_REQUEST, 
       }),
-      { status: 400 }, // bad-request status_code
     );
     return response;
   }
@@ -22,8 +23,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const response = new Response(
     JSON.stringify({
       message: "cookie set successfully",
+      status: SUCCESSFUL, 
     }),
-    { status: 200 }, // successfully status_code
   );
   setCookies(data, cookies);
   return response;

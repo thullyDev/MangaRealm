@@ -5,7 +5,7 @@ interface _Poster {
   wrapperStyles: string;
 }
 
-export const Poster = ({ image_url, title, imageStyles, wrapperStyles }: _Poster) => {
+export const Poster = ({ image_url, title, imageStyles }: _Poster) => {
   return (
     <span className="poster-con">
       <span className={"inner-poster-con " + imageStyles}>

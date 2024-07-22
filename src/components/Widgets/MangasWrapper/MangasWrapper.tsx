@@ -1,5 +1,6 @@
 import type { Manga } from "../../../services/Manganato/manganatoTypes";
 import { trans1000 } from "../../../utilities/misc";
+import { MangaWrapperFour } from "../MangaWrapperFour/MangaWrapperThree";
 import { MangaWrapperOne } from "../MangaWrapperOne/MangaWrapperOne";
 import { MangaWrapperThree } from "../MangaWrapperThree/MangaWrapperThree";
 import { MangaWrapperTwo } from "../MangaWrapperTwo/MangaWrapperTwo";
@@ -42,6 +43,10 @@ export const MangasWrapper = ({ data, className, label, moreLink, wrapper = 1 }:
 
               if (wrapper == 3) {
                 mangaWrapper = <MangaWrapperThree key={index} item={item} />;
+              }
+
+              if (wrapper == 4) {
+                mangaWrapper = <MangaWrapperFour key={index} item={item} />;
               }
 
               return <li className={`manga-list-item manga-list-item-${wrapper}`}>{mangaWrapper}</li>;

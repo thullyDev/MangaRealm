@@ -6,15 +6,15 @@ interface NavItem {
 export const navs: NavItem[] = [
   {
     name: "Popular",
-    link: "/filter",
+    link: "/filter?type=topview",
   },
   {
     name: "Recent",
-    link: "/filter?status=recent",
+    link: "/filter",
   },
   {
     name: "Complete",
-    link: "/filter?status=complete",
+    link: "/filter?status=completed",
   },
   {
     name: "Ongoings",
@@ -22,7 +22,7 @@ export const navs: NavItem[] = [
   },
   {
     name: "Newest",
-    link: "/filter?status=newest",
+    link: "/filter?_type=newest",
   },
   {
     name: "Random",

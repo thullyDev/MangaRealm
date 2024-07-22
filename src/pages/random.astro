@@ -1,0 +1,15 @@
+---
+import { getMangas } from '../services/Manganato/manganato';
+import type { Manga } from '../services/Manganato/manganatoTypes';
+import { getRandomNumber, getRandomItemFromList } from '../utilities/misc.ts'
+
+const page = getRandomNumber(1, 1700)
+const query = `?page=${page}`
+const response = await getMangas(`/filter/${query}`)
+const { mangas } = response
+const manga = getRandomItemFromList(mangas) as Manga
+const { slug } = manga
+
+return Astro.redirect(`/read${slug}`)
+---
+

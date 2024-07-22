@@ -4,22 +4,36 @@ import { CharactersCon } from "./CharactersCon/CharactersCon";
 import { MangaInfoCon } from "./MangaInfoCon/MangaInfoCon";
 import { MangaSideInfoCon } from "./MangaSideInfoCon/MangaSideInfoCon";
 import { SimilarsCon } from "./SimilarsCon/SimilarsCon";
-import '../../../styles/pages/mangaRead.scss';
-import { setBookmark } from '../../../services/MangaRealm.api/user.ts';
+import { getSettings, getValues } from "../../../services/MangaRealm.api/admin/handlers";
 
-const { manga, similars } = Astro.props
-const { title, malData } = manga;
+import '../../../styles/pages/mangaRead.scss';
+
+const { manga, similars, isBookMarked, token } = Astro.props
+const { title, malData, } = manga;
+const { slug } = Astro.params as { slug: string };
+const settings = await getSettings()
+const enableAddToList = settings.add_list.value
+const values = await getValues()
+const siteName = values.inputs.site_name.value 
 const url = Astro.url
+const propItems = {
+	isBookMarked, 
+	token, 
+	manga,
+	siteName,
+	enableAddToList,
+	url: url.toString(), 
+}
 ---
 
 <div class="manga-details-con px-3">
 	<div class="manga-outer-info-con">
-		<MangaInfoCon url={url.toString()} manga={manga} />
+		<MangaInfoCon client:load {...propItems} />
 		<MangaSideInfoCon manga={manga} />
 	</div>
 	<div class="manga-chapters-similars-con">
 		<ChaptersCon client:load manga={manga} />
-		<SimilarsCon similars={similars} />
+		<SimilarsCon mangaSlug={slug} similars={similars} />
 	</div>
 	{malData && malData.characters && (
 		<CharactersCon title={title} characters={malData.characters} />
@@ -27,38 +41,12 @@ const url = Astro.url
 </div>
 
 <script define:vars={{ url: url }}>
-	const bookmarkBtn = document.querySelector(".bookmark-btn")
 	const shareBtn = document.querySelector(".share-btn")
 
 	shareBtn?.addEventListener("click", () => {
 		navigator.clipboard.writeText(url);
 		ShowAlert("Copied to clipboard") // TODO: this is should be a custom alert box
 	})
-
-	bookmarkBtn?.addEventListener("click", () => {
-		const isAdded = bookmarkBtn?.getAttribute("data-added")
-		const success = setBookmark(isAdded)
-		if (!success) return 
-
-		const bookmarkIcon = document.querySelector(".bookmark-icon")
-
-		if (isAdded == "false") {
-			bookmarkBtn?.setAttribute("data-added", "true")
-			bookmarkIcon?.classList.remove("fa-regular")
-			bookmarkIcon?.classList.add("fa-solid")
-		}
-
-		if (isAdded == "true") {
-			bookmarkBtn?.setAttribute("data-added", "false")
-			bookmarkIcon?.classList.remove("fa-solid")
-			bookmarkIcon?.classList.add("fa-regular")
-		}
-	})
-
-	const setBookmark = (isAdded) => {
-		return true
-	}
-
 	const ShowAlert = (message) => {
 		const alertbox = document.querySelector(".alertbox")
 		const msgEle = document.querySelector(".alertbox .msg")

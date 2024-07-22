@@ -1,8 +1,48 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import { UserProfileDetails } from '../components/Widgets/UserProfileDetails/UserProfileDetails'
+import { ProfileDetails } from '../components/Widgets/ProfileDetails/ProfileDetails'
+import { UserListCon } from '../components/Widgets/UserListCon/UserListCon'
+import '../styles/pages/profile.scss';
+import { getProfileData } from '../services/MangaRealm.api/api';
+import { setCookies } from '../services/MangaRealm.api/cookies';
 
+const cookies = Astro.cookies
+const authToken = cookies.get("auth_token")?.value
+const rawUserData = cookies.get("user_data")?.value
+const page = Astro.url.searchParams.get('page') || "1";
+const keywords = Astro.url.searchParams.get('keywords') || "";
+
+//! checks if the authToken and rawUserData from cookies is valid 
+ if (!authToken || !rawUserData) { 
+ return Astro.redirect("/")
+ }
+
+const urlPath = Astro.url.toString()
+const { email } = JSON.parse(rawUserData)
+const getData = { keywords, page, email, auth_token: authToken }
+const profileData = await getProfileData(getData)
+
+ if (!profileData) {
+	 return Astro.redirect("/")
+ }
+
+const { list, pagination, profile: user, auth_token } = profileData
+const listMangas = { mangas: list, pagination }
+const sixtyDaysInSeconds = 5184000;
+const cookiesToSet = [
+	{
+	  key: "auth_token",
+	  value: auth_token,
+	  maxAge: sixtyDaysInSeconds,
+	}
+]
+
+setCookies(cookiesToSet, cookies)
 ---
 
-<MainLayout title="Profile">	
+<MainLayout title="Profile" page="profile">
+	<div class="inner-con w-full flex mb-5">
+		<ProfileDetails client:load user={user} />	
+		<UserListCon client:load listMangas={listMangas} urlPath={urlPath} >	
+	</div>
 </MainLayout>

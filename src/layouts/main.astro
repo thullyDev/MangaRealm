@@ -3,42 +3,187 @@ import Header from "../components/global/Header/Header.astro"
 import { Authentication } from "../components/global/Authentication/Authentication"
 import Footer from "../components/global/Footer/Footer.astro"
 import AlertBox from "../components/global/AlertBox/AlertBox.astro"
+import AdContainer from "../components/Widgets/AdContainer/AdContainer.astro"
 import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
-import { HCAPTCHA_SITE_KEY, authApiUrl } from "../utilities/config.ts"
-const { title } = Astro.props;
+import { HCAPTCHA_SITE_KEY, authApiUrl, backendApiUrl } from "../utilities/config.ts"
+import { getAlertRedirectUrl } from "../utilities/misc"
+import { getScripts, getValues, getSettings } from "../services/MangaRealm.api/admin/handlers.ts"
+import { ShowAlert } from "../utilities/misc.ts"
+
+const { title, page } = Astro.props as { title: string; page: string };
 const cookies = Astro.cookies
 const userData = cookies.get("user_data")?.value || "{}"
+const auth_token = cookies.get("auth_token")?.value || ""
 const user = JSON.parse(userData)
-const favicon = "/favicon.png"
+
+
+const settings = await getSettings()
+const maintanence = settings.maintanence.value
+
+if (maintanence) {
+  const base = Astro.url.origin
+  const message = "Site in under maintanence";
+  const description = "Hello! We're currently making some improvements to our site to serve you better. Please bear with us, and we'll be back shortly!";
+  const redirectUrl = getAlertRedirectUrl(base, message, description)
+
+  return Astro.redirect(redirectUrl) 
+} 
+
+
+const values = await getValues()
+const scripts = await getScripts()
+const headScripts = scripts.head_scripts
+const footScripts = scripts.foot_scripts
+const globalHeadScript = headScripts.global_head.value
+const globalFootScript = footScripts.global_foot.value
+const bottomAdscript = scripts.ads_scripts.bottom_advertisement.value
+const bottomAdscriptHeight = scripts.ads_scripts.bottom_advertisement.height
+const topAdscript = scripts.ads_scripts.top_advertisement.value
+const topAdscriptHeight = scripts.ads_scripts.top_advertisement.height
+//@ts-ignore
+const pageHeadScript = headScripts[`${page}_head`].value
+//@ts-ignore
+const pageFootScript = footScripts[`${page}_foot`].value
+const favicon = values.images.favicon_logo.value
+const devToolsDetection = settings.dev_tools_detection.value
+const adblockDetection = settings.adblocker_detection.value
+const siteDesciption = values.inputs.site_description.value
+const siteTitle = values.inputs.title.value
+const siteImage = values.images.site_logo.value
+const siteName = values.inputs.site_name.value
+const siteBase = Astro.url.origin
+const enableAuth = settings.authentication.value
 ---
 
 <html lang="en">
-  <head>
+  <head set:html={globalHeadScript + pageHeadScript}>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="canonical" href={siteBase} />
+    <link rel="sitemap" href="/sitemaps/sitemap-index.xml" />
+    <meta name="robots" content="index,follow" />
+    <title>{title} | {siteTitle}</title>
+    <meta name="description" content={siteDesciption} />
+    <meta name="keywords" itemprop="keywords" content="read manga online, read manga, manga online, manga online free, free manga, manga reader, manga scans, manga raw, manga, manhwa, manhua, mangarealm, mangarealm.to, mangarealm.com, manganato, manganato.com, manganato.com, 9anime, 9 anime, 9animeto, watch anime online, free anime, anime free, online anime, anime website" />
+    <meta name="copyright" content={ `Copyright © 2024 ${siteName}` } />
+    <meta name="Author" content={siteName} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={siteName} />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={siteDesciption} />
+    <meta name="twitter:image" content={siteImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:url" content={siteBase} />
+    <meta property="og:image" content={siteImage} />
+    <meta property="og:description" content={siteDesciption} />
+    <meta property="og:site_name" content={siteBase} />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{title}</title>
     <link rel="icon" type="image/x-icon" href={favicon}>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   </head>
-  <body class="bg-zinc-900 dark:text-white scrollable relative">
-    <Authentication authApiUrl={authApiUrl} client:load /> 
+  <body class="bg-zinc-900 dark:text-white scrollable relative"  set:html={globalFootScript + pageFootScript}>
+    { enableAuth == true ? <Authentication authApiUrl={authApiUrl} client:load /> : <></> }
     <Header/>
+    <AdContainer value={topAdscript} height={topAdscriptHeight} />
     <AlertBox/>
     <main class="main-content">
       <slot /> 
     </main>
+    <AdContainer value={bottomAdscript} height={bottomAdscriptHeight} />
     <Footer/>
     <PageLoader />
+    <input value={backendApiUrl} type="hidden" class="backend-api-inpt" readonly />
   </body>
 </html>
-<script define:vars={{ HCAPTCHA_SITE_KEY, user }}>
+<script define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert, auth_token, devToolsDetection, adblockDetection }}>
+  if (devToolsDetection == true) {
+    activateDevToolsDetector()
+  }
+
+  if (adblockDetection == true) {
+    adblockDetector()
+  }
+
+
+  function detect_dev_tool(allow) {
+  if(isNaN(+allow)) allow = 100;
+  const start = +new Date(); // Validation of built-in Object tamper prevention.
+  debugger;
+  const end = +new Date(); // Validates too.
+
+  const redirectUrl = new URL("/alert", window.location.origin)
+  const message = encodeURIComponent("Dev Tools Detected")
+  const description = encodeURIComponent("Please dont open dev tools...")
+  redirectUrl.searchParams.set("message", message)
+  redirectUrl.searchParams.set("description", description)
+  
+  if(isNaN(start) || isNaN(end) || end - start > allow) window.location.replace(redirectUrl.toString())
+}
+
+function activateDevToolsDetector() {
+  if(window.attachEvent) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        detect_dev_tool();
+      window.attachEvent('onresize', detect_dev_tool);
+      window.attachEvent('onmousemove', detect_dev_tool);
+      window.attachEvent('onfocus', detect_dev_tool);
+      window.attachEvent('onblur', detect_dev_tool);
+    } else {
+        setTimeout(argument.callee, 0);
+    }
+  } else {
+    window.addEventListener('load', detect_dev_tool);
+    window.addEventListener('resize', detect_dev_tool);
+    window.addEventListener('mousemove', detect_dev_tool);
+    window.addEventListener('focus', detect_dev_tool);
+    window.addEventListener('blur', detect_dev_tool);
+  }
+}
+
+function adblockDetector() {
+  setTimeout(() => {
+    if (detectAdBlock()) {
+        const redirectUrl = new URL("/alert", window.location.origin)
+        const message = encodeURIComponent("Adblock Detected")
+        const description = encodeURIComponent("please turn off any adblock you may have on for this site...")
+        redirectUrl.searchParams.set("message", message)
+        redirectUrl.searchParams.set("description", description)
+        
+        if(isNaN(start) || isNaN(end) || end - start > allow) window.location.replace(redirectUrl.toString())
+    }
+  }, 1000)
+
+}
+
+function detectAdBlock() {
+    const adContainer = document.createElement('div');
+    adContainer.innerHTML = '&nbsp;';
+    adContainer.className = 'adbox';
+    adContainer.style.width = '1px';
+    adContainer.style.height = '1px';
+    adContainer.style.position = 'absolute';
+    adContainer.style.left = '-9999px';
+    adContainer.style.top = '-9999px';
+    document.body.appendChild(adContainer);
+
+    if (adContainer.clientHeight === 0) {
+        console.log('Adblock detected');
+        return true;
+    }
+
+    document.body.removeChild(adContainer);
+    return false;
+}
+
   window.user = user
+  window.auth_token = auth_token
   window.captchas = {}
 
   window.renderCaptchaWidgets = () => {
@@ -54,10 +199,4 @@ const favicon = "/favicon.png"
     const widgetID = captchas[id] 
     return hcaptcha.getResponse(widgetID)
   }
-
-  setTimeout(function() {
-    const script = document.createElement("script")
-    script.src = "https://js.hcaptcha.com/1/api.js?hl=es&onload=renderCaptchaWidgets&render=explicit"
-    document.body.appendChild(script)
-  }, 17000) 
 </script>

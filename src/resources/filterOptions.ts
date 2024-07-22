@@ -1,11 +1,11 @@
 export const filterOptions = {
   status: [
-    { value: "None", name: "None" },
+    { value: "", name: "None" },
     { value: "ongoing", name: "Ongoing" },
-    { value: "complete", name: "Complete" },
+    { value: "completed", name: "Completed" },
   ],
   type: [
-    { value: "None", name: "None" },
+    { value: "", name: "None" },
     { value: "topview", name: "Popular" },
     { value: "newest", name: "Latest" },
   ],

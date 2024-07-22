@@ -15,7 +15,7 @@ export const MangaWrapperTwo = ({ item }: { item: Manga }) => {
   const { name: chapName, slug: chapSlug } = chapter;
   const ticks = [author, update, views, score];
   const truncatedTitle = truncate(title, 60);
-  const truncatedDescription = truncate(description, 120);
+  const truncatedDescription = description ? truncate(description, 120) : "";
 
   return (
     <div className="manga-item manga-item-2">

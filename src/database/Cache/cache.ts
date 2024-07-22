@@ -1,11 +1,10 @@
 import { createClient } from "redis";
 import { REDIS_URL } from "../../utilities/config";
 
-// const client = await createClient({
-//         url: REDIS_URL,
-//     })
-//   .connect();
-const client = await createClient().connect();
+
+const client = await createClient({
+        url: REDIS_URL,
+    }).connect();
 
 export class Cache {
   private static _instance: Cache;
@@ -27,7 +26,7 @@ export class Cache {
     await client.set(name, value, { EX: expiry });
   }
 
-  public async hget(name: string): Promise<any> {
+  public async hget(name: string): Promise<any | null> {
     const data = await client.get(name);
     return data ? JSON.parse(data) : null;
   }

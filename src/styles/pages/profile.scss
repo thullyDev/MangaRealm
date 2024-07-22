@@ -1,0 +1,106 @@
+@import "../global/mediaQueries.scss";
+$_padding: 16px;
+
+.main-content {
+  @include media-xlarge {
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+  }
+
+  & > .inner-con {
+    display: flex;
+    flex-direction: column;
+
+    @include media-xlarge {
+      flex-direction: row;
+    }
+
+    .outer-profile-details-con {
+        justify-content: center;
+        align-items: center;
+
+        @include media-xsmall {
+          flex-direction: column;
+        }
+        
+        @include media-xlarge {
+          justify-content: start;
+          align-items: start;
+          width: 30%;
+          position: relative;
+          top: 27px;
+        }
+
+
+        .profile-details-con {
+            flex-direction: column;
+            max-width: 700px;
+
+            @include media-xsmall {
+              flex-direction: column;
+            }
+
+            @include media-medium {
+              flex-direction: row;
+            }
+
+            @include media-xlarge {
+              flex-direction: column;
+            }
+          }
+      }
+    }
+
+    .manga-label {
+      display: none;
+
+      @include media-xsmall {
+        display: block;
+      }
+
+    } 
+
+    .mangas-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      .manga-list-item {
+        width: calc(100% - $_padding);
+        box-sizing: border-box;
+
+        .poster {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+        }
+
+        &.user-manga-item {
+          max-width: 150px;
+
+          @include media-xlarge {
+            width: calc(20% - $_padding);
+          }
+
+          @include media-xxlarge {
+            width: calc(17% - $_padding);
+
+            .manga-item {
+              width: 100%;
+
+              .inner-con {
+                width: 100%;
+              }
+            }
+          }
+
+          .poster {
+            min-width: 130px;
+          }
+        }
+      }
+    }
+}
+
