@@ -84,9 +84,11 @@ const chapterData = await getChapterData(manga)
 const { chapter }  = chapterData
 const values = await getValues()
 const siteName =  values.inputs.site_name.value
+//@ts-ignore
+const chapterName = chapter.name
 ---
 
-<MainLayout title={ `Reading ${chapter.name} on ${siteName}` } page="chapter">
+<MainLayout title={ `Reading ${chapterName} on ${siteName}` } page="chapter">
 	<Panels panels={panels} />
 	<ChapterMangaDetails chapterData={chapterData} />
 	<Comments isOnClick={false} PAGE_URL={url} PAGE_IDENTIFIER={pageID}/>
