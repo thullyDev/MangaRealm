@@ -1,7 +1,7 @@
 import type { _ForgotPassword, _Login, _RenewPassword, _Signup } from "../../../services/MangaRealm.api/types";
 import { forgotPassword, login, renewPassword, signup } from "../../../services/MangaRealm.api/user";
 import { ShowAlert, formatKey, getInputs, trans500 } from "../../../utilities/misc";
-import { HCaptcha } from "../HCaptcha/HCaptcha";
+// import { HCaptcha } from "../HCaptcha/HCaptcha";
 import { Input, type Item } from "../Input/Input";
 
 interface _AuthForm {
@@ -21,22 +21,7 @@ const closeClearAuth = () => {
 const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
   const thisEle = $(event.currentTarget);
   const authType: string = thisEle.data("type");
-
-  // @ts-ignore
-  // if (!window.captchas) {
-  // 	ShowAlert("please wait for captcha block to show up")
-  // 	return
-  // }
-  // @ts-ignore
-  // const captchaResponse = window.getCaptchaResponse(`captcha-${authType}`)
-
-  // if (!captchaResponse) {
-  // 	ShowAlert("please do the captcha")
-  // 	return
-  // }
-
-  // @ts-ignore
-  const data: _AuthInputData = getInputs(`.auth-input-${authType}`);
+  const data = getInputs(`.auth-input-${authType}`) as unknown as _AuthInputData;
 
   for (const [key, value] of Object.entries(data)) {
     if (value) continue;
@@ -60,7 +45,7 @@ const authHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
 };
 
 export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
-  const captchaId = authType;
+  // const captchaId = authType;
   return (
     <div className="auth-form-con flex justify-center">
       <div className="inner-con px-5 py-1 w-full">
@@ -75,7 +60,7 @@ export const AuthForm = ({ authType, label, inputs, redirect }: _AuthForm) => {
                 <Input className={`auth-input-${authType} auth-input`} item={item} key={index} />
               ))}
             </div>
-            <HCaptcha captchaId={captchaId} />
+            {/*<HCaptcha captchaId={captchaId} />*/}
             <div className="submit-con w-full my-3">
               <button
                 onClick={authHandler}

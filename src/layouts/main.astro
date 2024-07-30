@@ -6,7 +6,8 @@ import AlertBox from "../components/global/AlertBox/AlertBox.astro"
 import AdContainer from "../components/Widgets/AdContainer/AdContainer.astro"
 import { PageLoader } from "../components/global/PageLoader/PageLoader"
 import "../styles/global/main.scss"
-import { HCAPTCHA_SITE_KEY, authApiUrl, backendApiUrl } from "../utilities/config.ts"
+// import { HCAPTCHA_SITE_KEY } from "../utilities/config.ts"
+import { authApiUrl, backendApiUrl } from "../utilities/config.ts"
 import { getAlertRedirectUrl } from "../utilities/misc"
 import { getScripts, getValues, getSettings } from "../services/MangaRealm.api/admin/handlers.ts"
 import { ShowAlert } from "../utilities/misc.ts"
@@ -102,7 +103,7 @@ const enableAuth = settings.authentication.value
     <input value={backendApiUrl} type="hidden" class="backend-api-inpt" readonly />
   </body>
 </html>
-<script define:vars={{ HCAPTCHA_SITE_KEY, user, ShowAlert, auth_token, devToolsDetection, adblockDetection }}>
+<script define:vars={{ user, ShowAlert, auth_token, devToolsDetection, adblockDetection }}>
   if (devToolsDetection == true) {
     activateDevToolsDetector()
   }
@@ -184,19 +185,19 @@ function detectAdBlock() {
 
   window.user = user
   window.auth_token = auth_token
-  window.captchas = {}
+  // window.captchas = {}
 
-  window.renderCaptchaWidgets = () => {
-    $(".captcha-widgets").each(function() {
-      const id = $(this).attr("id")
-      captchas[id] = hcaptcha.render(id, {
-            'sitekey' : HCAPTCHA_SITE_KEY,
-          });
-    })
-  }
+  // window.renderCaptchaWidgets = () => {
+  //   $(".captcha-widgets").each(function() {
+  //     const id = $(this).attr("id")
+  //     captchas[id] = hcaptcha.render(id, {
+  //           'sitekey' : HCAPTCHA_SITE_KEY,
+  //         });
+  //   })
+  // }
 
-  window.getCaptchaResponse = (id) => {
-    const widgetID = captchas[id] 
-    return hcaptcha.getResponse(widgetID)
-  }
+  // window.getCaptchaResponse = (id) => {
+  //   const widgetID = captchas[id] 
+  //   return hcaptcha.getResponse(widgetID)
+  // }
 </script>
