@@ -23,35 +23,41 @@ MangaRealm
   <img src="https://img.shields.io/badge/django-092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django Badge"/>
 </a>
 </p>
-
 <p align="center">
-	logo here
+  <a href="#" target="_blank">
+    <img src="https://thullydev.github.io/thullyDevStatics/images/mangarealm-logo.png" alt="Logo" width="200"/>
+  </a>
 </p>
 
 ## What is MangaRealm?
 
 Welcome to **MangaRealm** - your ultimate Manga destination! 🤯 Explore **[MangaRealm](https://www.render.mangarealm.com)** and dive into the world of anime
 
-Crafted with using **Astro, React** and **Vite** as the frontend and backend is crafted with **Django and Fastapi** , our site rocks a slick and modern interface. Experience blazing-fast performance and smooth navigation as you explore a vast collection of manga, manhwa and manhua titles.
+Crafted with using **Astro, React** and **Vite** as the frontend and backend is crafted with **Django** and **Fastapi** , our site rocks a slick and modern interface. Experience blazing-fast performance and smooth navigation as you explore a vast collection of manga, manhwa and manhua titles.
 
+<div align="center" >
 
+#### Necessary repos
+
+| Repos                   | Links                                                                     | Frameworks | 
+| ----------------------- | ------------------------------------------------------------------------- |------------
+| Backend                 | [MangaRealm.api](https://github.com/thullyDev/MangaRealm.api.git)         | <p align="start"> <img src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/typescript-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=%23ffffff"/> <img src="https://img.shields.io/badge/tailwindcss-%2306B6D4.svg?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS Badge"/> <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img src="https://img.shields.io/badge/vite-%239269fe.svg?style=for-the-badge&logo=vite&logoColor=yellow&border"/> </p> |
+| MangaNato api           | [MangaNato.api](https://github.com/thullyDev/MangaNato.api.git)           | <p align="start"><img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/></p> |
+| Authenticator           | [Authenticator.api](https://github.com/thullyDev/authenticator.api.git)   | <p align="start"><img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/></p> |
+| Admin panel (opitional) | [MangaRealmAmin](https://github.com/thullyDev/MangaRealmAdmin.git)        | <p align="start"><img src="https://img.shields.io/badge/django-092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django Badge"/></p> |
+
+</div>
 
 <!-- ## Features 🪴 -->
 
 ## Images
-
-<div style="text-align: left;">
-  <img src="https://raw.githubusercontent.com/Miruro-no-kuon/.github/main/profile/home-page.webp" alt="Home Page" style="max-width: 70%;" >
-  <details>
-  <summary>Screenshots [View More]</summary>
-  <br>
-  <img src="https://raw.githubusercontent.com/Miruro-no-kuon/.github/main/profile/splash-page.webp" alt="Splash Page" style="max-width: 70%;">
-  <img src="https://raw.githubusercontent.com/Miruro-no-kuon/.github/main/profile/watch-page.webp" alt="Watch Page" style="max-width: 70%;">
-  <img src="https://raw.githubusercontent.com/Miruro-no-kuon/.github/main/profile/footer.webp" alt="Footer" style="max-width: 70%;">
-  </details>
-</div>
+**[MangaRealm Preview Images](https://imgur.com/a/mG4tI9G)** 
 
 ## Installation and Local Development 💻
+
+```
+Warning: there is a weird bug with astro on the first request on home and read page, it marks manga (read page) and data (home page) as undefined, but when you refresh the page, it works fine  
+```
 
 #### Clone these repos 
 
@@ -153,7 +159,7 @@ ORIGINS=http://localhost
 REDIRECT_LINK=http://localhost:4321/auth/verify
 ```
 
-##### MangaRealm Admin Panel
+##### MangaRealm Admin Panel (opitional)
 
 ```bash
 git clone https://github.com/thullyDev/MangaRealmAdmin.git
@@ -184,5 +190,4 @@ SITE=http://localhost:4321
 ```
 
 
-
-
+Thanks for exploring the Manga site! Feel free to follow for updates and improvements. 😊
