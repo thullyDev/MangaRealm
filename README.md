@@ -37,7 +37,7 @@ MangaRealm
 
 ## What is MangaRealm?
 
-Welcome to **MangaRealm** - your ultimate Manga destination! 🤯 Explore **[MangaRealm](https://www.render.mangarealm.com)** and dive into the world of anime
+Welcome to **MangaRealm** - your ultimate Manga destination! 🤯 Explore **[MangaRealm](https://www.render.mangarealm.com)** and dive into the world of manga
 
 Crafted with using **Astro, React** and **Vite** as the frontend and backend is crafted with **Django** and **Fastapi** , our site rocks a slick and modern interface. Experience blazing-fast performance and smooth navigation as you explore a vast collection of manga, manhwa and manhua titles.
 
