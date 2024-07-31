@@ -1,3 +1,5 @@
+import type { ListItem } from "../LinkList/LinkList";
+
 const referenceLinks = [
   {
     name: "Contact Us",

@@ -19,7 +19,7 @@ interface _ChapterMangaDetails {
   chapterData: _chapterData;
 }
 
-export const ChapterMangaDetails = ({ chapterData }: _ChapterMangaDetails) => {
+export const ChapterMangaDetails = ({ chapterData }: _ChapterMangaDetails | any) => {
   const { title, type, status, manga_id, chapter, chapters, nextChapter, prevChapter } = chapterData;
   const { name, views, date } = chapter;
   const ticks = [type, date, views, status, JSON.stringify(chapters.length)];

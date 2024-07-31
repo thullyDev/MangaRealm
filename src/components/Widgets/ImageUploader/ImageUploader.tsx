@@ -1,19 +1,20 @@
+import { useRef, useState } from "react";
+
 function ImageUploader() {
   const [previewSrc, setPreviewSrc] = useState('');
   const fileInputRef = useRef(null);
 
-  const handleEvent = (event) => {
+  const handleEvent = (event: any) => {
     if (event.type != "load") return 
       
     setPreviewSrc(event.target.result);
   };
 
-  const addListeners = (reader) => {
+  const addListeners = (reader: FileReader) => {
     reader.addEventListener("load", handleEvent);
   };
 
-  const handleChange = (e) => {
-    setEventLog('');
+  const handleChange = (e: any) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
@@ -30,7 +31,6 @@ function ImageUploader() {
         ref={fileInputRef}
       />
       <img className="preview" src={previewSrc} alt="Preview" />
-      <pre className="event-log-contents">{eventLog}</pre>
     </div>
   );
 }
