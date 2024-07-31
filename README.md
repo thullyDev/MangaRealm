@@ -12,6 +12,12 @@ MangaRealm
 <a href="#">
   <img src="https://img.shields.io/badge/astro-%23000000.svg?style=for-the-badge&logo=astro&logoColor=%23FF5D01" alt="Astro JS Badge"/>
 </a>
+<a href="#">
+  <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/>
+</a>
+<a href="#">
+  <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL Badge"/>
+</a>
 </p>
 
 <p align="center">
@@ -31,7 +37,7 @@ MangaRealm
 
 ## What is MangaRealm?
 
-Welcome to **MangaRealm** - your ultimate Manga destination! 🤯 Explore **[MangaRealm](https://www.render.mangarealm.com)** and dive into the world of anime
+Welcome to **MangaRealm** - your ultimate Manga destination! 🤯 Explore **[MangaRealm](https://www.render.mangarealm.com)** and dive into the world of manga
 
 Crafted with using **Astro, React** and **Vite** as the frontend and backend is crafted with **Django** and **Fastapi** , our site rocks a slick and modern interface. Experience blazing-fast performance and smooth navigation as you explore a vast collection of manga, manhwa and manhua titles.
 
@@ -41,10 +47,11 @@ Crafted with using **Astro, React** and **Vite** as the frontend and backend is 
 
 | Repos                   | Links                                                                     | Frameworks | 
 | ----------------------- | ------------------------------------------------------------------------- |------------
-| Backend                 | [MangaRealm.api](https://github.com/thullyDev/MangaRealm.api.git)         | <p align="start"> <img src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/typescript-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=%23ffffff"/> <img src="https://img.shields.io/badge/tailwindcss-%2306B6D4.svg?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS Badge"/> <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img src="https://img.shields.io/badge/vite-%239269fe.svg?style=for-the-badge&logo=vite&logoColor=yellow&border"/> </p> |
+| Site                 | [MangaRealm](https://github.com/thullyDev/MangaRealm.git)         | <p align="start"> <img src="https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/astro-%23000000.svg?style=for-the-badge&logo=astro&logoColor=%23FF5D01" alt="Astro JS Badge"/> <img src="https://img.shields.io/badge/typescript-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=%23ffffff"/> <img src="https://img.shields.io/badge/tailwindcss-%2306B6D4.svg?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS Badge"/> <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img src="https://img.shields.io/badge/vite-%239269fe.svg?style=for-the-badge&logo=vite&logoColor=yellow&border"/> <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/> <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL Badge"/> </p> |
+| Backend                 | [MangaRealm.api](https://github.com/thullyDev/MangaRealm.api.git)         | <p align="start"> <img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/> <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/> <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL Badge"/> </p> |
 | MangaNato api           | [MangaNato.api](https://github.com/thullyDev/MangaNato.api.git)           | <p align="start"><img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/></p> |
-| Authenticator           | [Authenticator.api](https://github.com/thullyDev/authenticator.api.git)   | <p align="start"><img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/></p> |
-| Admin panel (opitional) | [MangaRealmAmin](https://github.com/thullyDev/MangaRealmAdmin.git)        | <p align="start"><img src="https://img.shields.io/badge/django-092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django Badge"/></p> |
+| Authenticator           | [Authenticator.api](https://github.com/thullyDev/authenticator.api.git)   | <p align="start"> <img src="https://img.shields.io/badge/fastapi-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI Badge"/> <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/> <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL Badge"/> </p> |
+| Admin panel (opitional) | [MangaRealmAmin](https://github.com/thullyDev/MangaRealmAdmin.git)        | <p align="start"><img src="https://img.shields.io/badge/django-092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django Badge"/> <img src="https://img.shields.io/badge/redis-%23DC382D.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis Badge"/> </p> |
 
 </div>
 
